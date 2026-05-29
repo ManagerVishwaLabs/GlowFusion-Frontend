@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { X } from "lucide-react";
+import { X } from "../../icons";
 import styles from "./Toast.module.css";
 
 interface ToastContextValue {
@@ -74,11 +72,7 @@ interface ToastActionProps extends React.ComponentProps<"button"> {
   altText?: string;
 }
 
-function ToastAction({
-  className,
-  altText,
-  ...props
-}: ToastActionProps) {
+function ToastAction({ className, altText, ...props }: ToastActionProps) {
   return (
     <button
       type="button"
@@ -91,10 +85,7 @@ function ToastAction({
 
 interface ToastCloseProps extends React.ComponentProps<"button"> {}
 
-function ToastClose({
-  className,
-  ...props
-}: ToastCloseProps) {
+function ToastClose({ className, ...props }: ToastCloseProps) {
   const { onClose } = React.useContext(ToastContext);
 
   return (

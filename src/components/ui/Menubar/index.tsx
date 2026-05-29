@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { Check, ChevronRight, Circle } from "lucide-react";
+import { Check, ChevronRight, Circle } from "../../icons";
 import styles from "./Menubar.module.css";
 
 interface MenubarContextValue {
@@ -19,35 +17,39 @@ interface MenuContextValue {
   open: boolean;
 }
 
-const MenuContext = React.createContext<MenuContextValue>({ menuId: "", open: false });
+const MenuContext = React.createContext<MenuContextValue>({
+  menuId: "",
+  open: false,
+});
 
 interface RadioGroupContextValue {
   value: string;
   onValueChange: (value: string) => void;
 }
 
-const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(null);
+const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(
+  null,
+);
 
-const Menubar = React.forwardRef<
-  HTMLDivElement,
-  React.ComponentProps<"div">
->(({ className, children, ...props }, ref) => {
-  const [activeMenu, setActiveMenu] = React.useState<string | null>(null);
+const Menubar = React.forwardRef<HTMLDivElement, React.ComponentProps<"div">>(
+  ({ className, children, ...props }, ref) => {
+    const [activeMenu, setActiveMenu] = React.useState<string | null>(null);
 
-  return (
-    <MenubarContext.Provider value={{ activeMenu, setActiveMenu }}>
-      <div
-        ref={ref}
-        data-slot="menubar"
-        role="menubar"
-        className={`${styles.menubar} ${className || ""}`}
-        {...props}
-      >
-        {children}
-      </div>
-    </MenubarContext.Provider>
-  );
-});
+    return (
+      <MenubarContext.Provider value={{ activeMenu, setActiveMenu }}>
+        <div
+          ref={ref}
+          data-slot="menubar"
+          role="menubar"
+          className={`${styles.menubar} ${className || ""}`}
+          {...props}
+        >
+          {children}
+        </div>
+      </MenubarContext.Provider>
+    );
+  },
+);
 Menubar.displayName = "Menubar";
 
 interface MenubarMenuProps {
@@ -69,7 +71,11 @@ function MenubarMenu({ children }: MenubarMenuProps) {
 }
 
 function MenubarGroup({ children, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="menubar-group" role="group" {...props}>{children}</div>;
+  return (
+    <div data-slot="menubar-group" role="group" {...props}>
+      {children}
+    </div>
+  );
 }
 
 function MenubarPortal({ children }: { children: React.ReactNode }) {
@@ -89,7 +95,9 @@ function MenubarSub({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   return (
     <SubMenuContext.Provider value={{ open, setOpen }}>
-      <div data-slot="menubar-sub" style={{ position: "relative" }}>{children}</div>
+      <div data-slot="menubar-sub" style={{ position: "relative" }}>
+        {children}
+      </div>
     </SubMenuContext.Provider>
   );
 }
@@ -107,7 +115,9 @@ function MenubarRadioGroup({
 }: MenubarRadioGroupProps) {
   return (
     <RadioGroupContext.Provider value={{ value, onValueChange }}>
-      <div data-slot="menubar-radio-group" role="group" {...props}>{children}</div>
+      <div data-slot="menubar-radio-group" role="group" {...props}>
+        {children}
+      </div>
     </RadioGroupContext.Provider>
   );
 }
@@ -194,8 +204,15 @@ const MenubarContent = React.forwardRef<
   }
 >(
   (
-    { className, align = "start", alignOffset = -4, sideOffset = 8, children, ...props },
-    ref
+    {
+      className,
+      align = "start",
+      alignOffset = -4,
+      sideOffset = 8,
+      children,
+      ...props
+    },
+    ref,
   ) => {
     const { open } = React.useContext(MenuContext);
     const { setActiveMenu } = React.useContext(MenubarContext);
@@ -203,7 +220,10 @@ const MenubarContent = React.forwardRef<
 
     React.useEffect(() => {
       const handleClickOutside = (e: MouseEvent) => {
-        if (contentRef.current && !contentRef.current.contains(e.target as Node)) {
+        if (
+          contentRef.current &&
+          !contentRef.current.contains(e.target as Node)
+        ) {
           setActiveMenu(null);
         }
       };
@@ -236,7 +256,8 @@ const MenubarContent = React.forwardRef<
         style={{
           position: "absolute",
           top: `calc(100% + ${sideOffset}px)`,
-          left: align === "start" ? alignOffset : align === "end" ? "auto" : "50%",
+          left:
+            align === "start" ? alignOffset : align === "end" ? "auto" : "50%",
           right: align === "end" ? alignOffset : "auto",
           transform: align === "center" ? "translateX(-50%)" : undefined,
           zIndex: 50,
@@ -246,7 +267,7 @@ const MenubarContent = React.forwardRef<
         {children}
       </div>
     );
-  }
+  },
 );
 MenubarContent.displayName = "MenubarContent";
 
@@ -276,22 +297,27 @@ const MenubarCheckboxItem = React.forwardRef<
     checked?: boolean;
     onCheckedChange?: (checked: boolean) => void;
   }
->(({ className, children, checked = false, onCheckedChange, ...props }, ref) => (
-  <div
-    ref={ref}
-    role="menuitemcheckbox"
-    aria-checked={checked}
-    data-slot="menubar-checkbox-item"
-    className={`${styles.checkboxItem} ${className || ""}`}
-    onClick={() => onCheckedChange?.(!checked)}
-    {...props}
-  >
-    <span className={styles.itemIndicator}>
-      {checked && <Check className={styles.checkIcon} />}
-    </span>
-    {children}
-  </div>
-));
+>(
+  (
+    { className, children, checked = false, onCheckedChange, ...props },
+    ref,
+  ) => (
+    <div
+      ref={ref}
+      role="menuitemcheckbox"
+      aria-checked={checked}
+      data-slot="menubar-checkbox-item"
+      className={`${styles.checkboxItem} ${className || ""}`}
+      onClick={() => onCheckedChange?.(!checked)}
+      {...props}
+    >
+      <span className={styles.itemIndicator}>
+        {checked && <Check className={styles.checkIcon} />}
+      </span>
+      {children}
+    </div>
+  ),
+);
 MenubarCheckboxItem.displayName = "MenubarCheckboxItem";
 
 const MenubarRadioItem = React.forwardRef<

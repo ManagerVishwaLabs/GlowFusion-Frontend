@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { PanelLeft } from "lucide-react";
+import { PanelLeft } from "../../icons";
 import styles from "./Sidebar.module.css";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
@@ -64,7 +62,7 @@ const SidebarProvider = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const [isMobile, setIsMobile] = React.useState(false);
     const [openMobile, setOpenMobile] = React.useState(false);
@@ -81,7 +79,7 @@ const SidebarProvider = React.forwardRef<
         }
         document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
       },
-      [setOpenProp, open]
+      [setOpenProp, open],
     );
 
     const toggleSidebar = React.useCallback(() => {
@@ -124,7 +122,15 @@ const SidebarProvider = React.forwardRef<
         setOpenMobile,
         toggleSidebar,
       }),
-      [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+      [
+        state,
+        open,
+        setOpen,
+        isMobile,
+        openMobile,
+        setOpenMobile,
+        toggleSidebar,
+      ],
     );
 
     return (
@@ -147,7 +153,7 @@ const SidebarProvider = React.forwardRef<
         </div>
       </SidebarContext.Provider>
     );
-  }
+  },
 );
 SidebarProvider.displayName = "SidebarProvider";
 
@@ -168,7 +174,7 @@ const Sidebar = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
@@ -224,7 +230,7 @@ const Sidebar = React.forwardRef<
         </div>
       </div>
     );
-  }
+  },
 );
 Sidebar.displayName = "Sidebar";
 
@@ -346,7 +352,8 @@ const SidebarGroupLabel = React.forwardRef<
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children as React.ReactElement<any>, {
       ref,
-      className: `${styles.groupLabel} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
+      className:
+        `${styles.groupLabel} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
       ...props,
     });
   }
@@ -370,7 +377,8 @@ const SidebarGroupAction = React.forwardRef<
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children as React.ReactElement<any>, {
       ref,
-      className: `${styles.groupAction} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
+      className:
+        `${styles.groupAction} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
       ...props,
     });
   }
@@ -440,7 +448,7 @@ const SidebarMenuButton = React.forwardRef<
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const { isMobile, state } = useSidebar();
 
@@ -450,7 +458,8 @@ const SidebarMenuButton = React.forwardRef<
         "data-active": isActive,
         "data-size": size,
         "data-variant": variant,
-        className: `${styles.menuButton} ${isActive ? styles.menuButtonActive : ""} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
+        className:
+          `${styles.menuButton} ${isActive ? styles.menuButtonActive : ""} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
         ...props,
       });
     }
@@ -467,7 +476,7 @@ const SidebarMenuButton = React.forwardRef<
         {children}
       </button>
     );
-  }
+  },
 );
 SidebarMenuButton.displayName = "SidebarMenuButton";
 
@@ -477,25 +486,31 @@ const SidebarMenuAction = React.forwardRef<
     asChild?: boolean;
     showOnHover?: boolean;
   }
->(({ className, asChild = false, showOnHover = false, children, ...props }, ref) => {
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
-      ref,
-      className: `${styles.menuAction} ${showOnHover ? styles.menuActionShowOnHover : ""} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
-      ...props,
-    });
-  }
+>(
+  (
+    { className, asChild = false, showOnHover = false, children, ...props },
+    ref,
+  ) => {
+    if (asChild && React.isValidElement(children)) {
+      return React.cloneElement(children as React.ReactElement<any>, {
+        ref,
+        className:
+          `${styles.menuAction} ${showOnHover ? styles.menuActionShowOnHover : ""} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
+        ...props,
+      });
+    }
 
-  return (
-    <button
-      ref={ref}
-      className={`${styles.menuAction} ${showOnHover ? styles.menuActionShowOnHover : ""} ${className || ""}`}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-});
+    return (
+      <button
+        ref={ref}
+        className={`${styles.menuAction} ${showOnHover ? styles.menuActionShowOnHover : ""} ${className || ""}`}
+        {...props}
+      >
+        {children}
+      </button>
+    );
+  },
+);
 SidebarMenuAction.displayName = "SidebarMenuAction";
 
 const SidebarMenuBadge = React.forwardRef<
@@ -554,29 +569,35 @@ const SidebarMenuSubButton = React.forwardRef<
     size?: "sm" | "md";
     isActive?: boolean;
   }
->(({ asChild = false, size = "md", isActive, className, children, ...props }, ref) => {
-  if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children as React.ReactElement<any>, {
-      ref,
-      "data-active": isActive,
-      "data-size": size,
-      className: `${styles.menuSubButton} ${isActive ? styles.menuSubButtonActive : ""} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
-      ...props,
-    });
-  }
+>(
+  (
+    { asChild = false, size = "md", isActive, className, children, ...props },
+    ref,
+  ) => {
+    if (asChild && React.isValidElement(children)) {
+      return React.cloneElement(children as React.ReactElement<any>, {
+        ref,
+        "data-active": isActive,
+        "data-size": size,
+        className:
+          `${styles.menuSubButton} ${isActive ? styles.menuSubButtonActive : ""} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
+        ...props,
+      });
+    }
 
-  return (
-    <a
-      ref={ref}
-      data-active={isActive}
-      data-size={size}
-      className={`${styles.menuSubButton} ${isActive ? styles.menuSubButtonActive : ""} ${className || ""}`}
-      {...props}
-    >
-      {children}
-    </a>
-  );
-});
+    return (
+      <a
+        ref={ref}
+        data-active={isActive}
+        data-size={size}
+        className={`${styles.menuSubButton} ${isActive ? styles.menuSubButtonActive : ""} ${className || ""}`}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
+);
 SidebarMenuSubButton.displayName = "SidebarMenuSubButton";
 
 export {

@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { XIcon } from "lucide-react";
+import { X as XIcon } from "../../icons";
 import styles from "./Sheet.module.css";
 
 interface SheetContextValue {
@@ -36,12 +34,15 @@ function Sheet({
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
-  const setOpen = React.useCallback((value: boolean) => {
-    if (!isControlled) {
-      setUncontrolledOpen(value);
-    }
-    onOpenChange?.(value);
-  }, [isControlled, onOpenChange]);
+  const setOpen = React.useCallback(
+    (value: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(value);
+      }
+      onOpenChange?.(value);
+    },
+    [isControlled, onOpenChange],
+  );
 
   return (
     <SheetContext.Provider value={{ open, setOpen }}>
@@ -95,14 +96,13 @@ function SheetClose({ children, ...props }: React.ComponentProps<"button">) {
 
 function SheetPortal({ children }: { children: React.ReactNode }) {
   const { open } = useSheet();
+
   if (!open) return null;
+
   return <>{children}</>;
 }
 
-function SheetOverlay({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function SheetOverlay({ className, ...props }: React.ComponentProps<"div">) {
   const { setOpen } = useSheet();
 
   return (
@@ -148,7 +148,7 @@ function SheetContent({
   if (!open) return null;
 
   return (
-    <>
+    <SheetPortal>
       <SheetOverlay />
       <div
         data-slot="sheet-content"
@@ -170,7 +170,7 @@ function SheetContent({
           <span className={styles.srOnly}>Close</span>
         </button>
       </div>
-    </>
+    </SheetPortal>
   );
 }
 

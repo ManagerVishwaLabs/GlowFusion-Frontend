@@ -1,8 +1,6 @@
-
-
 import * as React from "react";
-import { CircleIcon } from "lucide-react";
 import styles from "./RadioGroup.module.css";
+import Circle from "../../icons/Circle";
 
 interface RadioGroupContextValue {
   value: string;
@@ -11,7 +9,9 @@ interface RadioGroupContextValue {
   disabled?: boolean;
 }
 
-const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(null);
+const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(
+  null,
+);
 
 function useRadioGroup() {
   const context = React.useContext(RadioGroupContext);
@@ -21,7 +21,10 @@ function useRadioGroup() {
   return context;
 }
 
-interface RadioGroupProps extends Omit<React.ComponentProps<"div">, "defaultValue"> {
+interface RadioGroupProps extends Omit<
+  React.ComponentProps<"div">,
+  "defaultValue"
+> {
   defaultValue?: string;
   value?: string;
   onValueChange?: (value: string) => void;
@@ -39,23 +42,27 @@ function RadioGroup({
   children,
   ...props
 }: RadioGroupProps) {
-  const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] =
+    React.useState(defaultValue);
   const isControlled = controlledValue !== undefined;
   const value = isControlled ? controlledValue : uncontrolledValue;
 
-  const handleValueChange = React.useCallback((newValue: string) => {
-    if (!isControlled) {
-      setUncontrolledValue(newValue);
-    }
-    onValueChange?.(newValue);
-  }, [isControlled, onValueChange]);
+  const handleValueChange = React.useCallback(
+    (newValue: string) => {
+      if (!isControlled) {
+        setUncontrolledValue(newValue);
+      }
+      onValueChange?.(newValue);
+    },
+    [isControlled, onValueChange],
+  );
 
-  const combinedClassName = [styles.group, className]
-    .filter(Boolean)
-    .join(" ");
+  const combinedClassName = [styles.group, className].filter(Boolean).join(" ");
 
   return (
-    <RadioGroupContext.Provider value={{ value, onValueChange: handleValueChange, name, disabled }}>
+    <RadioGroupContext.Provider
+      value={{ value, onValueChange: handleValueChange, name, disabled }}
+    >
       <div
         data-slot="radio-group"
         role="radiogroup"
@@ -68,7 +75,10 @@ function RadioGroup({
   );
 }
 
-interface RadioGroupItemProps extends Omit<React.ComponentProps<"button">, "value"> {
+interface RadioGroupItemProps extends Omit<
+  React.ComponentProps<"button">,
+  "value"
+> {
   value: string;
 }
 
@@ -78,7 +88,11 @@ function RadioGroupItem({
   disabled: itemDisabled,
   ...props
 }: RadioGroupItemProps) {
-  const { value: selectedValue, onValueChange, disabled: groupDisabled } = useRadioGroup();
+  const {
+    value: selectedValue,
+    onValueChange,
+    disabled: groupDisabled,
+  } = useRadioGroup();
   const isSelected = selectedValue === value;
   const isDisabled = itemDisabled || groupDisabled;
 
@@ -105,7 +119,7 @@ function RadioGroupItem({
     >
       {isSelected && (
         <span className={styles.indicator}>
-          <CircleIcon className={styles.icon} />
+          <Circle className={styles.icon} />
         </span>
       )}
     </button>

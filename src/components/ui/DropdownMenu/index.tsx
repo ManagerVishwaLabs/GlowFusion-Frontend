@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { Check, ChevronRight, Circle } from "lucide-react";
+import { Check, ChevronRight, Circle } from "../../icons";
 import styles from "./DropdownMenu.module.css";
 
 interface DropdownMenuContextValue {
@@ -10,12 +8,15 @@ interface DropdownMenuContextValue {
   triggerRef: React.RefObject<HTMLButtonElement | null>;
 }
 
-const DropdownMenuContext = React.createContext<DropdownMenuContextValue | null>(null);
+const DropdownMenuContext =
+  React.createContext<DropdownMenuContextValue | null>(null);
 
 function useDropdownMenu() {
   const context = React.useContext(DropdownMenuContext);
   if (!context) {
-    throw new Error("DropdownMenu components must be used within a DropdownMenu");
+    throw new Error(
+      "DropdownMenu components must be used within a DropdownMenu",
+    );
   }
   return context;
 }
@@ -25,7 +26,9 @@ interface RadioGroupContextValue {
   onValueChange: (value: string) => void;
 }
 
-const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(null);
+const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(
+  null,
+);
 
 interface DropdownMenuProps {
   open?: boolean;
@@ -42,20 +45,26 @@ function DropdownMenu({
 }: DropdownMenuProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
-  
+
   const isControlled = controlledOpen !== undefined;
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
-  const setOpen = React.useCallback((value: boolean) => {
-    if (!isControlled) {
-      setUncontrolledOpen(value);
-    }
-    onOpenChange?.(value);
-  }, [isControlled, onOpenChange]);
+  const setOpen = React.useCallback(
+    (value: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(value);
+      }
+      onOpenChange?.(value);
+    },
+    [isControlled, onOpenChange],
+  );
 
   return (
     <DropdownMenuContext.Provider value={{ open, setOpen, triggerRef }}>
-      <div data-slot="dropdown-menu" style={{ position: "relative", display: "inline-block" }}>
+      <div
+        data-slot="dropdown-menu"
+        style={{ position: "relative", display: "inline-block" }}
+      >
         {children}
       </div>
     </DropdownMenuContext.Provider>
@@ -157,11 +166,24 @@ function DropdownMenuContent({
       className={`${styles.content} ${className || ""}`}
       style={{
         position: "absolute",
-        [side === "top" ? "bottom" : side === "bottom" ? "top" : side === "left" ? "right" : "left"]: `calc(100% + ${sideOffset}px)`,
-        ...(side === "top" || side === "bottom" 
-          ? { left: align === "start" ? 0 : align === "end" ? "auto" : "50%", right: align === "end" ? 0 : "auto", transform: align === "center" ? "translateX(-50%)" : undefined }
-          : { top: align === "start" ? 0 : align === "end" ? "auto" : "50%", bottom: align === "end" ? 0 : "auto", transform: align === "center" ? "translateY(-50%)" : undefined }
-        ),
+        [side === "top"
+          ? "bottom"
+          : side === "bottom"
+            ? "top"
+            : side === "left"
+              ? "right"
+              : "left"]: `calc(100% + ${sideOffset}px)`,
+        ...(side === "top" || side === "bottom"
+          ? {
+              left: align === "start" ? 0 : align === "end" ? "auto" : "50%",
+              right: align === "end" ? 0 : "auto",
+              transform: align === "center" ? "translateX(-50%)" : undefined,
+            }
+          : {
+              top: align === "start" ? 0 : align === "end" ? "auto" : "50%",
+              bottom: align === "end" ? 0 : "auto",
+              transform: align === "center" ? "translateY(-50%)" : undefined,
+            }),
         zIndex: 50,
       }}
       {...props}
@@ -171,8 +193,15 @@ function DropdownMenuContent({
   );
 }
 
-function DropdownMenuGroup({ children, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="dropdown-menu-group" {...props}>{children}</div>;
+function DropdownMenuGroup({
+  children,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div data-slot="dropdown-menu-group" {...props}>
+      {children}
+    </div>
+  );
 }
 
 interface DropdownMenuItemProps extends React.ComponentProps<"div"> {
@@ -240,7 +269,9 @@ function DropdownMenuRadioGroup({
 }: DropdownMenuRadioGroupProps) {
   return (
     <RadioGroupContext.Provider value={{ value, onValueChange }}>
-      <div data-slot="dropdown-menu-radio-group" {...props}>{children}</div>
+      <div data-slot="dropdown-menu-radio-group" {...props}>
+        {children}
+      </div>
     </RadioGroupContext.Provider>
   );
 }
@@ -329,7 +360,9 @@ function DropdownMenuSub({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   return (
     <SubMenuContext.Provider value={{ open, setOpen }}>
-      <div data-slot="dropdown-menu-sub" style={{ position: "relative" }}>{children}</div>
+      <div data-slot="dropdown-menu-sub" style={{ position: "relative" }}>
+        {children}
+      </div>
     </SubMenuContext.Provider>
   );
 }
@@ -367,7 +400,7 @@ function DropdownMenuSubContent({
   ...props
 }: React.ComponentProps<"div">) {
   const subContext = React.useContext(SubMenuContext);
-  
+
   if (!subContext?.open) return null;
 
   return (

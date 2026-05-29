@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { XIcon } from "lucide-react";
+import { X as XIcon } from "../../icons";
 import styles from "./Dialog.module.css";
 
 interface DialogContextValue {
@@ -13,9 +11,11 @@ const DialogContext = React.createContext<DialogContextValue | null>(null);
 
 function useDialog() {
   const context = React.useContext(DialogContext);
+
   if (!context) {
     throw new Error("Dialog components must be used within a Dialog");
   }
+
   return context;
 }
 
@@ -33,15 +33,21 @@ function Dialog({
   children,
 }: DialogProps) {
   const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
+
   const isControlled = controlledOpen !== undefined;
+
   const open = isControlled ? controlledOpen : uncontrolledOpen;
 
-  const setOpen = React.useCallback((value: boolean) => {
-    if (!isControlled) {
-      setUncontrolledOpen(value);
-    }
-    onOpenChange?.(value);
-  }, [isControlled, onOpenChange]);
+  const setOpen = React.useCallback(
+    (value: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(value);
+      }
+
+      onOpenChange?.(value);
+    },
+    [isControlled, onOpenChange],
+  );
 
   return (
     <DialogContext.Provider value={{ open, setOpen }}>
@@ -54,17 +60,14 @@ interface DialogTriggerProps extends React.ComponentProps<"button"> {
   asChild?: boolean;
 }
 
-function DialogTrigger({
-  children,
-  asChild,
-  ...props
-}: DialogTriggerProps) {
+function DialogTrigger({ children, asChild, ...props }: DialogTriggerProps) {
   const { setOpen } = useDialog();
 
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children as React.ReactElement<any>, {
       onClick: (e: React.MouseEvent) => {
         (children as React.ReactElement<any>).props.onClick?.(e);
+
         setOpen(true);
       },
     });
@@ -84,18 +87,15 @@ function DialogTrigger({
 
 function DialogPortal({ children }: { children: React.ReactNode }) {
   const { open } = useDialog();
-  
+
   if (!open) return null;
-  
+
   return <>{children}</>;
 }
 
-interface DialogOverlayProps extends React.ComponentProps<"div"> {}
+type DialogOverlayProps = React.HTMLAttributes<HTMLDivElement>;
 
-function DialogOverlay({
-  className,
-  ...props
-}: DialogOverlayProps) {
+function DialogOverlay({ className, ...props }: DialogOverlayProps) {
   const { setOpen } = useDialog();
 
   const combinedClassName = [styles.overlay, className]
@@ -112,13 +112,9 @@ function DialogOverlay({
   );
 }
 
-interface DialogContentProps extends React.ComponentProps<"div"> {}
+type DialogContentProps = React.HTMLAttributes<HTMLDivElement>;
 
-function DialogContent({
-  className,
-  children,
-  ...props
-}: DialogContentProps) {
+function DialogContent({ className, children, ...props }: DialogContentProps) {
   const { open, setOpen } = useDialog();
 
   React.useEffect(() => {
@@ -127,14 +123,16 @@ function DialogContent({
         setOpen(false);
       }
     };
-    
+
     if (open) {
       document.addEventListener("keydown", handleEscape);
+
       document.body.style.overflow = "hidden";
     }
-    
+
     return () => {
       document.removeEventListener("keydown", handleEscape);
+
       document.body.style.overflow = "";
     };
   }, [open, setOpen]);
@@ -148,6 +146,7 @@ function DialogContent({
   return (
     <>
       <DialogOverlay />
+
       <div
         data-slot="dialog-content"
         role="dialog"
@@ -157,6 +156,7 @@ function DialogContent({
         {...props}
       >
         {children}
+
         <button
           type="button"
           className={styles.closeButton}
@@ -164,6 +164,7 @@ function DialogContent({
           aria-label="Close"
         >
           <XIcon className={styles.closeIcon} />
+
           <span className={styles.srOnly}>Close</span>
         </button>
       </div>
@@ -171,7 +172,7 @@ function DialogContent({
   );
 }
 
-interface DialogHeaderProps extends React.ComponentProps<"div"> {}
+type DialogHeaderProps = React.HTMLAttributes<HTMLDivElement>;
 
 function DialogHeader({ className, ...props }: DialogHeaderProps) {
   const combinedClassName = [styles.header, className]
@@ -183,7 +184,7 @@ function DialogHeader({ className, ...props }: DialogHeaderProps) {
   );
 }
 
-interface DialogFooterProps extends React.ComponentProps<"div"> {}
+type DialogFooterProps = React.HTMLAttributes<HTMLDivElement>;
 
 function DialogFooter({ className, ...props }: DialogFooterProps) {
   const combinedClassName = [styles.footer, className]
@@ -195,19 +196,17 @@ function DialogFooter({ className, ...props }: DialogFooterProps) {
   );
 }
 
-interface DialogTitleProps extends React.ComponentProps<"h2"> {}
+type DialogTitleProps = React.HTMLAttributes<HTMLHeadingElement>;
 
 function DialogTitle({ className, ...props }: DialogTitleProps) {
-  const combinedClassName = [styles.title, className]
-    .filter(Boolean)
-    .join(" ");
+  const combinedClassName = [styles.title, className].filter(Boolean).join(" ");
 
   return (
     <h2 data-slot="dialog-title" className={combinedClassName} {...props} />
   );
 }
 
-interface DialogDescriptionProps extends React.ComponentProps<"p"> {}
+type DialogDescriptionProps = React.HTMLAttributes<HTMLParagraphElement>;
 
 function DialogDescription({ className, ...props }: DialogDescriptionProps) {
   const combinedClassName = [styles.description, className]
@@ -215,22 +214,19 @@ function DialogDescription({ className, ...props }: DialogDescriptionProps) {
     .join(" ");
 
   return (
-    <p data-slot="dialog-description" className={combinedClassName} {...props} />
+    <p
+      data-slot="dialog-description"
+      className={combinedClassName}
+      {...props}
+    />
   );
 }
 
-function DialogClose({
-  children,
-  ...props
-}: React.ComponentProps<"button">) {
+function DialogClose({ children, ...props }: React.ComponentProps<"button">) {
   const { setOpen } = useDialog();
 
   return (
-    <button
-      type="button"
-      onClick={() => setOpen(false)}
-      {...props}
-    >
+    <button type="button" onClick={() => setOpen(false)} {...props}>
       {children}
     </button>
   );

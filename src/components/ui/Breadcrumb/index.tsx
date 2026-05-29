@@ -1,6 +1,7 @@
 import * as React from "react";
-import { ChevronRight, MoreHorizontal } from "lucide-react";
 import styles from "./Breadcrumb.module.css";
+import ChevronRight from "../../icons/ChevronRight";
+import MoreHorizontal from "../../icons/MoveHorizontalIcon";
 
 function Breadcrumb({ ...props }: React.ComponentProps<"nav">) {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
@@ -37,7 +38,8 @@ function BreadcrumbLink({
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children as React.ReactElement<any>, {
       "data-slot": "breadcrumb-link",
-      className: `${styles.link} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
+      className:
+        `${styles.link} ${className || ""} ${(children as React.ReactElement<any>).props.className || ""}`.trim(),
       ...props,
     });
   }

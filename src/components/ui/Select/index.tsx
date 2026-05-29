@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { CheckIcon, ChevronDownIcon } from "lucide-react";
+import { Check, ChevronDown } from "../../icons";
 import styles from "./Select.module.css";
 
 interface SelectContextValue {
@@ -16,9 +14,11 @@ const SelectContext = React.createContext<SelectContextValue | null>(null);
 
 function useSelect() {
   const context = React.useContext(SelectContext);
+
   if (!context) {
     throw new Error("Select components must be used within a Select");
   }
+
   return context;
 }
 
@@ -35,23 +35,39 @@ function Select({
   onValueChange,
   children,
 }: SelectProps) {
-  const [uncontrolledValue, setUncontrolledValue] = React.useState(defaultValue);
+  const [uncontrolledValue, setUncontrolledValue] =
+    React.useState(defaultValue);
+
   const [open, setOpen] = React.useState(false);
+
   const triggerRef = React.useRef<HTMLButtonElement>(null);
-  
+
   const isControlled = controlledValue !== undefined;
+
   const value = isControlled ? controlledValue : uncontrolledValue;
 
-  const handleValueChange = React.useCallback((newValue: string) => {
-    if (!isControlled) {
-      setUncontrolledValue(newValue);
-    }
-    onValueChange?.(newValue);
-    setOpen(false);
-  }, [isControlled, onValueChange]);
+  const handleValueChange = React.useCallback(
+    (newValue: string) => {
+      if (!isControlled) {
+        setUncontrolledValue(newValue);
+      }
+
+      onValueChange?.(newValue);
+      setOpen(false);
+    },
+    [isControlled, onValueChange],
+  );
 
   return (
-    <SelectContext.Provider value={{ value, onValueChange: handleValueChange, open, setOpen, triggerRef }}>
+    <SelectContext.Provider
+      value={{
+        value,
+        onValueChange: handleValueChange,
+        open,
+        setOpen,
+        triggerRef,
+      }}
+    >
       {children}
     </SelectContext.Provider>
   );
@@ -67,16 +83,13 @@ interface SelectValueProps {
 
 function SelectValue({ placeholder }: SelectValueProps) {
   const { value } = useSelect();
+
   return <span>{value || placeholder}</span>;
 }
 
-interface SelectTriggerProps extends React.ComponentProps<"button"> {}
+type SelectTriggerProps = React.ComponentProps<"button">;
 
-function SelectTrigger({
-  className,
-  children,
-  ...props
-}: SelectTriggerProps) {
+function SelectTrigger({ className, children, ...props }: SelectTriggerProps) {
   const { open, setOpen, triggerRef } = useSelect();
 
   const combinedClassName = [styles.trigger, className]
@@ -96,12 +109,15 @@ function SelectTrigger({
       {...props}
     >
       {children}
-      <ChevronDownIcon className={styles.triggerIcon} />
+
+      <ChevronDown className={styles.triggerIcon} />
     </button>
   );
 }
 
-interface SelectContentProps extends React.ComponentProps<"div"> {
+type SelectContentBaseProps = React.ComponentProps<"div">;
+
+interface SelectContentProps extends SelectContentBaseProps {
   position?: "popper" | "item-aligned";
 }
 
@@ -112,6 +128,7 @@ function SelectContent({
   ...props
 }: SelectContentProps) {
   const { open, setOpen, triggerRef } = useSelect();
+
   const contentRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -134,11 +151,13 @@ function SelectContent({
 
     if (open) {
       document.addEventListener("mousedown", handleClickOutside);
+
       document.addEventListener("keydown", handleEscape);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+
       document.removeEventListener("keydown", handleEscape);
     };
   }, [open, setOpen, triggerRef]);
@@ -161,19 +180,15 @@ function SelectContent({
       className={combinedClassName}
       {...props}
     >
-      <div className={styles.viewport}>
-        {children}
-      </div>
+      <div className={styles.viewport}>{children}</div>
     </div>
   );
 }
 
-interface SelectLabelProps extends React.ComponentProps<"div"> {}
+type SelectLabelProps = React.ComponentProps<"div">;
 
 function SelectLabel({ className, ...props }: SelectLabelProps) {
-  const combinedClassName = [styles.label, className]
-    .filter(Boolean)
-    .join(" ");
+  const combinedClassName = [styles.label, className].filter(Boolean).join(" ");
 
   return (
     <div data-slot="select-label" className={combinedClassName} {...props} />
@@ -184,13 +199,9 @@ interface SelectItemProps extends React.ComponentProps<"div"> {
   value: string;
 }
 
-function SelectItem({
-  className,
-  children,
-  value,
-  ...props
-}: SelectItemProps) {
+function SelectItem({ className, children, value, ...props }: SelectItemProps) {
   const { value: selectedValue, onValueChange } = useSelect();
+
   const isSelected = selectedValue === value;
 
   const combinedClassName = [
@@ -212,14 +223,15 @@ function SelectItem({
       {...props}
     >
       <span className={styles.itemIndicator}>
-        {isSelected && <CheckIcon className={styles.checkIcon} />}
+        {isSelected && <Check className={styles.checkIcon} />}
       </span>
+
       <span>{children}</span>
     </div>
   );
 }
 
-interface SelectSeparatorProps extends React.ComponentProps<"div"> {}
+type SelectSeparatorProps = React.ComponentProps<"div">;
 
 function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
   const combinedClassName = [styles.separator, className]
@@ -227,7 +239,11 @@ function SelectSeparator({ className, ...props }: SelectSeparatorProps) {
     .join(" ");
 
   return (
-    <div data-slot="select-separator" className={combinedClassName} {...props} />
+    <div
+      data-slot="select-separator"
+      className={combinedClassName}
+      {...props}
+    />
   );
 }
 

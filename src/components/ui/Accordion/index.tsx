@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { ChevronDownIcon } from "lucide-react";
+import ChevronDownIcon from "../../icons/ChevronDown";
 import styles from "./Accordion.module.css";
 
 interface AccordionContextValue {
@@ -10,7 +8,9 @@ interface AccordionContextValue {
   type: "single" | "multiple";
 }
 
-const AccordionContext = React.createContext<AccordionContextValue | null>(null);
+const AccordionContext = React.createContext<AccordionContextValue | null>(
+  null,
+);
 
 function useAccordion() {
   const context = React.useContext(AccordionContext);
@@ -43,7 +43,11 @@ function Accordion({
       return Array.isArray(value) ? value : value ? [value] : [];
     }
     if (defaultValue !== undefined) {
-      return Array.isArray(defaultValue) ? defaultValue : defaultValue ? [defaultValue] : [];
+      return Array.isArray(defaultValue)
+        ? defaultValue
+        : defaultValue
+          ? [defaultValue]
+          : [];
     }
     return [];
   });
@@ -54,34 +58,33 @@ function Accordion({
     }
   }, [value]);
 
-  const toggleItem = React.useCallback((itemValue: string) => {
-    setOpenItems((prev) => {
-      let newItems: string[];
-      if (type === "single") {
-        if (prev.includes(itemValue)) {
-          newItems = collapsible ? [] : prev;
+  const toggleItem = React.useCallback(
+    (itemValue: string) => {
+      setOpenItems((prev) => {
+        let newItems: string[];
+        if (type === "single") {
+          if (prev.includes(itemValue)) {
+            newItems = collapsible ? [] : prev;
+          } else {
+            newItems = [itemValue];
+          }
         } else {
-          newItems = [itemValue];
+          if (prev.includes(itemValue)) {
+            newItems = prev.filter((v) => v !== itemValue);
+          } else {
+            newItems = [...prev, itemValue];
+          }
         }
-      } else {
-        if (prev.includes(itemValue)) {
-          newItems = prev.filter((v) => v !== itemValue);
-        } else {
-          newItems = [...prev, itemValue];
-        }
-      }
-      onValueChange?.(type === "single" ? (newItems[0] || "") : newItems);
-      return newItems;
-    });
-  }, [type, collapsible, onValueChange]);
+        onValueChange?.(type === "single" ? newItems[0] || "" : newItems);
+        return newItems;
+      });
+    },
+    [type, collapsible, onValueChange],
+  );
 
   return (
     <AccordionContext.Provider value={{ openItems, toggleItem, type }}>
-      <div
-        data-slot="accordion"
-        className={className}
-        {...props}
-      >
+      <div data-slot="accordion" className={className} {...props}>
         {children}
       </div>
     </AccordionContext.Provider>
@@ -93,12 +96,15 @@ interface AccordionItemContextValue {
   isOpen: boolean;
 }
 
-const AccordionItemContext = React.createContext<AccordionItemContextValue | null>(null);
+const AccordionItemContext =
+  React.createContext<AccordionItemContextValue | null>(null);
 
 function useAccordionItem() {
   const context = React.useContext(AccordionItemContext);
   if (!context) {
-    throw new Error("AccordionItem components must be used within an AccordionItem");
+    throw new Error(
+      "AccordionItem components must be used within an AccordionItem",
+    );
   }
   return context;
 }
@@ -152,7 +158,9 @@ function AccordionTrigger({
         {...props}
       >
         {children}
-        <ChevronDownIcon className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`} />
+        <ChevronDownIcon
+          className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}
+        />
       </button>
     </div>
   );
@@ -183,7 +191,10 @@ function AccordionContent({
       style={{ height: height !== undefined ? `${height}px` : undefined }}
       {...props}
     >
-      <div ref={contentRef} className={`${styles.contentInner} ${className || ""}`}>
+      <div
+        ref={contentRef}
+        className={`${styles.contentInner} ${className || ""}`}
+      >
         {children}
       </div>
     </div>

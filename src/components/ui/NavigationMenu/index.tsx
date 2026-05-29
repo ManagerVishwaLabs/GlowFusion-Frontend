@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown } from "../../icons";
 import styles from "./NavigationMenu.module.css";
 
 interface NavigationMenuContextValue {

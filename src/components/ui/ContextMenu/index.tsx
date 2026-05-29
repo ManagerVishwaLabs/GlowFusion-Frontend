@@ -1,7 +1,5 @@
-
-
 import * as React from "react";
-import { Check, ChevronRight, Circle } from "lucide-react";
+import { Check, ChevronRight, Circle } from "../../icons";
 import styles from "./ContextMenu.module.css";
 
 interface ContextMenuContextValue {
@@ -11,7 +9,9 @@ interface ContextMenuContextValue {
   setPosition: (position: { x: number; y: number }) => void;
 }
 
-const ContextMenuContext = React.createContext<ContextMenuContextValue | null>(null);
+const ContextMenuContext = React.createContext<ContextMenuContextValue | null>(
+  null,
+);
 
 function useContextMenu() {
   const context = React.useContext(ContextMenuContext);
@@ -26,7 +26,9 @@ interface RadioGroupContextValue {
   onValueChange: (value: string) => void;
 }
 
-const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(null);
+const RadioGroupContext = React.createContext<RadioGroupContextValue | null>(
+  null,
+);
 
 interface ContextMenuProps {
   children: React.ReactNode;
@@ -37,7 +39,9 @@ function ContextMenu({ children }: ContextMenuProps) {
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
 
   return (
-    <ContextMenuContext.Provider value={{ open, setOpen, position, setPosition }}>
+    <ContextMenuContext.Provider
+      value={{ open, setOpen, position, setPosition }}
+    >
       <div data-slot="context-menu">{children}</div>
     </ContextMenuContext.Provider>
   );
@@ -55,14 +59,22 @@ function ContextMenuTrigger({ children, ...props }: ContextMenuTriggerProps) {
   };
 
   return (
-    <div data-slot="context-menu-trigger" onContextMenu={handleContextMenu} {...props}>
+    <div
+      data-slot="context-menu-trigger"
+      onContextMenu={handleContextMenu}
+      {...props}
+    >
       {children}
     </div>
   );
 }
 
 function ContextMenuGroup({ children, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="context-menu-group" {...props}>{children}</div>;
+  return (
+    <div data-slot="context-menu-group" {...props}>
+      {children}
+    </div>
+  );
 }
 
 function ContextMenuPortal({ children }: { children: React.ReactNode }) {
@@ -82,7 +94,9 @@ function ContextMenuSub({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   return (
     <SubMenuContext.Provider value={{ open, setOpen }}>
-      <div data-slot="context-menu-sub" style={{ position: "relative" }}>{children}</div>
+      <div data-slot="context-menu-sub" style={{ position: "relative" }}>
+        {children}
+      </div>
     </SubMenuContext.Provider>
   );
 }
@@ -100,7 +114,9 @@ function ContextMenuRadioGroup({
 }: ContextMenuRadioGroupProps) {
   return (
     <RadioGroupContext.Provider value={{ value, onValueChange }}>
-      <div data-slot="context-menu-radio-group" {...props}>{children}</div>
+      <div data-slot="context-menu-radio-group" {...props}>
+        {children}
+      </div>
     </RadioGroupContext.Provider>
   );
 }
@@ -140,7 +156,7 @@ function ContextMenuSubContent({
   ...props
 }: ContextMenuSubContentProps) {
   const subContext = React.useContext(SubMenuContext);
-  
+
   if (!subContext?.open) return null;
 
   return (
@@ -168,7 +184,10 @@ function ContextMenuContent({
 
   React.useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (contentRef.current && !contentRef.current.contains(e.target as Node)) {
+      if (
+        contentRef.current &&
+        !contentRef.current.contains(e.target as Node)
+      ) {
         setOpen(false);
       }
     };

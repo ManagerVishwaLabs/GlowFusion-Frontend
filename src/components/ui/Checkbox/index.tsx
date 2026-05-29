@@ -1,9 +1,11 @@
-
 import * as React from "react";
-import { CheckIcon } from "lucide-react";
+import CheckIcon from "../../icons/CheckIcon";
 import styles from "./Checkbox.module.css";
 
-export interface CheckboxProps extends Omit<React.ComponentProps<"button">, "onChange"> {
+export interface CheckboxProps extends Omit<
+  React.ComponentProps<"button">,
+  "onChange"
+> {
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
@@ -17,13 +19,14 @@ function Checkbox({
   disabled,
   ...props
 }: CheckboxProps) {
-  const [uncontrolledChecked, setUncontrolledChecked] = React.useState(defaultChecked);
+  const [uncontrolledChecked, setUncontrolledChecked] =
+    React.useState(defaultChecked);
   const isControlled = controlledChecked !== undefined;
   const checked = isControlled ? controlledChecked : uncontrolledChecked;
 
   const handleClick = () => {
     if (disabled) return;
-    
+
     const newChecked = !checked;
     if (!isControlled) {
       setUncontrolledChecked(newChecked);
