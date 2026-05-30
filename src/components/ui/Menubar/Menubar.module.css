@@ -1,0 +1,252 @@
+.menubar {
+  display: flex;
+  height: 2.5rem;
+  align-items: center;
+  gap: 0.25rem;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 0.25rem;
+}
+
+.trigger {
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  outline: none;
+  background: transparent;
+  border: none;
+  transition: background-color 0.15s ease;
+}
+
+.trigger:focus {
+  background-color: #f3f4f6;
+}
+
+.trigger:hover {
+  background-color: #f3f4f6;
+}
+
+.trigger[data-state="open"] {
+  background-color: #f3f4f6;
+}
+
+.content {
+  z-index: 50;
+  min-width: 12rem;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 0.25rem;
+  color: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.subContent {
+  z-index: 50;
+  min-width: 8rem;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 0.25rem;
+  color: #1f2937;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  animation: fadeIn 0.15s ease;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.item:focus {
+  background-color: #f3f4f6;
+}
+
+.item:hover {
+  background-color: #f3f4f6;
+}
+
+.item[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.item.inset {
+  padding-left: 2rem;
+}
+
+.subTrigger {
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.subTrigger:focus {
+  background-color: #f3f4f6;
+}
+
+.subTrigger:hover {
+  background-color: #f3f4f6;
+}
+
+.subTrigger[data-state="open"] {
+  background-color: #f3f4f6;
+}
+
+.subTrigger.inset {
+  padding-left: 2rem;
+}
+
+.chevron {
+  margin-left: auto;
+  height: 1rem;
+  width: 1rem;
+}
+
+.checkboxItem {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  padding-left: 2rem;
+  font-size: 0.875rem;
+  outline: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.checkboxItem:focus {
+  background-color: #f3f4f6;
+}
+
+.checkboxItem:hover {
+  background-color: #f3f4f6;
+}
+
+.checkboxItem[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.radioItem {
+  position: relative;
+  display: flex;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  padding-left: 2rem;
+  font-size: 0.875rem;
+  outline: none;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.radioItem:focus {
+  background-color: #f3f4f6;
+}
+
+.radioItem:hover {
+  background-color: #f3f4f6;
+}
+
+.radioItem[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.itemIndicator {
+  position: absolute;
+  left: 0.5rem;
+  display: flex;
+  height: 0.875rem;
+  width: 0.875rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.circleIcon {
+  height: 0.5rem;
+  width: 0.5rem;
+  fill: currentColor;
+}
+
+.label {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.label.inset {
+  padding-left: 2rem;
+}
+
+.separator {
+  margin: 0.25rem -0.25rem;
+  height: 1px;
+  background-color: #e5e7eb;
+}
+
+.shortcut {
+  margin-left: auto;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #6b7280;
+}
