@@ -1,0 +1,25 @@
+.formItem {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.formLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1;
+  color: var(--foreground, #111827);
+}
+
+.formLabel.error {
+  color: var(--destructive, #ef4444);
+}
+
+.formDescription {
+  font-size: 0.875rem;
+  color: var(--muted-foreground, #6b7280);
+}
+
+.formMessage {
+  font-size: 0.875rem;
+  color: var(--destructive, #ef4444);
+}

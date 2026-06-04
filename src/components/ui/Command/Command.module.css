@@ -1,0 +1,117 @@
+.command {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  background-color: var(--popover, #ffffff);
+  color: var(--popover-foreground, #111827);
+}
+
+.inputWrapper {
+  display: flex;
+  height: 2.25rem;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--border, #e5e7eb);
+  padding: 0 0.75rem;
+}
+
+.searchIcon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.input {
+  display: flex;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  background-color: transparent;
+  padding: 0.75rem 0;
+  font-size: 0.875rem;
+  outline: none;
+  border: none;
+}
+
+.input::placeholder {
+  color: var(--muted-foreground, #6b7280);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.list {
+  max-height: 300px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-padding: 0.25rem;
+}
+
+.empty {
+  padding: 1.5rem 0;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.group {
+  overflow: hidden;
+  padding: 0.25rem;
+  color: var(--foreground, #111827);
+}
+
+.group [cmdk-group-heading] {
+  padding: 0.375rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--muted-foreground, #6b7280);
+}
+
+.separator {
+  margin: 0 -0.25rem;
+  height: 1px;
+  background-color: var(--border, #e5e7eb);
+}
+
+.item {
+  position: relative;
+  display: flex;
+  cursor: default;
+  user-select: none;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.25rem;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  outline: none;
+}
+
+.item[data-selected="true"] {
+  background-color: var(--accent, #f3f4f6);
+  color: var(--accent-foreground, #111827);
+}
+
+.item[data-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.item svg {
+  pointer-events: none;
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  color: var(--muted-foreground, #6b7280);
+}
+
+.shortcut {
+  margin-left: auto;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-foreground, #6b7280);
+}

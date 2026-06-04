@@ -1,0 +1,72 @@
+.buttonGroup {
+  display: flex;
+  width: fit-content;
+  align-items: stretch;
+}
+
+.buttonGroup > *:focus-visible {
+  z-index: 10;
+  position: relative;
+}
+
+.horizontal > *:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-width: 0;
+}
+
+.horizontal > *:not(:last-child) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.vertical {
+  flex-direction: column;
+}
+
+.vertical > *:not(:first-child) {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-width: 0;
+}
+
+.vertical > *:not(:last-child) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.buttonGroupText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border, #e5e7eb);
+  background-color: var(--muted, #f3f4f6);
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.buttonGroupText svg {
+  pointer-events: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.buttonGroupSeparator {
+  position: relative;
+  margin: 0;
+  align-self: stretch;
+  background-color: var(--input, #e5e7eb);
+}
+
+.separatorVertical {
+  width: 1px;
+  height: auto;
+}
+
+.separatorHorizontal {
+  width: auto;
+  height: 1px;
+}
