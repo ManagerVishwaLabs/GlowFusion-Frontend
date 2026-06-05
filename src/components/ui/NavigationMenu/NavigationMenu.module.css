@@ -1,0 +1,254 @@
+.root {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  max-width: max-content;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.list {
+  display: flex;
+  flex: 1;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.trigger {
+  display: inline-flex;
+  height: 2.5rem;
+  width: max-content;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.trigger:hover {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.trigger:focus {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.trigger[data-state="open"] {
+  background-color: #f3f4f6;
+}
+
+.trigger[data-disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.chevron {
+  position: relative;
+  top: 1px;
+  margin-left: 0.25rem;
+  height: 0.75rem;
+  width: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.trigger[data-state="open"] .chevron {
+  transform: rotate(180deg);
+}
+
+.content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.content[data-motion="from-start"] {
+  animation: enterFromLeft 0.25s ease;
+}
+
+.content[data-motion="from-end"] {
+  animation: enterFromRight 0.25s ease;
+}
+
+.content[data-motion="to-start"] {
+  animation: exitToLeft 0.25s ease;
+}
+
+.content[data-motion="to-end"] {
+  animation: exitToRight 0.25s ease;
+}
+
+@keyframes enterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes enterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exitToLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+
+@keyframes exitToRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+}
+
+@media (min-width: 768px) {
+  .content {
+    width: auto;
+  }
+}
+
+.viewportWrapper {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  perspective: 2000px;
+}
+
+.viewport {
+  position: relative;
+  margin-top: 0.375rem;
+  height: var(--radix-navigation-menu-viewport-height);
+  width: 100%;
+  transform-origin: top center;
+  overflow: hidden;
+  border-radius: 0.375rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  color: #1f2937;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .viewport {
+    width: var(--radix-navigation-menu-viewport-width);
+  }
+}
+
+.viewport[data-state="open"] {
+  animation: scaleIn 0.2s ease;
+}
+
+.viewport[data-state="closed"] {
+  animation: scaleOut 0.2s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-30deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+}
+
+@keyframes scaleOut {
+  from {
+    opacity: 1;
+    transform: rotateX(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotateX(-10deg) scale(0.95);
+  }
+}
+
+.indicator {
+  top: 100%;
+  z-index: 1;
+  display: flex;
+  height: 0.625rem;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  transition: width 0.25s ease, transform 0.25s ease;
+}
+
+.indicator[data-state="visible"] {
+  animation: fadeIn 0.2s ease;
+}
+
+.indicator[data-state="hidden"] {
+  animation: fadeOut 0.2s ease;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.indicatorArrow {
+  position: relative;
+  top: 70%;
+  height: 0.625rem;
+  width: 0.625rem;
+  transform: rotate(45deg);
+  border-top-left-radius: 0.125rem;
+  background-color: #e5e7eb;
+  box-shadow: -2px -2px 2px rgba(0, 0, 0, 0.05);
+}

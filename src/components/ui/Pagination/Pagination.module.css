@@ -1,0 +1,88 @@
+.pagination {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0 0.5rem;
+  color: var(--foreground, #111827);
+  background-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.link:hover {
+  background-color: var(--accent, #f3f4f6);
+  color: var(--accent-foreground, #111827);
+}
+
+.link:focus-visible {
+  outline: 2px solid var(--ring, #3b82f6);
+  outline-offset: 2px;
+}
+
+.active {
+  border: 1px solid var(--border, #e5e7eb);
+  background-color: var(--background, #ffffff);
+}
+
+.active:hover {
+  background-color: var(--accent, #f3f4f6);
+}
+
+.previous,
+.next {
+  gap: 0.25rem;
+  padding: 0 0.625rem;
+}
+
+.ellipsis {
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,0 +1,81 @@
+.container {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  caption-side: bottom;
+  font-size: 0.875rem;
+  border-collapse: collapse;
+}
+
+.header tr {
+  border-bottom: 1px solid var(--border, #e5e7eb);
+}
+
+.body tr:last-child {
+  border-bottom: none;
+}
+
+.footer {
+  background-color: rgba(var(--muted-rgb, 243, 244, 246), 0.5);
+  border-top: 1px solid var(--border, #e5e7eb);
+  font-weight: 500;
+}
+
+.footer > tr:last-child {
+  border-bottom: none;
+}
+
+.row {
+  border-bottom: 1px solid var(--border, #e5e7eb);
+  transition: background-color 0.2s ease;
+}
+
+.row:hover {
+  background-color: rgba(var(--muted-rgb, 243, 244, 246), 0.5);
+}
+
+.row[data-state="selected"] {
+  background-color: var(--muted, #f3f4f6);
+}
+
+.head {
+  height: 2.5rem;
+  padding: 0 0.5rem;
+  text-align: left;
+  vertical-align: middle;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--foreground, #1f2937);
+}
+
+.head:has([role="checkbox"]) {
+  padding-right: 0;
+}
+
+.head > [role="checkbox"] {
+  transform: translateY(2px);
+}
+
+.cell {
+  padding: 0.5rem;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cell:has([role="checkbox"]) {
+  padding-right: 0;
+}
+
+.cell > [role="checkbox"] {
+  transform: translateY(2px);
+}
+
+.caption {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground, #6b7280);
+}

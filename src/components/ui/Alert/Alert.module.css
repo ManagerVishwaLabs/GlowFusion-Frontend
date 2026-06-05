@@ -1,0 +1,63 @@
+.alert {
+  position: relative;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border, #e5e7eb);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  display: grid;
+  grid-template-columns: 0 1fr;
+  gap: 0.125rem 0;
+  align-items: start;
+}
+
+.alert:has(> svg) {
+  grid-template-columns: calc(var(--spacing, 0.25rem) * 4) 1fr;
+  gap: 0 0.75rem;
+}
+
+.alert > svg {
+  width: 1rem;
+  height: 1rem;
+  transform: translateY(0.125rem);
+  color: currentColor;
+}
+
+.default {
+  background-color: var(--card, #ffffff);
+  color: var(--card-foreground, #1f2937);
+}
+
+.destructive {
+  color: var(--destructive, #ef4444);
+  background-color: var(--card, #ffffff);
+}
+
+.destructive > svg {
+  color: currentColor;
+}
+
+.title {
+  grid-column-start: 2;
+  min-height: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.description {
+  grid-column-start: 2;
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground, #6b7280);
+}
+
+.description p {
+  line-height: 1.625;
+}
