@@ -1,18 +1,26 @@
-import type { SVGProps } from "react";
+import type { IconProps } from "./types";
+import { getIconColor, getIconSize } from "./icon.utils";
 
-const BusinessOverviewIcon = (props: SVGProps<SVGSVGElement>) => {
+const BusinessOverviewIcon = ({
+  size = "md",
+  color = "primary",
+  className = "",
+}: IconProps) => {
+  const iconSize = getIconSize(size);
+  const iconColor = getIconColor(color);
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
+      width={iconSize}
+      height={iconSize}
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke={iconColor}
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      {...props}
+      className={className}
     >
       <path d="M12 13V2l8 4-8 4" />
       <path d="M20.561 10.222a9 9 0 1 1-12.55-5.29" />

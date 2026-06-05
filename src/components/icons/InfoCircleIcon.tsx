@@ -1,26 +1,26 @@
-type InfoCircleIconProps = {
-  className?: string;
-  size?: number;
-  color?: string;
-};
+import type { IconProps } from "./types";
+import { getIconColor, getIconSize } from "./icon.utils";
 
-export default function InfoCircleIcon({
+const InfoCircleIcon = ({
+  size = "md",
+  color = "primary",
   className = "",
-  size = 24,
-  color = "currentColor",
-}: InfoCircleIconProps) {
+}: IconProps) => {
+  const iconSize = getIconSize(size);
+  const iconColor = getIconColor(color);
+
   return (
     <svg
       className={className}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
+      width={iconSize}
+      height={iconSize}
       fill="none"
       viewBox="0 0 24 24"
     >
       <path
-        stroke={color}
+        stroke={iconColor}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="2"
@@ -28,4 +28,6 @@ export default function InfoCircleIcon({
       />
     </svg>
   );
-}
+};
+
+export default InfoCircleIcon;

@@ -1,192 +1,125 @@
 import * as React from "react";
-import {
-  Controller,
-  FormProvider,
-  useFormContext,
-  useFormState,
-  type ControllerProps,
-  type FieldPath,
-  type FieldValues,
-} from "react-hook-form";
 import styles from "./Form.module.css";
 
-const Form = FormProvider;
+import { FormContext, FormFieldContext } from "./context";
 
-type FormFieldContextValue<
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = {
-  name: TName;
-};
+import { useField } from "./hooks";
+import { cn } from "./utils";
 
-const FormFieldContext = React.createContext<FormFieldContextValue | null>(
-  null,
-);
+import type { ValidationRule } from "./types";
 
-type FormItemContextValue = {
-  id: string;
-};
+import type { UseFormReturn } from "./useForm";
 
-const FormItemContext = React.createContext<FormItemContextValue | null>(null);
+/* ---------------------------------- */
+/* Form Provider                      */
+/* ---------------------------------- */
 
-const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
+interface FormProps {
+  children: React.ReactNode;
+  form: UseFormReturn;
+}
+
+function Form({ children, form }: FormProps) {
+  return <FormContext.Provider value={form}>{children}</FormContext.Provider>;
+}
+
+/* ---------------------------------- */
+/* Form Field                         */
+/* ---------------------------------- */
+
+interface FormFieldProps {
+  name: string;
+  validation?: ValidationRule;
+  children: React.ReactNode;
+}
+
+function FormField({ name, validation, children }: FormFieldProps) {
+  const form = React.useContext(FormContext);
+
+  React.useEffect(() => {
+    form?.registerValidation(name, validation);
+  }, [name, validation, form]);
+
   return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
+    <FormFieldContext.Provider value={name}>
+      {children}
     </FormFieldContext.Provider>
   );
-};
-
-function useFormField() {
-  const fieldContext = React.useContext(FormFieldContext);
-  const itemContext = React.useContext(FormItemContext);
-
-  if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>");
-  }
-
-  if (!itemContext) {
-    throw new Error("useFormField should be used within <FormItem>");
-  }
-
-  const { getFieldState } = useFormContext();
-
-  const formState = useFormState({
-    name: fieldContext.name,
-  });
-
-  const fieldState = getFieldState(fieldContext.name, formState);
-
-  const { id } = itemContext;
-
-  return {
-    id,
-    name: fieldContext.name,
-    formItemId: `${id}-form-item`,
-    formDescriptionId: `${id}-form-item-description`,
-    formMessageId: `${id}-form-item-message`,
-    ...fieldState,
-  };
 }
 
-function FormItem({ className, ...props }: React.ComponentProps<"div">) {
-  const id = React.useId();
+/* ---------------------------------- */
+/* Form Item                          */
+/* ---------------------------------- */
 
-  return (
-    <FormItemContext.Provider value={{ id }}>
-      <div
-        data-slot="form-item"
-        className={`${styles.formItem} ${className ?? ""}`}
-        {...props}
-      />
-    </FormItemContext.Provider>
-  );
-}
-
-function FormLabel({ className, ...props }: React.ComponentProps<"label">) {
-  const { error, formItemId } = useFormField();
-
-  return (
-    <label
-      data-slot="form-label"
-      data-error={!!error}
-      className={`${styles.formLabel} ${
-        error ? styles.error : ""
-      } ${className ?? ""}`}
-      htmlFor={formItemId}
-      {...props}
-    />
-  );
-}
-
-interface SlotProps extends React.HTMLAttributes<HTMLElement> {
-  children?: React.ReactNode;
-}
-
-type SlotChildProps = {
-  className?: string;
-  [key: string]: unknown;
-};
-
-function Slot({ children, ...props }: SlotProps) {
-  if (React.isValidElement(children)) {
-    const child = children as React.ReactElement<SlotChildProps>;
-
-    return React.cloneElement(child, {
-      ...props,
-      ...child.props,
-    });
-  }
-
-  return <>{children}</>;
-}
-
-function FormControl({ ...props }: SlotProps) {
-  const { error, formItemId, formDescriptionId, formMessageId } =
-    useFormField();
-
-  return (
-    <Slot
-      data-slot="form-control"
-      id={formItemId}
-      aria-describedby={
-        !error ? formDescriptionId : `${formDescriptionId} ${formMessageId}`
-      }
-      aria-invalid={!!error}
-      {...props}
-    />
-  );
-}
-
-function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
-  const { formDescriptionId } = useFormField();
-
-  return (
-    <p
-      data-slot="form-description"
-      id={formDescriptionId}
-      className={`${styles.formDescription} ${className ?? ""}`}
-      {...props}
-    />
-  );
-}
-
-function FormMessage({
+function FormItem({
   className,
-  children,
   ...props
-}: React.ComponentProps<"p">) {
-  const { error, formMessageId } = useFormField();
-
-  const body = error ? String(error.message ?? "") : children;
-
-  if (!body) {
-    return null;
-  }
-
-  return (
-    <p
-      data-slot="form-message"
-      id={formMessageId}
-      className={`${styles.formMessage} ${className ?? ""}`}
-      {...props}
-    >
-      {body}
-    </p>
-  );
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return <div className={cn(styles.formItem, className)} {...props} />;
 }
 
-export {
-  Form,
-  FormItem,
-  FormLabel,
-  FormControl,
-  FormDescription,
-  FormMessage,
-  FormField,
+/* ---------------------------------- */
+/* Form Label                         */
+/* ---------------------------------- */
+
+function FormLabel({
+  className,
+  ...props
+}: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return <label className={cn(styles.formLabel, className)} {...props} />;
+}
+
+/* ---------------------------------- */
+/* Form Control                       */
+/* ---------------------------------- */
+
+type InputChildProps = {
+  value?: unknown;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
 };
+
+interface FormControlProps {
+  children: React.ReactElement<InputChildProps>;
+}
+
+function FormControl({ children }: FormControlProps) {
+  const name = React.useContext(FormFieldContext) ?? "";
+
+  const field = useField(name);
+
+  React.useEffect(() => {
+    if (!name) {
+      throw new Error("FormControl must be inside <FormField>");
+    }
+  }, [name]);
+
+  return React.cloneElement(children, {
+    value: field.value,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
+      field.setValue(e.target.value);
+    },
+    onBlur: field.onBlur,
+  });
+}
+
+/* ---------------------------------- */
+/* Form Message                       */
+/* ---------------------------------- */
+
+function FormMessage() {
+  const name = React.useContext(FormFieldContext) ?? "";
+
+  const field = useField(name);
+
+  React.useEffect(() => {
+    if (!name) {
+      throw new Error("FormMessage must be inside <FormField>");
+    }
+  }, [name]);
+
+  if (!field.error) return null;
+
+  return <p className={styles.formMessage}>{field.error}</p>;
+}
+export { Form, FormField, FormItem, FormLabel, FormControl, FormMessage };
