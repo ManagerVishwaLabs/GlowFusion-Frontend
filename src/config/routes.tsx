@@ -9,6 +9,7 @@ import {
 } from "../components/icons";
 
 import Page from "../pages/TestPage/TestPage";
+import CompanySetup from "../pages/CompanySetup";
 
 export type SubNavItem = {
   label: string;
@@ -38,6 +39,13 @@ export type NavItem = {
 };
 
 export const NAV_ITEMS: NavItem[] = [
+  {
+    label: "CompanySetup",
+    href: "/CompanySetup",
+    icon: User,
+    component: <CompanySetup />,
+    hideSidebar: true,
+  },
   {
     label: "Dashboard",
     href: "/",

@@ -1,7 +1,7 @@
 import type { IconProps } from "./types";
 import { getIconColor, getIconSize } from "./icon.utils";
 
-const UsersIcon = ({
+const BrandingIcon = ({
   size = "md",
   color = "primary",
   className = "",
@@ -16,18 +16,20 @@ const UsersIcon = ({
       height={iconSize}
       viewBox="0 0 24 24"
       fill="none"
-      stroke={iconColor}
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={`lucide-users ${className}`}
+      className={className}
     >
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-      <path d="M16 3.128a4 4 0 0 1 0 7.744" />
-      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
-      <circle cx="9" cy="7" r="4" />
+      <path
+        d="M12 3L4 7V17L12 21L20 17V7L12 3Z"
+        stroke={iconColor}
+        strokeWidth="2"
+      />
+      <path
+        d="M12 8L8 11V15L12 17L16 15V11L12 8Z"
+        stroke={iconColor}
+        strokeWidth="2"
+      />
     </svg>
   );
 };
 
-export default UsersIcon;
+export default BrandingIcon;

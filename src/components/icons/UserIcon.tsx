@@ -1,7 +1,11 @@
 import type { IconProps } from "./types";
 import { getIconColor, getIconSize } from "./icon.utils";
 
-const Zap = ({ size = "md", color = "primary", className = "" }: IconProps) => {
+const UserIcon = ({
+  size = "md",
+  color = "primary",
+  className = "",
+}: IconProps) => {
   const iconSize = getIconSize(size);
   const iconColor = getIconColor(color);
 
@@ -16,11 +20,12 @@ const Zap = ({ size = "md", color = "primary", className = "" }: IconProps) => {
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`lucide-zap ${className}`}
+      className={`lucide-user ${className}`}
     >
-      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
     </svg>
   );
 };
 
-export default Zap;
+export default UserIcon;

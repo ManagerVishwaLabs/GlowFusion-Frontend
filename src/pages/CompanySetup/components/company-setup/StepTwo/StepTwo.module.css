@@ -1,0 +1,243 @@
+.wrapper {
+  width: 100%;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 10px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.header p {
+  margin-top: 12px;
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+.headerImage {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+/* SECTION */
+.section {
+  background: #ffffff;
+  border: 1px solid #e8ecf4;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 18px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.sectionIcon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #eef2ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sectionHeader h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.socialGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* FIELD */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+/* ===========================================
+   INPUTS
+=========================================== */
+
+.field input {
+  width: 100%;
+  height: 40px;
+  border: 1.5px solid #6a6b6b;
+  border-radius: 10px;
+  padding: 0 10px;
+  background: #ffffff;
+  font-size: 15px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.field input::placeholder {
+  color: #94a3b8;
+}
+
+.field input:hover {
+  border-color: #cbd5e1;
+  background: #fcfcfd;
+}
+
+.field input:focus {
+  border-color: #4f6bff;
+  box-shadow: 0 0 0 4px rgba(79, 107, 255, 0.12);
+}
+
+/* TEXTAREA */
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: none;
+  border: 1.5px solid #6a6b6b;
+  border-radius: 12px;
+  padding: 14px 16px;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  transition: 0.2s ease;
+  margin: 0 0 25px 0;
+}
+
+.textarea:focus {
+  border-color: #4f6bff;
+}
+
+/* SELECT */
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  width: 100%;
+  height: 40px;
+  border: 1.5px solid #6a6b6b;
+  border-radius: 12px;
+  padding: 0 16px;
+  appearance: none;
+  outline: none;
+  font-size: 14px;
+  background: #fff;
+  transition: 0.2s ease;
+}
+
+.select:focus {
+  border-color: #4f6bff;
+}
+
+.chevron {
+  position: absolute;
+  top: 15px;
+  right: 14px;
+  pointer-events: none;
+}
+
+/* SOCIAL INPUT */
+.inputWrapper {
+  position: relative;
+}
+
+.socialIcon {
+  position: absolute;
+  top: 15px;
+  left: 14px;
+  z-index: 2;
+}
+
+.socialInput {
+  padding-left: 46px !important;
+}
+
+/* FOOTER */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.previousButton {
+  min-width: 180px;
+  height: 44px !important;
+  background: #b8c4fc !important;
+  color: white !important;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(35, 72, 255, 0.18);
+  gap: 8px;
+}
+
+.previousButton:hover {
+  background: #4f6bff !important;
+  box-shadow: 0 12px 28px rgba(39, 75, 255, 0.24);
+}
+.nextButton {
+  min-width: 180px;
+  height: 44px !important;
+  background: #4f6bff !important;
+  color: white !important;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(35, 72, 255, 0.18);
+}
+
+.nextButton:hover {
+  background: #274bff !important;
+  box-shadow: 0 12px 28px rgba(39, 75, 255, 0.24);
+}
+
+/* HOVER */
+.section:hover {
+  border-color: #d9e1ef;
+}
+
+/* RESPONSIVE */
+/* As for now there are no specific responsive requirements for this step, but we can easily add media queries here in the future if needed. */

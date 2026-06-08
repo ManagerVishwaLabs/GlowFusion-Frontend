@@ -1,7 +1,11 @@
 import type { IconProps } from "./types";
 import { getIconColor, getIconSize } from "./icon.utils";
 
-const Zap = ({ size = "md", color = "primary", className = "" }: IconProps) => {
+const DocumentIcon = ({
+  size = "md",
+  color = "primary",
+  className = "",
+}: IconProps) => {
   const iconSize = getIconSize(size);
   const iconColor = getIconColor(color);
 
@@ -13,14 +17,18 @@ const Zap = ({ size = "md", color = "primary", className = "" }: IconProps) => {
       viewBox="0 0 24 24"
       fill="none"
       stroke={iconColor}
-      strokeWidth={2}
+      strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={`lucide-zap ${className}`}
+      className={className}
     >
-      <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+      <path d="M14 2v6h6" />
+      <path d="M8 13h8" />
+      <path d="M8 17h8" />
+      <path d="M8 9h2" />
     </svg>
   );
 };
 
-export default Zap;
+export default DocumentIcon;

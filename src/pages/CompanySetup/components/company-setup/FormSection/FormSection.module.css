@@ -1,0 +1,67 @@
+.card {
+  background: #ffffff;
+  border: 1px solid #e9edf5;
+  border-radius: 28px;
+
+  padding: 32px;
+  margin-bottom: 28px;
+
+  box-shadow:
+    0 4px 12px rgba(17, 24, 39, 0.03),
+    0 12px 40px rgba(17, 24, 39, 0.04);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle top highlight */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 32px;
+
+  width: 120px;
+  height: 4px;
+
+  border-radius: 999px;
+
+  background: linear-gradient(90deg, #345dff, #7b61ff);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+
+  border-color: #dbe4ff;
+
+  box-shadow:
+    0 8px 20px rgba(17, 24, 39, 0.05),
+    0 20px 50px rgba(17, 24, 39, 0.06);
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+
+  margin-bottom: 28px;
+  letter-spacing: -0.3px;
+}
+
+/* optional subtitle inside card */
+.cardSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: -18px;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}

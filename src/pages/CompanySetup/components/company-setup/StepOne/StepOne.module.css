@@ -1,0 +1,485 @@
+.wrapper {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #f8fafc;
+}
+
+/* ===========================================
+   HEADER
+=========================================== */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 10px;
+}
+
+.headerContent {
+  flex: 1;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.header p {
+  margin-top: 12px;
+  font-size: 15px;
+  color: #64748b;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+.headerImage {
+  width: 180px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ===========================================
+   SECTION CARD
+=========================================== */
+
+.section {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  border-radius: 28px;
+  padding: 36px;
+  margin-bottom: 24px;
+  box-shadow:
+    0 10px 35px rgba(15, 23, 42, 0.05),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  transition: all 0.25s ease;
+}
+
+.section:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.08),
+    0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+/* ===========================================
+   SECTION HEADER
+=========================================== */
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.sectionIcon {
+  width: 58px;
+  height: 58px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.12);
+}
+
+.sectionHeader h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ===========================================
+   GRID
+=========================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.field {
+  align-items: flex-start;
+  grid-column: span 4;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fieldWide {
+  grid-column: span 6;
+}
+
+.fieldFull {
+  grid-column: span 12;
+}
+
+.addressField {
+  grid-column: span 8;
+}
+
+/* ===========================================
+   LABEL
+=========================================== */
+
+.field label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+/* ===========================================
+   INPUTS
+=========================================== */
+
+.field input,
+.field textarea,
+.select {
+  width: 100%;
+  height: 40px;
+  border: 1.5px solid #6a6b6b;
+  border-radius: 10px;
+  padding: 0 10px;
+  background: #ffffff;
+  font-size: 15px;
+  color: #0f172a;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+  padding-top: 18px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #94a3b8;
+}
+
+.field input:hover,
+.field textarea:hover,
+.select:hover {
+  border-color: #cbd5e1;
+  background: #fcfcfd;
+}
+
+.field input:focus,
+.field textarea:focus,
+.select:focus {
+  border-color: #4f6bff;
+  box-shadow: 0 0 0 4px rgba(79, 107, 255, 0.12);
+}
+
+/* ===========================================
+   PHONE INPUT
+=========================================== */
+
+.phoneInput {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  border: 1.5px solid #6a6b6b;
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  transition: all 0.25s ease;
+}
+
+.phoneInput:hover {
+  border-color: #cbd5e1;
+}
+
+.phoneInput:focus-within {
+  border-color: #4f6bff;
+  box-shadow: 0 0 0 4px rgba(79, 107, 255, 0.12);
+}
+
+.countryCode {
+  height: 100%;
+  min-width: 84px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px;
+  border-right: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.phoneField {
+  flex: 1;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* ===========================================
+   ERROR
+=========================================== */
+
+.error {
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+  animation: fadeIn 0.2s ease;
+}
+
+/* normal input error */
+.inputError {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
+}
+
+/* phone wrapper error */
+.phoneInputError {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
+}
+
+/* ===========================================
+   SELECT
+=========================================== */
+
+.selectWrapper {
+  position: relative;
+}
+
+.select {
+  appearance: none;
+  padding-right: 48px;
+}
+
+.chevron {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #64748b;
+}
+/* ===========================================
+   BRAND GRID
+=========================================== */
+
+.brandGrid {
+  /* display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px; */
+  align-items: start;
+}
+
+/* ===========================================
+   UPLOAD BOX
+=========================================== */
+
+.uploadBox {
+  min-height: 220px;
+  min-width: 580px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 20px;
+  background: #fcfdff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 32px;
+  margin-top: 12px;
+}
+
+.uploadBox:hover {
+  border-color: #274bff;
+  background: #f8faff;
+}
+
+.uploadTitle {
+  color: #274bff;
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 14px;
+}
+
+.uploadBox p {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.logoPreview {
+  width: 220px;
+  object-fit: contain;
+}
+
+.brandText {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+/* ===========================================
+   COLOR PICKER
+=========================================== */
+
+.colorList {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+}
+
+.colorCircle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.colorCircle:hover {
+  transform: scale(1.08);
+}
+
+.activeColor {
+  border: 4px solid #fff;
+  box-shadow:
+    0 0 0 2px #111827,
+    0 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.addColor {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid #dbe3ec;
+  background: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addColor:hover {
+  border-color: #4f6bff;
+  color: #4f6bff;
+}
+
+/* ===========================================
+   SPECIAL FIELD WIDTHS
+=========================================== */
+
+.addressField {
+  grid-column: span 8;
+}
+
+/* ===========================================
+   FOOTER
+=========================================== */
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 8px;
+}
+
+.nextButton {
+  min-width: 180px;
+  height: 44px !important;
+  background: #4f6bff !important;
+  color: white !important;
+  border-radius: 14px;
+  font-weight: 600;
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(35, 72, 255, 0.18);
+}
+
+.nextButton:hover {
+  background: #274bff !important;
+  box-shadow: 0 12px 28px rgba(39, 75, 255, 0.24);
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .field {
+    grid-column: span 3;
+  }
+
+  .addressField,
+  .fieldWide {
+    grid-column: span 6;
+  }
+
+  .brandGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerImage {
+    width: 140px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .field,
+  .fieldWide,
+  .fieldFull,
+  .addressField {
+    grid-column: span 1;
+  }
+
+  .section {
+    padding: 24px;
+    border-radius: 20px;
+  }
+
+  .footer {
+    justify-content: stretch;
+  }
+
+  .nextButton {
+    width: 100%;
+  }
+}
