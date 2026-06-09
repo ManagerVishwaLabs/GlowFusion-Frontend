@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 
 import styles from "./CompanySetup.module.css";
-import { SidebarStepper,StepOne, StepThree, StepTwo } from "./components";
+import { SidebarStepper, StepOne, StepThree, StepTwo } from "./components";
 import { useCompanyForm } from "./hooks/useCompanyForm";
 
 const CompanySetup = () => {
   const { currentStep, formData, errors, updateForm, nextStep, previousStep } =
     useCompanyForm();
 
-  const [animationClass, setAnimationClass] = useState("");
+  const [animationClass, setAnimationClass] = useState<"slideIn" | "slideOut">(
+    "slideOut",
+  );
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -65,7 +67,7 @@ const CompanySetup = () => {
         <div className={styles.content}>
           <div
             key={currentStep}
-            className={`${styles.stepContent} ${styles[animationClass]}`}
+            className={`${styles.stepContent} ${animationClass === "slideIn" ? styles.slideIn : ""} ${animationClass === "slideOut" ? styles.slideOut : ""}`}
           >
             {renderStep()}
           </div>

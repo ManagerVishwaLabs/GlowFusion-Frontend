@@ -36,7 +36,7 @@ const SidebarStepper = ({ currentStep }: Props) => {
       </div>
 
       {/* Steps */}
-      <div className={styles.steps}>
+      <div>
         {steps.map((step, index) => {
           const isActive = currentStep === index + 1;
 

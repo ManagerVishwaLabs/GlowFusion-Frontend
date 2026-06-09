@@ -44,6 +44,7 @@ interface InputProps<T extends InputType = "text"> extends Omit<
   disabled?: boolean;
   loading?: boolean;
   readOnly?: boolean;
+  hidden?: boolean;
   onChange?: (
     value: InputValue<T>,
     event: ChangeEvent<HTMLInputElement>,
@@ -65,6 +66,7 @@ const Input = <T extends InputType = "text">({
   disabled,
   loading,
   readOnly,
+  hidden,
   ...props
 }: InputProps<T>) => {
   const getValue = (
@@ -107,6 +109,7 @@ const Input = <T extends InputType = "text">({
         )}
         <input
           {...props}
+          hidden={hidden}
           placeholder={placeholder}
           aria-label={label}
           aria-describedby={helpText ? `${helpText}-help` : undefined}
@@ -116,6 +119,7 @@ const Input = <T extends InputType = "text">({
             styles.input,
             className,
             error && styles.inputError,
+            hidden ? styles.inputHidden : "",
           )}
           disabled={disabled || loading || readOnly}
           aria-disabled={disabled || loading || readOnly}

@@ -30,8 +30,9 @@ export default defineConfig([
     rules: {
       "simple-import-sort/imports": "error",
       "simple-import-sort/exports": "error",
+      "css-modules/no-unused-class": "error",
+      "css-modules/no-undef-class": "error",
 
-      // remove unused imports
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",

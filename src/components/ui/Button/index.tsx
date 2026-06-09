@@ -33,9 +33,26 @@ const Button = ({
   onClick,
   ...props
 }: ButtonProps) => {
-  const variantClass = styles[`variant_${variant}`] || styles.variant_default;
-  const sizeClass = styles[`size_${size}`] || styles.size_default;
+  const variantClasses = {
+    primary: styles.variant_primary,
+    destructive: styles.variant_destructive,
+    outline: styles.variant_outline,
+    secondary: styles.variant_secondary,
+    ghost: styles.variant_ghost,
+    link: styles.variant_link,
+  };
 
+  const sizeClasses = {
+    default: styles.size_default,
+    sm: styles.size_sm,
+    lg: styles.size_lg,
+    icon: styles.size_icon,
+    "icon-sm": styles["size_icon-sm"],
+    "icon-lg": styles["size_icon-lg"],
+  };
+
+  const variantClass = variantClasses[variant];
+  const sizeClass = sizeClasses[size];
   return (
     <button
       data-slot="button"

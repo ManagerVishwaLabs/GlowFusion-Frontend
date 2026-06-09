@@ -4,10 +4,10 @@ import {
   ArrowRightIcon,
   BrandingIcon,
   BuildingIcon,
-  ChevronDown,
   UploadCloudIcon,
 } from "../../../../../components/icons";
 import { Button, Input } from "../../../../../components/ui";
+import { combineClasses } from "../../../../../utils/helpers";
 import building from "../../../asserts/img/building.png";
 import type { CompanyFormData } from "../../../types/company";
 import styles from "./StepOne.module.css";
@@ -20,27 +20,19 @@ type Props = {
 };
 
 const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
-  // const [selectedColor, setSelectedColor] = useState(
-  //   formData?.brandColor ?? "#4F6BFF",
-  // );
-
   const [logo, setLogo] = useState<string | null>(formData?.logo ?? null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [logoError, setLogoError] = useState<string | null>(null);
 
-  // const brandColors = ["#4F6BFF", "#5B5FF5", "#7BCB4C", "#F5A623", "#EF4444"];
-
-  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
+  const handleLogoUpload = (file: FileList | null) => {
     if (!file) return;
 
-    if (file.size > 2 * 1024 * 1024) {
-      alert("File size should be below 2MB");
+    if (file[0].size > 0.1 * 1024 * 1024) {
+      setLogoError("File size should be below 2MB");
       return;
     }
 
-    const imageUrl = URL.createObjectURL(file);
-
+    const imageUrl = URL.createObjectURL(file[0]);
     setLogo(imageUrl);
 
     updateForm("logo", imageUrl);
@@ -71,192 +63,138 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
         <div className={styles.grid}>
           {/* Company Name */}
-          <div className={styles.field}>
-            <Input
-              label="Company Name"
-              id="companyName"
-              type="text"
-              placeholder="Enter company name"
-              value={formData.companyName}
-              error={errors.companyName}
-              onChange={(value) => updateForm("companyName", value)}
-            />
-          </div>
+          <Input
+            label="Company Name"
+            id="companyName"
+            type="text"
+            placeholder="Enter company name"
+            value={formData.companyName}
+            error={errors.companyName}
+            onChange={(value) => updateForm("companyName", value)}
+          />
 
           {/* Business Email */}
-          <div className={styles.field}>
-            <Input
-              label="Business Email"
-              id="businessEmail"
-              type="email"
-              placeholder="Enter business email"
-              value={formData.businessEmail}
-              error={errors.businessEmail}
-              onChange={(value) => updateForm("businessEmail", value)}
-            />
-          </div>
+          <Input
+            label="Business Email"
+            id="businessEmail"
+            type="email"
+            placeholder="Enter business email"
+            value={formData.businessEmail}
+            error={errors.businessEmail}
+            onChange={(value) => updateForm("businessEmail", value)}
+          />
 
-          {/* Phone */}
-          <div className={styles.field}>
-            <div
-              className={`${styles.phoneInput} ${
-                errors.phoneNumber ? styles.phoneInputError : ""
-              }`}
-            >
-              <div className={styles.countryCode}>IN +91</div>
-              <Input
-                label="Phone Number"
-                id="phoneNumber"
-                type="tel"
-                maxLength={10}
-                placeholder="Enter phone number"
-                className={styles.phoneField}
-                value={formData.phoneNumber}
-                error={errors.phoneNumber}
-                onChange={(value) =>
-                  updateForm("phoneNumber", value.replace(/\D/g, ""))
-                }
-              />
-            </div>
-          </div>
+          {/* Phone Number */}
+          <Input
+            label="Phone Number"
+            id="phoneNumber"
+            type="tel"
+            maxLength={10}
+            placeholder="Enter phone number"
+            value={formData.phoneNumber}
+            error={errors.phoneNumber}
+            onChange={(value) =>
+              updateForm("phoneNumber", value.replace(/\D/g, ""))
+            }
+          />
 
           {/* Website */}
-          <div className={styles.field}>
-            <Input
-              label="Website"
-              id="website"
-              type="text"
-              placeholder="yourwebsite.com"
-              value={formData.website.replace(/^https?:\/\//, "")}
-              className={styles.websiteInput}
-              onChange={(value) => {
-                const website = value
-                  .trim()
-                  .replace(/^https?:\/\//, "")
-                  .replace(/\s/g, "");
+          <Input
+            label="Website"
+            id="website"
+            type="text"
+            placeholder="yourwebsite.com"
+            value={formData.website.replace(/^https?:\/\//, "")}
+            onChange={(value) => {
+              const website = value
+                .trim()
+                .replace(/^https?:\/\//, "")
+                .replace(/\s/g, "");
 
-                updateForm("website", website);
-              }}
-              error={errors.website}
-            />
-          </div>
+              updateForm("website", website);
+            }}
+            error={errors.website}
+          />
 
           {/* Industry */}
-          <div className={styles.field}>
-            {/* <Label>Industry</Label> */}
+          <div>
+            <select
+              value={formData.industry}
+              onChange={(value) => updateForm("industry", value.target.value)}
+            >
+              <option value="">Select your industry</option>
 
-            <div className={styles.selectWrapper}>
-              <select
-                className={`${styles.select} ${
-                  errors.industry ? styles.inputError : ""
-                }`}
-                value={formData.industry}
-                onChange={(value) => updateForm("industry", value.target.value)}
-              >
-                <option value="">Select your industry</option>
-
-                <option value="technology">Technology</option>
-                <option value="finance">Finance</option>
-                <option value="healthcare">Healthcare</option>
-                <option value="education">Education</option>
-              </select>
-
-              <ChevronDown className={styles.chevron} />
-            </div>
-
-            {errors.industry && (
-              <span className={styles.error}>{errors.industry}</span>
-            )}
+              <option value="technology">Technology</option>
+              <option value="finance">Finance</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="education">Education</option>
+            </select>
           </div>
 
           {/* Company Size */}
-          <div className={styles.field}>
-            {/* <Label>Company Size</Label> */}
+          <div>
+            <select
+              value={formData.companySize}
+              onChange={(value) =>
+                updateForm("companySize", value.target.value)
+              }
+            >
+              <option value="">Select company size</option>
 
-            <div className={styles.selectWrapper}>
-              <select
-                className={`${styles.select} ${
-                  errors.companySize ? styles.inputError : ""
-                }`}
-                value={formData.companySize}
-                onChange={(value) =>
-                  updateForm("companySize", value.target.value)
-                }
-              >
-                <option value="">Select company size</option>
-
-                <option value="1-10">1 - 10</option>
-                <option value="11-50">11 - 50</option>
-                <option value="51-200">51 - 200</option>
-                <option value="201-500">201 - 500</option>
-              </select>
-
-              <ChevronDown className={styles.chevron} />
-            </div>
-
-            {errors.companySize && (
-              <span className={styles.error}>{errors.companySize}</span>
-            )}
+              <option value="1-10">1 - 10</option>
+              <option value="11-50">11 - 50</option>
+              <option value="51-200">51 - 200</option>
+              <option value="201-500">201 - 500</option>
+            </select>
           </div>
 
           {/* Country */}
-          <div className={styles.field}>
-            <Input
-              label="Country"
-              placeholder="Enter country"
-              value={formData.country}
-              error={errors.country}
-              onChange={(value) => updateForm("country", value)}
-            />
-          </div>
+          <Input
+            label="Country"
+            placeholder="Enter country"
+            value={formData.country}
+            error={errors.country}
+            onChange={(value) => updateForm("country", value)}
+          />
 
           {/* State */}
-          <div className={styles.field}>
-            <Input
-              label="State"
-              placeholder="Enter state"
-              value={formData.state}
-              error={errors.state}
-              onChange={(value) => updateForm("state", value)}
-            />
-          </div>
+          <Input
+            label="State"
+            placeholder="Enter state"
+            value={formData.state}
+            error={errors.state}
+            onChange={(value) => updateForm("state", value)}
+          />
 
           {/* City */}
-          <div className={styles.field}>
-            <Input
-              label="City"
-              placeholder="Enter city"
-              value={formData.city}
-              error={errors.city}
-              onChange={(value) => updateForm("city", value)}
-            />
-          </div>
+          <Input
+            label="City"
+            placeholder="Enter city"
+            value={formData.city}
+            error={errors.city}
+            onChange={(value) => updateForm("city", value)}
+          />
 
           {/* Address */}
-          <div className={`${styles.field} ${styles.addressField}`}>
-            <Input
-              label="Address"
-              placeholder="Enter complete address"
-              value={formData.address}
-              error={errors.address}
-              onChange={(value) => updateForm("address", value)}
-            />
-          </div>
+          <Input
+            label="Address"
+            placeholder="Enter complete address"
+            value={formData.address}
+            error={errors.address}
+            onChange={(value) => updateForm("address", value)}
+          />
 
           {/* Pincode */}
-          <div className={styles.field}>
-            <Input
-              label="Pincode"
-              maxLength={6}
-              placeholder="Enter Pin code"
-              value={formData.pincode}
-              className={errors.pincode ? styles.inputError : ""}
-              error={errors.pincode}
-              onChange={(value) =>
-                updateForm("pincode", value.replace(/\D/g, ""))
-              }
-            />
-          </div>
+          <Input
+            label="Pincode"
+            maxLength={6}
+            placeholder="Enter Pin code"
+            value={formData.pincode}
+            error={errors.pincode}
+            onChange={(value) =>
+              updateForm("pincode", value.replace(/\D/g, ""))
+            }
+          />
         </div>
       </section>
 
@@ -271,14 +209,20 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
         </div>
 
         <div className={styles.brandGrid}>
-          <div className={styles.logoWrapper}>
+          <div>
             <h4>Company Logo</h4>
 
             <div
-              className={styles.uploadBox}
-              onClick={() => fileInputRef.current?.click()}
+              className={combineClasses(
+                styles.uploadBox,
+                logoError ? styles.uploadError : "",
+              )}
+              onClick={() => {
+                setLogoError(null);
+                fileInputRef.current?.click();
+              }}
             >
-              <input
+              <Input
                 type="file"
                 accept="image/*"
                 hidden
@@ -298,31 +242,8 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
                 </>
               )}
             </div>
+            {logoError && <span className={styles.error}>{logoError}</span>}
           </div>
-
-          {/* <div className={styles.colorWrapper}>
-            <Label>Brand Color</Label>
-
-            <div className={styles.colorList}>
-              {brandColors.map((color) => (
-                <button
-                  key={color}
-                  type="button"
-                  className={`${styles.colorCircle} ${
-                    selectedColor === color ? styles.activeColor : ""
-                  }`}
-                  style={{
-                    backgroundColor: color,
-                  }}
-                  onClick={() => {
-                    setSelectedColor(color);
-
-                    updateForm("brandColor", color);
-                  }}
-                />
-              ))}
-            </div>
-          </div> */}
         </div>
       </section>
 

@@ -11,18 +11,6 @@
   height: calc(100vh - 48px);
 }
 
-/* LEFT SIDEBAR WRAPPER */
-.sidebarWrapper {
-  width: 320px;
-  min-width: 320px;
-  height: 100%;
-
-  position: sticky;
-  top: 0;
-
-  flex-shrink: 0;
-}
-
 /* RIGHT CONTENT */
 .content {
   flex: 1;
@@ -58,7 +46,7 @@
 .content p {
   font-size: 16px;
   color: #6b7280;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 
 .stepContent {

@@ -10,7 +10,7 @@ import {
 import CompanySetup from "../pages/CompanySetup";
 import Page from "../pages/TestPage/TestPage";
 
-export type SubNavItem = {
+type SubNavItem = {
   label: string;
   href: string;
   icon: React.ComponentType<{
@@ -21,7 +21,7 @@ export type SubNavItem = {
   component: ReactNode;
 };
 
-export type NavItem = {
+type NavItem = {
   label: string;
   href?: string;
   icon: React.ComponentType<{
@@ -37,10 +37,10 @@ export type NavItem = {
   children?: SubNavItem[];
 };
 
-export const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   {
-    label: "CompanySetup",
-    href: "/CompanySetup",
+    label: "Company Setup",
+    href: "/company-setup",
     icon: User,
     component: <CompanySetup />,
     hideSidebar: true,
@@ -82,3 +82,5 @@ export const NAV_ITEMS: NavItem[] = [
     ],
   },
 ];
+
+export { NAV_ITEMS };

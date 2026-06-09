@@ -1,5 +1,6 @@
-import { type ComponentProps,useState } from "react";
+import { type ComponentProps, useState } from "react";
 
+import { combineClasses } from "../../../utils/helpers";
 import CheckIcon from "../../icons/CheckIcon";
 import styles from "./Checkbox.module.css";
 
@@ -35,15 +36,6 @@ function Checkbox({
     onCheckedChange?.(newChecked);
   };
 
-  const combinedClassName = [
-    styles.checkbox,
-    checked ? styles.checked : "",
-    disabled ? styles.disabled : "",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
     <button
       type="button"
@@ -52,7 +44,12 @@ function Checkbox({
       data-state={checked ? "checked" : "unchecked"}
       data-slot="checkbox"
       disabled={disabled}
-      className={combinedClassName}
+      className={combineClasses(
+        styles.checkbox,
+        // checked ? styles.checked : "",
+        // disabled ? styles.disabled : "",
+        className,
+      )}
       onClick={handleClick}
       {...props}
     >

@@ -8,7 +8,7 @@ import {
   SocialIcon,
   TwitterIcon,
 } from "../../../../../components/icons";
-import { Button,Input } from "../../../../../components/ui";
+import { Button, Input } from "../../../../../components/ui";
 import cmp from "../../../asserts/img/cmp.png";
 import type { CompanyFormData } from "../../../types/company";
 import styles from "./StepTwo.module.css";
@@ -60,10 +60,6 @@ const StepTwo = ({
             onChange={(e) => updateForm("aboutCompany", e.target.value)}
             placeholder="Write about your company..."
           />
-
-          {errors.aboutCompany && (
-            <span className={styles.error}>{errors.aboutCompany}</span>
-          )}
         </div>
 
         <div className={styles.grid}>
