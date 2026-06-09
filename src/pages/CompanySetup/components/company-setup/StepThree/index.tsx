@@ -22,7 +22,7 @@ type Props = {
   onSubmit: () => void;
 };
 
-const StepThree = ({ onPrevious }: Props) => {
+const StepThree = ({ formData, errors, updateForm, onPrevious }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -68,8 +68,13 @@ const StepThree = ({ onPrevious }: Props) => {
               <Input
                 label="Phone Number"
                 placeholder="Enter phone number"
+                value={formData.adminPhone}
                 className={styles.phoneField}
+                onChange={(value) => updateForm("adminPhone", value)}
               />
+              {errors.adminPhone && (
+                <span className={styles.error}>{errors.adminPhone}</span>
+              )}
             </div>
           </div>
 
@@ -77,7 +82,11 @@ const StepThree = ({ onPrevious }: Props) => {
             {/* <Label>Designation *</Label> */}
 
             <div className={styles.selectWrapper}>
-              <select className={styles.select}>
+              <select
+                className={styles.select}
+                value={formData.designation}
+                onChange={(e) => updateForm("designation", e.target.value)}
+              >
                 <option>Select designation</option>
               </select>
 
@@ -107,6 +116,7 @@ const StepThree = ({ onPrevious }: Props) => {
                 label="Password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter password"
+                onChange={(value) => updateForm("password", value)}
               />
 
               <button
@@ -128,6 +138,7 @@ const StepThree = ({ onPrevious }: Props) => {
                 label="Confirm Password"
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm password"
+                onChange={(value) => updateForm("confirmPassword", value)}
               />
 
               <button

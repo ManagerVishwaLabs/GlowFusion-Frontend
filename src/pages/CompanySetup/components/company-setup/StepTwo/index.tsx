@@ -69,6 +69,7 @@ const StepTwo = ({
             <Input
               label="Vision / Mission"
               placeholder="Your company vision or mission"
+              label="Vision / Mission"
               value={formData.visionMission}
               error={errors.visionMission}
               onChange={(value) => updateForm("visionMission", value)}
@@ -119,6 +120,7 @@ const StepTwo = ({
                 label="LinkedIn"
                 placeholder="https://linkedin.com/company/"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("linkedin", value)}
               />
             </div>
           </div>
@@ -132,6 +134,7 @@ const StepTwo = ({
                 label="Instagram"
                 placeholder="https://instagram.com/yourcompany"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("instagram", value)}
               />
             </div>
           </div>
@@ -145,6 +148,7 @@ const StepTwo = ({
                 label="Facebook"
                 placeholder="https://facebook.com/yourcompany"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("facebook", value)}
               />
             </div>
           </div>
@@ -158,6 +162,7 @@ const StepTwo = ({
                 label="Twitter"
                 placeholder="https://twitter.com/yourcompany"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("twitter", value)}
               />
             </div>
           </div>
