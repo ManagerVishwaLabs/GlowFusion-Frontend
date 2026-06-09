@@ -10,7 +10,9 @@ const Page = ({ title }: { title: string }) => (
         helpText="we will never see your mail"
         label="Email"
         loading
+        onChange={() => {}}
         placeholder="Enter your email"
+        value={undefined}
       />
 
       <Button loading onClick={() => alert("Hello")}>

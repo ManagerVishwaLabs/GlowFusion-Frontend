@@ -210,6 +210,7 @@ const StepOne = ({ errors, formData, nextStep, updateForm }: Props) => {
                 onChange={handleLogoUpload}
                 ref={fileInputRef}
                 type="file"
+                value={""}
               />
 
               {logo ? (
