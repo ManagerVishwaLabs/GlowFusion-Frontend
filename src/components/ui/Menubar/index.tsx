@@ -1,15 +1,16 @@
 import {
+  type ComponentProps,
   createContext,
   forwardRef,
+  type HTMLAttributes,
+  type ReactNode,
   useContext,
   useEffect,
   useId,
   useRef,
   useState,
-  type ComponentProps,
-  type HTMLAttributes,
-  type ReactNode,
 } from "react";
+
 import { CheckIcon, ChevronRight, Circle } from "../../icons";
 import styles from "./Menubar.module.css";
 
@@ -390,19 +391,19 @@ MenubarShortcut.displayName = "MenubarShortcut";
 
 export {
   Menubar,
-  MenubarMenu,
-  MenubarTrigger,
-  MenubarContent,
-  MenubarItem,
-  MenubarSeparator,
-  MenubarLabel,
   MenubarCheckboxItem,
+  MenubarContent,
+  MenubarGroup,
+  MenubarItem,
+  MenubarLabel,
+  MenubarMenu,
+  MenubarPortal,
   MenubarRadioGroup,
   MenubarRadioItem,
-  MenubarPortal,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
   MenubarSubContent,
   MenubarSubTrigger,
-  MenubarGroup,
-  MenubarSub,
-  MenubarShortcut,
+  MenubarTrigger,
 };

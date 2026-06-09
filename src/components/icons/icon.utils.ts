@@ -4,7 +4,6 @@ import {
   ICON_COLORS,
   ICON_SIZES,
 } from "./icon.constants";
-
 import type { IconColor, IconSize } from "./types";
 
 export const getIconSize = (size?: IconSize | number): number => {

@@ -1,18 +1,18 @@
 import { useState } from "react";
-import styles from "./StepThree.module.css";
 
 import {
-  ChevronDown,
-  EyeIcon,
-  ArrowRightIcon,
   ArrowLeftIcon,
-  Users,
+  ArrowRightIcon,
+  ChevronDown,
   DocumentIcon,
+  EyeIcon,
   SecurityIcon,
+  Users,
 } from "../../../../../components/icons";
-import { Button, Checkbox, Input, Label } from "../../../../../components/ui";
+import { Button, Checkbox, Input } from "../../../../../components/ui";
 import User from "../../../asserts/img/User.png";
 import type { CompanyFormData } from "../../../types/company";
+import styles from "./StepThree.module.css";
 
 type Props = {
   formData: CompanyFormData;
@@ -54,24 +54,19 @@ const StepThree = ({ onPrevious }: Props) => {
 
         <div className={styles.grid}>
           <div className={styles.field}>
-            <Label>Full Name *</Label>
-
-            <Input placeholder="Enter full name" />
+            <Input label="Full Name" placeholder="Enter full name" />
           </div>
 
           <div className={styles.field}>
-            <Label>Email Address *</Label>
-
-            <Input placeholder="Enter email address" />
+            <Input label="Email Address" placeholder="Enter email address" />
           </div>
 
           <div className={styles.field}>
-            <Label>Phone Number *</Label>
-
             <div className={styles.phoneInput}>
               <div className={styles.countryCode}>🇮🇳 +91</div>
 
               <Input
+                label="Phone Number"
                 placeholder="Enter phone number"
                 className={styles.phoneField}
               />
@@ -79,7 +74,7 @@ const StepThree = ({ onPrevious }: Props) => {
           </div>
 
           <div className={styles.field}>
-            <Label>Designation *</Label>
+            {/* <Label>Designation *</Label> */}
 
             <div className={styles.selectWrapper}>
               <select className={styles.select}>
@@ -105,10 +100,11 @@ const StepThree = ({ onPrevious }: Props) => {
         <div className={styles.securityGrid}>
           {/* PASSWORD */}
           <div className={styles.field}>
-            <Label>Password *</Label>
+            {/* <Label>Password *</Label> */}
 
             <div className={styles.passwordWrapper}>
               <Input
+                label="Password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter password"
               />
@@ -125,10 +121,11 @@ const StepThree = ({ onPrevious }: Props) => {
 
           {/* CONFIRM PASSWORD */}
           <div className={styles.field}>
-            <Label>Confirm Password *</Label>
+            {/* <Label>Confirm Password *</Label> */}
 
             <div className={styles.passwordWrapper}>
               <Input
+                label="Confirm Password"
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm password"
               />
@@ -161,11 +158,11 @@ const StepThree = ({ onPrevious }: Props) => {
             onCheckedChange={(checked) => setAgree(checked as boolean)}
           />
 
-          <Label className={styles.checkboxLabel}>
+          <div className={styles.checkboxLabel}>
             I agree to the{" "}
             <span className={styles.link}>Terms & Conditions</span> and{" "}
             <span className={styles.link}>Privacy Policy</span>
-          </Label>
+          </div>
         </div>
       </section>
 
@@ -180,7 +177,7 @@ const StepThree = ({ onPrevious }: Props) => {
           Previous
         </Button>
 
-        <Button className={styles.createButton}>
+        <Button onClick={() => {}} className={styles.createButton}>
           Create Account
           <ArrowRightIcon size={18} color="#fff" />
         </Button>

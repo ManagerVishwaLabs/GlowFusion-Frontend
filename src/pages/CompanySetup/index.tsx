@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from "./CompanySetup.module.css";
 
-import { StepOne, StepTwo, StepThree, SidebarStepper } from "./components";
+import styles from "./CompanySetup.module.css";
+import { SidebarStepper,StepOne, StepThree, StepTwo } from "./components";
 import { useCompanyForm } from "./hooks/useCompanyForm";
 
 const CompanySetup = () => {

@@ -234,21 +234,6 @@
 /* ===========================================
    ERROR
 =========================================== */
-
-.error {
-  color: #dc2626;
-  font-size: 13px;
-  font-weight: 500;
-  margin-top: 4px;
-  animation: fadeIn 0.2s ease;
-}
-
-/* normal input error */
-.inputError {
-  border-color: #ef4444 !important;
-  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12) !important;
-}
-
 /* phone wrapper error */
 .phoneInputError {
   border-color: #ef4444 !important;

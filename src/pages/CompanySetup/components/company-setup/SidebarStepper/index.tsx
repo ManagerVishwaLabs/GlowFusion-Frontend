@@ -1,5 +1,5 @@
-import styles from "./SidebarStepper.module.css";
 import logo from "../../../asserts/img/logo.png";
+import styles from "./SidebarStepper.module.css";
 
 type Props = {
   currentStep: number;

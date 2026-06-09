@@ -1,10 +1,11 @@
 import { useState } from "react";
-import type { CompanyFormData } from "../types/company";
+
 import {
   validateStepOne,
-  validateStepTwo,
   validateStepThree,
+  validateStepTwo,
 } from "../components/company-setup/validations";
+import type { CompanyFormData } from "../types/company";
 
 type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
 

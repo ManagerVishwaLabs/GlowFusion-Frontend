@@ -1,19 +1,17 @@
-import styles from "./StepTwo.module.css";
-
-import { Input, Label, Button } from "../../../../../components/ui";
-
 import {
-  SocialIcon,
   ArrowRightIcon,
-  ChevronLeft,
   BusinessOverviewIcon,
-  LinkedInIcon,
-  InstagramIcon,
+  ChevronLeft,
   FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  SocialIcon,
   TwitterIcon,
 } from "../../../../../components/icons";
+import { Button,Input } from "../../../../../components/ui";
 import cmp from "../../../asserts/img/cmp.png";
 import type { CompanyFormData } from "../../../types/company";
+import styles from "./StepTwo.module.css";
 
 type Props = {
   formData: CompanyFormData;
@@ -54,7 +52,7 @@ const StepTwo = ({
         </div>
 
         <div className={styles.field}>
-          <Label>About Company *</Label>
+          {/* <Label>About Company *</Label> */}
 
           <textarea
             className={styles.textarea}
@@ -70,51 +68,37 @@ const StepTwo = ({
 
         <div className={styles.grid}>
           <div className={styles.field}>
-            <Label>Vision / Mission</Label>
+            {/* <Label>Vision / Mission</Label> */}
 
             <Input
+              label="Vision / Mission"
               placeholder="Your company vision or mission"
               value={formData.visionMission}
-              error={!!errors.visionMission}
-              className={errors.visionMission ? styles.inputError : ""}
-              onChange={(e) => updateForm("visionMission", e.target.value)}
+              error={errors.visionMission}
+              onChange={(value) => updateForm("visionMission", value)}
             />
-
-            {errors.visionMission && (
-              <span className={styles.error}>{errors.visionMission}</span>
-            )}
           </div>
 
           <div className={styles.field}>
-            <Label>Founded Year</Label>
-
             <Input
+              label="Founded Year"
               placeholder="Your company founded year"
               value={formData.foundedYear}
-              className={errors.foundedYear ? styles.inputError : ""}
-              onChange={(e) =>
-                updateForm("foundedYear", e.target.value.replace(/\D/g, ""))
+              error={errors.foundedYear}
+              onChange={(value) =>
+                updateForm("foundedYear", value.replace(/\D/g, ""))
               }
             />
-
-            {errors.foundedYear && (
-              <span className={styles.error}>{errors.foundedYear}</span>
-            )}
           </div>
 
           <div className={styles.field}>
-            <Label>Registration Number</Label>
-
             <Input
+              label="Registration Number"
               placeholder="Enter registration number"
               value={formData.registrationNumber}
-              className={errors.registrationNumber ? styles.inputError : ""}
-              onChange={(e) => updateForm("registrationNumber", e.target.value)}
+              error={errors.registrationNumber}
+              onChange={(value) => updateForm("registrationNumber", value)}
             />
-
-            {errors.registrationNumber && (
-              <span className={styles.error}>{errors.registrationNumber}</span>
-            )}
           </div>
         </div>
       </section>
@@ -132,12 +116,11 @@ const StepTwo = ({
         <div className={styles.socialGrid}>
           {/* LINKEDIN */}
           <div className={styles.field}>
-            <Label>LinkedIn</Label>
-
             <div className={styles.inputWrapper}>
               <LinkedInIcon size={18} className={styles.socialIcon} />
 
               <Input
+                label="LinkedIn"
                 placeholder="https://linkedin.com/company/"
                 className={styles.socialInput}
               />
@@ -146,12 +129,11 @@ const StepTwo = ({
 
           {/* INSTAGRAM */}
           <div className={styles.field}>
-            <Label>Instagram</Label>
-
             <div className={styles.inputWrapper}>
               <InstagramIcon size={18} className={styles.socialIcon} />
 
               <Input
+                label="Instagram"
                 placeholder="https://instagram.com/yourcompany"
                 className={styles.socialInput}
               />
@@ -160,12 +142,11 @@ const StepTwo = ({
 
           {/* FACEBOOK */}
           <div className={styles.field}>
-            <Label>Facebook</Label>
-
             <div className={styles.inputWrapper}>
               <FacebookIcon size={18} className={styles.socialIcon} />
 
               <Input
+                label="Facebook"
                 placeholder="https://facebook.com/yourcompany"
                 className={styles.socialInput}
               />
@@ -174,12 +155,11 @@ const StepTwo = ({
 
           {/* TWITTER */}
           <div className={styles.field}>
-            <Label>Twitter</Label>
-
             <div className={styles.inputWrapper}>
               <TwitterIcon size={18} className={styles.socialIcon} />
 
               <Input
+                label="Twitter"
                 placeholder="https://twitter.com/yourcompany"
                 className={styles.socialInput}
               />

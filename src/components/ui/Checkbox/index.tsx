@@ -1,4 +1,5 @@
-import { useState, type ComponentProps } from "react";
+import { type ComponentProps,useState } from "react";
+
 import CheckIcon from "../../icons/CheckIcon";
 import styles from "./Checkbox.module.css";
 

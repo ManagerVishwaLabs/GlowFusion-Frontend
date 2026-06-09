@@ -11,10 +11,6 @@
   margin-bottom: 10px;
 }
 
-.headerContent {
-  flex: 1;
-}
-
 .header h1 {
   margin: 0;
   font-size: 34px;
@@ -147,35 +143,6 @@
 
 .textarea:focus {
   border-color: #4f6bff;
-}
-
-/* SELECT */
-.selectWrapper {
-  position: relative;
-}
-
-.select {
-  width: 100%;
-  height: 40px;
-  border: 1.5px solid #6a6b6b;
-  border-radius: 12px;
-  padding: 0 16px;
-  appearance: none;
-  outline: none;
-  font-size: 14px;
-  background: #fff;
-  transition: 0.2s ease;
-}
-
-.select:focus {
-  border-color: #4f6bff;
-}
-
-.chevron {
-  position: absolute;
-  top: 15px;
-  right: 14px;
-  pointer-events: none;
 }
 
 /* SOCIAL INPUT */

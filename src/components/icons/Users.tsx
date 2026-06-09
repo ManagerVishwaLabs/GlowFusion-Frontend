@@ -1,5 +1,5 @@
-import type { IconProps } from "./types";
 import { getIconColor, getIconSize } from "./icon.utils";
+import type { IconProps } from "./types";
 
 const UsersIcon = ({
   size = "md",

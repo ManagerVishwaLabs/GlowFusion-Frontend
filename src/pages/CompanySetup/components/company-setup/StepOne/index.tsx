@@ -1,18 +1,16 @@
 import { useRef, useState } from "react";
-import styles from "./StepOne.module.css";
 
 import {
-  BuildingIcon,
+  ArrowRightIcon,
   BrandingIcon,
+  BuildingIcon,
   ChevronDown,
   UploadCloudIcon,
-  ArrowRightIcon,
 } from "../../../../../components/icons";
-
-import { Button, Input, Label } from "../../../../../components/ui";
-
+import { Button, Input } from "../../../../../components/ui";
 import building from "../../../asserts/img/building.png";
 import type { CompanyFormData } from "../../../types/company";
+import styles from "./StepOne.module.css";
 
 type Props = {
   formData: CompanyFormData;
@@ -74,105 +72,78 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
         <div className={styles.grid}>
           {/* Company Name */}
           <div className={styles.field}>
-            <Label htmlFor="companyName">Company Name</Label>
-
             <Input
+              label="Company Name"
               id="companyName"
               type="text"
               placeholder="Enter company name"
               value={formData.companyName}
-              className={errors.companyName ? styles.inputError : ""}
-              onChange={(e) => updateForm("companyName", e.target.value)}
+              error={errors.companyName}
+              onChange={(value) => updateForm("companyName", value)}
             />
-
-            {errors.companyName && (
-              <span className={styles.error}>{errors.companyName}</span>
-            )}
           </div>
 
           {/* Business Email */}
           <div className={styles.field}>
-            <Label htmlFor="businessEmail">Business Email</Label>
-
             <Input
+              label="Business Email"
               id="businessEmail"
               type="email"
               placeholder="Enter business email"
               value={formData.businessEmail}
-              className={errors.businessEmail ? styles.inputError : ""}
-              onChange={(e) => updateForm("businessEmail", e.target.value)}
+              error={errors.businessEmail}
+              onChange={(value) => updateForm("businessEmail", value)}
             />
-
-            {errors.businessEmail && (
-              <span className={styles.error}>{errors.businessEmail}</span>
-            )}
           </div>
 
           {/* Phone */}
           <div className={styles.field}>
-            <Label htmlFor="phoneNumber">Phone Number</Label>
-
             <div
               className={`${styles.phoneInput} ${
                 errors.phoneNumber ? styles.phoneInputError : ""
               }`}
             >
               <div className={styles.countryCode}>IN +91</div>
-
               <Input
+                label="Phone Number"
                 id="phoneNumber"
                 type="tel"
                 maxLength={10}
                 placeholder="Enter phone number"
                 className={styles.phoneField}
                 value={formData.phoneNumber}
-                onChange={(e) =>
-                  updateForm("phoneNumber", e.target.value.replace(/\D/g, ""))
+                error={errors.phoneNumber}
+                onChange={(value) =>
+                  updateForm("phoneNumber", value.replace(/\D/g, ""))
                 }
               />
             </div>
-
-            {errors.phoneNumber && (
-              <span className={styles.error}>{errors.phoneNumber}</span>
-            )}
           </div>
 
           {/* Website */}
           <div className={styles.field}>
-            <Label htmlFor="website">Website</Label>
+            <Input
+              label="Website"
+              id="website"
+              type="text"
+              placeholder="yourwebsite.com"
+              value={formData.website.replace(/^https?:\/\//, "")}
+              className={styles.websiteInput}
+              onChange={(value) => {
+                const website = value
+                  .trim()
+                  .replace(/^https?:\/\//, "")
+                  .replace(/\s/g, "");
 
-            <div
-              className={`${styles.websiteWrapper} ${
-                errors.website ? styles.inputError : ""
-              }`}
-            >
-              {/* <span className={styles.websitePrefix}>https://</span> */}
-
-              <Input
-                id="website"
-                type="text"
-                placeholder="yourwebsite.com"
-                value={formData.website.replace(/^https?:\/\//, "")}
-                className={styles.websiteInput}
-                onChange={(e) => {
-                  const value = e.target.value
-                    .trim()
-                    .replace(/^https?:\/\//, "")
-                    .replace(/\s/g, "");
-
-                  updateForm("website", value);
-                }}
-              />
-            </div>
-
-            {errors.website && (
-              <span className={styles.error}>{errors.website}</span>
-            )}
+                updateForm("website", website);
+              }}
+              error={errors.website}
+            />
           </div>
 
           {/* Industry */}
           <div className={styles.field}>
-            <Label>Industry</Label>
+            {/* <Label>Industry</Label> */}
 
             <div className={styles.selectWrapper}>
               <select
@@ -180,7 +151,7 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
                   errors.industry ? styles.inputError : ""
                 }`}
                 value={formData.industry}
-                onChange={(e) => updateForm("industry", e.target.value)}
+                onChange={(value) => updateForm("industry", value.target.value)}
               >
                 <option value="">Select your industry</option>
 
@@ -200,7 +171,7 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
           {/* Company Size */}
           <div className={styles.field}>
-            <Label>Company Size</Label>
+            {/* <Label>Company Size</Label> */}
 
             <div className={styles.selectWrapper}>
               <select
@@ -208,7 +179,9 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
                   errors.companySize ? styles.inputError : ""
                 }`}
                 value={formData.companySize}
-                onChange={(e) => updateForm("companySize", e.target.value)}
+                onChange={(value) =>
+                  updateForm("companySize", value.target.value)
+                }
               >
                 <option value="">Select company size</option>
 
@@ -228,83 +201,61 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
           {/* Country */}
           <div className={styles.field}>
-            <Label>Country</Label>
-
             <Input
+              label="Country"
               placeholder="Enter country"
               value={formData.country}
-              className={errors.country ? styles.inputError : ""}
-              onChange={(e) => updateForm("country", e.target.value)}
+              error={errors.country}
+              onChange={(value) => updateForm("country", value)}
             />
-
-            {errors.country && (
-              <span className={styles.error}>{errors.country}</span>
-            )}
           </div>
 
           {/* State */}
           <div className={styles.field}>
-            <Label>State</Label>
-
             <Input
+              label="State"
               placeholder="Enter state"
               value={formData.state}
-              className={errors.state ? styles.inputError : ""}
-              onChange={(e) => updateForm("state", e.target.value)}
+              error={errors.state}
+              onChange={(value) => updateForm("state", value)}
             />
-
-            {errors.state && (
-              <span className={styles.error}>{errors.state}</span>
-            )}
           </div>
 
           {/* City */}
           <div className={styles.field}>
-            <Label>City</Label>
-
             <Input
+              label="City"
               placeholder="Enter city"
               value={formData.city}
-              className={errors.city ? styles.inputError : ""}
-              onChange={(e) => updateForm("city", e.target.value)}
+              error={errors.city}
+              onChange={(value) => updateForm("city", value)}
             />
-
-            {errors.city && <span className={styles.error}>{errors.city}</span>}
           </div>
 
           {/* Address */}
           <div className={`${styles.field} ${styles.addressField}`}>
-            <Label>Address</Label>
-
             <Input
+              label="Address"
               placeholder="Enter complete address"
               value={formData.address}
-              className={errors.address ? styles.inputError : ""}
-              onChange={(e) => updateForm("address", e.target.value)}
+              error={errors.address}
+              onChange={(value) => updateForm("address", value)}
             />
-
-            {errors.address && (
-              <span className={styles.error}>{errors.address}</span>
-            )}
           </div>
 
           {/* Pincode */}
           <div className={styles.field}>
-            <Label>Pin Code</Label>
-
             <Input
+              label="Pincode"
               maxLength={6}
               placeholder="Enter Pin code"
               value={formData.pincode}
               className={errors.pincode ? styles.inputError : ""}
-              onChange={(e) =>
-                updateForm("pincode", e.target.value.replace(/\D/g, ""))
+              error={errors.pincode}
+              onChange={(value) =>
+                updateForm("pincode", value.replace(/\D/g, ""))
               }
             />
-
-            {errors.pincode && (
-              <span className={styles.error}>{errors.pincode}</span>
-            )}
           </div>
         </div>
       </section>

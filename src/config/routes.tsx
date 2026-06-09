@@ -1,15 +1,14 @@
 import type { ReactNode } from "react";
 
 import {
-  LayoutDashboard,
   FileText,
-  Users,
-  User,
+  LayoutDashboard,
   Shield,
+  User,
+  Users,
 } from "../components/icons";
-
-import Page from "../pages/TestPage/TestPage";
 import CompanySetup from "../pages/CompanySetup";
+import Page from "../pages/TestPage/TestPage";
 
 export type SubNavItem = {
   label: string;

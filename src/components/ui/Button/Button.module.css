@@ -32,12 +32,12 @@
 }
 
 /* Variants */
-.variant_default {
+.variant_primary {
   background-color: var(--primary, #6366f1);
   color: var(--primary-foreground, #ffffff);
 }
 
-.variant_default:hover {
+.variant_primary:hover {
   background-color: var(--primary-hover, #4f46e5);
 }
 
@@ -125,4 +125,22 @@
   width: 2.5rem;
   height: 2.5rem;
   padding: 0;
+}
+
+/* Loading */
+.loading {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -4,6 +4,7 @@
   border-radius: 28px;
   padding: 32px 24px;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   box-shadow: 0 10px 40px rgba(17, 24, 39, 0.04);
 }
@@ -12,7 +13,6 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 48px;
 }
 
 .logoIcon {
@@ -38,10 +38,6 @@
   font-size: 24px;
   font-weight: 700;
   color: #345dff;
-}
-
-.steps {
-  flex: 1;
 }
 
 .step {
@@ -75,7 +71,7 @@
 
 .line {
   width: 3px;
-  height: 90px;
+  height: 60px;
   background: #e5e7eb;
   position: relative;
   overflow: hidden;
@@ -116,7 +112,6 @@
   background: #f9fafb;
   border-radius: 20px;
   padding: 20px;
-  margin-top: 20px;
 }
 
 .progressCard span {
@@ -142,7 +137,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 30px;
 }
 
 .security p {
@@ -153,4 +147,8 @@
 .completed {
   background: #4f6bff;
   color: white;
+}
+
+.test {
+  color: #111827;
 }

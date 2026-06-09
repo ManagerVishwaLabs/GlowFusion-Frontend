@@ -1,9 +1,7 @@
+import { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
-import { useState } from "react";
-
 import { Sidebar } from "./components/";
-
 import { NAV_ITEMS } from "./config/routes";
 
 const App = () => {
