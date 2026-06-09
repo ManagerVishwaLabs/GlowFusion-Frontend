@@ -39,47 +39,47 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    label: "Company Setup",
-    href: "/company-setup",
-    icon: User,
     component: <CompanySetup />,
     hideSidebar: true,
+    href: "/company-setup",
+    icon: User,
+    label: "Company Setup",
   },
   {
-    label: "Dashboard",
+    component: <Page title="Dashboard" />,
     href: "/",
     icon: LayoutDashboard,
-    component: <Page title="Dashboard" />,
+    label: "Dashboard",
   },
 
   {
-    label: "Posts",
+    component: <Page title="Posts" />,
     href: "/posts",
     icon: FileText,
-    component: <Page title="Posts" />,
+    label: "Posts",
   },
 
   {
-    label: "Users",
-    icon: Users,
-    href: "/users",
-    component: <Page title="Users" />,
-
     children: [
       {
-        label: "All Users",
+        component: <Page title="All Users" />,
         href: "/users/all",
         icon: User,
-        component: <Page title="All Users" />,
+        label: "All Users",
       },
 
       {
-        label: "Roles",
+        component: <Page title="Roles" />,
         href: "/users/roles",
         icon: Shield,
-        component: <Page title="Roles" />,
+        label: "Roles",
       },
     ],
+    component: <Page title="Users" />,
+    href: "/users",
+    icon: Users,
+
+    label: "Users",
   },
 ];
 

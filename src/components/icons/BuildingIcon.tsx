@@ -2,33 +2,33 @@ import { getIconColor, getIconSize } from "./icon.utils";
 import type { IconProps } from "./types";
 
 const BuildingIcon = ({
-  size = "md",
-  color = "primary",
   className = "",
+  color = "primary",
+  size = "md",
 }: IconProps) => {
   const iconSize = getIconSize(size);
   const iconColor = getIconColor(color);
 
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={iconSize}
+      className={className}
+      fill="none"
       height={iconSize}
       viewBox="0 0 24 24"
-      fill="none"
-      className={className}
+      width={iconSize}
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M3 21H21"
         stroke={iconColor}
-        strokeWidth="2"
         strokeLinecap="round"
+        strokeWidth="2"
       />
       <path
         d="M5 21V7L12 3L19 7V21"
         stroke={iconColor}
-        strokeWidth="2"
         strokeLinejoin="round"
+        strokeWidth="2"
       />
       <path d="M9 10H10" stroke={iconColor} strokeWidth="2" />
       <path d="M14 10H15" stroke={iconColor} strokeWidth="2" />

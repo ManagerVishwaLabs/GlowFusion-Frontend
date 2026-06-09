@@ -1,16 +1,14 @@
 import { useState } from "react";
 
+import User from "../../../../../assets/images/User.png";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
-  ChevronDown,
   DocumentIcon,
-  EyeIcon,
   SecurityIcon,
   Users,
 } from "../../../../../components/icons";
-import { Button, Checkbox, Input } from "../../../../../components/ui";
-import User from "../../../asserts/img/User.png";
+import { Button, Checkbox, Input, Select } from "../../../../../components/ui";
 import type { CompanyFormData } from "../../../types/company";
 import styles from "./StepThree.module.css";
 
@@ -22,11 +20,7 @@ type Props = {
   onSubmit: () => void;
 };
 
-const StepThree = ({ formData, errors, updateForm, onPrevious }: Props) => {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
+const StepThree = ({ errors, formData, onPrevious, updateForm }: Props) => {
   const [agree, setAgree] = useState(true);
 
   return (
@@ -39,7 +33,7 @@ const StepThree = ({ formData, errors, updateForm, onPrevious }: Props) => {
           <p>Add the admin details who will manage this account.</p>
         </div>
 
-        <img src={User} alt="user" className={styles.headerImage} />
+        <img alt="user" className={styles.headerImage} src={User} />
       </div>
 
       {/* ADMIN INFORMATION */}
@@ -53,46 +47,42 @@ const StepThree = ({ formData, errors, updateForm, onPrevious }: Props) => {
         </div>
 
         <div className={styles.grid}>
-          <div className={styles.field}>
-            <Input label="Full Name" placeholder="Enter full name" />
-          </div>
+          <Input
+            error={errors.fullName}
+            label="Full Name"
+            onChange={(value) => updateForm("fullName", value)}
+            placeholder="Enter full name"
+            value={formData.fullName}
+          />
 
-          <div className={styles.field}>
-            <Input label="Email Address" placeholder="Enter email address" />
-          </div>
+          <Input
+            error={errors.email}
+            label="Email Address"
+            onChange={(value) => updateForm("email", value)}
+            placeholder="Enter email address"
+            value={formData.email}
+          />
 
-          <div className={styles.field}>
-            <div className={styles.phoneInput}>
-              <div className={styles.countryCode}>🇮🇳 +91</div>
+          <Input
+            error={errors.adminPhone}
+            label="Phone Number"
+            onChange={(value) => updateForm("adminPhone", value)}
+            placeholder="Enter phone number"
+            value={formData.adminPhone}
+          />
 
-              <Input
-                label="Phone Number"
-                placeholder="Enter phone number"
-                value={formData.adminPhone}
-                className={styles.phoneField}
-                onChange={(value) => updateForm("adminPhone", value)}
-              />
-              {errors.adminPhone && (
-                <span className={styles.error}>{errors.adminPhone}</span>
-              )}
-            </div>
-          </div>
-
-          <div className={styles.field}>
-            {/* <Label>Designation *</Label> */}
-
-            <div className={styles.selectWrapper}>
-              <select
-                className={styles.select}
-                value={formData.designation}
-                onChange={(e) => updateForm("designation", e.target.value)}
-              >
-                <option>Select designation</option>
-              </select>
-
-              <ChevronDown className={styles.chevron} />
-            </div>
-          </div>
+          <Select
+            error={errors.designation}
+            label={"Designation"}
+            onChange={(selected) => updateForm("designation", selected.value)}
+            options={[
+              "Developer",
+              "Project Manager",
+              "HR Manager",
+              "Team Lead",
+            ]}
+            value={formData.designation}
+          />
         </div>
       </section>
 
@@ -108,48 +98,24 @@ const StepThree = ({ formData, errors, updateForm, onPrevious }: Props) => {
 
         <div className={styles.securityGrid}>
           {/* PASSWORD */}
-          <div className={styles.field}>
-            {/* <Label>Password *</Label> */}
-
-            <div className={styles.passwordWrapper}>
-              <Input
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
-                onChange={(value) => updateForm("password", value)}
-              />
-
-              <button
-                type="button"
-                className={styles.eyeButton}
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                <EyeIcon size={18} showPassword={showPassword} />
-              </button>
-            </div>
-          </div>
+          <Input
+            error={errors.password}
+            label="Password"
+            onChange={(value) => updateForm("password", value)}
+            placeholder="Enter password"
+            type={"password"}
+            value={formData.password}
+          />
 
           {/* CONFIRM PASSWORD */}
-          <div className={styles.field}>
-            {/* <Label>Confirm Password *</Label> */}
-
-            <div className={styles.passwordWrapper}>
-              <Input
-                label="Confirm Password"
-                type={showConfirmPassword ? "text" : "password"}
-                placeholder="Confirm password"
-                onChange={(value) => updateForm("confirmPassword", value)}
-              />
-
-              <button
-                type="button"
-                className={styles.eyeButton}
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              >
-                <EyeIcon size={18} showPassword={showConfirmPassword} />
-              </button>
-            </div>
-          </div>
+          <Input
+            error={errors.confirmPassword}
+            label="Confirm Password"
+            onChange={(value) => updateForm("confirmPassword", value)}
+            placeholder="Confirm password"
+            type={"password"}
+            value={formData.confirmPassword}
+          />
         </div>
       </section>
 
@@ -179,18 +145,14 @@ const StepThree = ({ formData, errors, updateForm, onPrevious }: Props) => {
 
       {/* FOOTER */}
       <div className={styles.footer}>
-        <Button
-          variant="outline"
-          className={styles.previousButton}
-          onClick={onPrevious}
-        >
-          <ArrowLeftIcon size={18} color="#fff" />
+        <Button onClick={onPrevious} variant="outline">
+          <ArrowLeftIcon size={18} />
           Previous
         </Button>
 
-        <Button onClick={() => {}} className={styles.createButton}>
+        <Button onClick={() => {}}>
           Create Account
-          <ArrowRightIcon size={18} color="#fff" />
+          <ArrowRightIcon color="#fff" size={18} />
         </Button>
       </div>
     </div>

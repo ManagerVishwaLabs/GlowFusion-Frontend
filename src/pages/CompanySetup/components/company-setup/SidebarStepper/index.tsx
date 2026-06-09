@@ -1,4 +1,4 @@
-import logo from "../../../asserts/img/logo.png";
+import logo from "../../../../../assets/images/logo.png";
 import styles from "./SidebarStepper.module.css";
 
 type Props = {
@@ -8,19 +8,19 @@ type Props = {
 const SidebarStepper = ({ currentStep }: Props) => {
   const steps = [
     {
+      desc: "Basic information about your company",
       number: "1",
       title: "Company Details",
-      desc: "Basic information about your company",
     },
     {
+      desc: "Tell us more about your company",
       number: "2",
       title: "Company Profile",
-      desc: "Tell us more about your company",
     },
     {
+      desc: "Add admin user details for this account",
       number: "3",
       title: "User Details",
-      desc: "Add admin user details for this account",
     },
   ];
 
@@ -29,7 +29,7 @@ const SidebarStepper = ({ currentStep }: Props) => {
       {/* Logo */}
       <div className={styles.logo}>
         <div className={styles.logoIcon}>
-          <img src={logo} alt="Logo" />
+          <img alt="Logo" src={logo} />
         </div>
 
         <h2>GROWFUSION</h2>
@@ -43,7 +43,7 @@ const SidebarStepper = ({ currentStep }: Props) => {
           const isCompleted = currentStep > index + 1;
 
           return (
-            <div key={index} className={styles.step}>
+            <div className={styles.step} key={index}>
               <div className={styles.left}>
                 <div
                   className={`${styles.circle} ${

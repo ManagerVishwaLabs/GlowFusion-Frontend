@@ -14,11 +14,11 @@ export interface CheckboxProps extends Omit<
 }
 
 function Checkbox({
-  className,
   checked: controlledChecked,
+  className,
   defaultChecked = false,
-  onCheckedChange,
   disabled,
+  onCheckedChange,
   ...props
 }: CheckboxProps) {
   const [uncontrolledChecked, setUncontrolledChecked] =
@@ -38,23 +38,23 @@ function Checkbox({
 
   return (
     <button
-      type="button"
-      role="checkbox"
       aria-checked={checked}
-      data-state={checked ? "checked" : "unchecked"}
-      data-slot="checkbox"
-      disabled={disabled}
       className={combineClasses(
         styles.checkbox,
         // checked ? styles.checked : "",
         // disabled ? styles.disabled : "",
         className,
       )}
+      data-slot="checkbox"
+      data-state={checked ? "checked" : "unchecked"}
+      disabled={disabled}
       onClick={handleClick}
+      role="checkbox"
+      type="button"
       {...props}
     >
       {checked && (
-        <span data-slot="checkbox-indicator" className={styles.indicator}>
+        <span className={styles.indicator} data-slot="checkbox-indicator">
           <CheckIcon className={styles.icon} />
         </span>
       )}

@@ -5,7 +5,7 @@ import { SidebarStepper, StepOne, StepThree, StepTwo } from "./components";
 import { useCompanyForm } from "./hooks/useCompanyForm";
 
 const CompanySetup = () => {
-  const { currentStep, formData, errors, updateForm, nextStep, previousStep } =
+  const { currentStep, errors, formData, nextStep, previousStep, updateForm } =
     useCompanyForm();
 
   const [animationClass, setAnimationClass] = useState<"slideIn" | "slideOut">(
@@ -25,32 +25,32 @@ const CompanySetup = () => {
       case 1:
         return (
           <StepOne
-            formData={formData}
             errors={errors}
-            updateForm={updateForm}
+            formData={formData}
             nextStep={nextStep}
+            updateForm={updateForm}
           />
         );
 
       case 2:
         return (
           <StepTwo
-            formData={formData}
             errors={errors}
-            updateForm={updateForm}
+            formData={formData}
             onNext={nextStep}
             onPrevious={previousStep}
+            updateForm={updateForm}
           />
         );
 
       case 3:
         return (
           <StepThree
-            formData={formData}
             errors={errors}
-            updateForm={updateForm}
+            formData={formData}
             onPrevious={previousStep}
             onSubmit={nextStep}
+            updateForm={updateForm}
           />
         );
 
@@ -66,8 +66,8 @@ const CompanySetup = () => {
 
         <div className={styles.content}>
           <div
-            key={currentStep}
             className={`${styles.stepContent} ${animationClass === "slideIn" ? styles.slideIn : ""} ${animationClass === "slideOut" ? styles.slideOut : ""}`}
+            key={currentStep}
           >
             {renderStep()}
           </div>

@@ -1,20 +1,20 @@
 export const ICON_SIZE = 20;
 export const ICON_COLOR = "currentColor";
 export const ICON_SIZES = {
-  xs: 12,
-  sm: 16,
-  md: 20,
   lg: 24,
+  md: 20,
+  sm: 16,
   xl: 32,
+  xs: 12,
 } as const;
 
 export const ICON_COLORS = {
+  danger: "#DC2626",
+  disabled: "#9CA3AF",
   primary: "currentColor",
   secondary: "#6B7280",
   success: "#16A34A",
   warning: "#F59E0B",
-  danger: "#DC2626",
-  disabled: "#9CA3AF",
 } as const;
 
 export const DEFAULT_ICON_SIZE = ICON_SIZES.md;

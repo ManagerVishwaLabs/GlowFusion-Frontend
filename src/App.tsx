@@ -35,16 +35,16 @@ const App = () => {
               return (
                 <>
                   <Route
+                    element={item.component}
                     key={item.href}
                     path={item.href}
-                    element={item.component}
                   />
 
                   {item.children.map((child) => (
                     <Route
+                      element={child.component}
                       key={child.href}
                       path={child.href}
-                      element={child.component}
                     />
                   ))}
                 </>
@@ -52,9 +52,9 @@ const App = () => {
             }
             return (
               <Route
+                element={item.component}
                 key={item.href}
                 path={item.href}
-                element={item.component}
               />
             );
           })}

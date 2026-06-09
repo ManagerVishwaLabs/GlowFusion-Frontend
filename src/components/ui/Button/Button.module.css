@@ -33,12 +33,12 @@
 
 /* Variants */
 .variant_primary {
-  background-color: var(--primary, #6366f1);
+  background-color: var(--primary, #4f6bff);
   color: var(--primary-foreground, #ffffff);
 }
 
 .variant_primary:hover {
-  background-color: var(--primary-hover, #4f46e5);
+  background-color: var(--primary-hover, #274bff);
 }
 
 .variant_destructive {

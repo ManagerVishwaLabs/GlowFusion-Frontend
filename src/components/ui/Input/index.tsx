@@ -1,6 +1,13 @@
-import type { ChangeEvent, ComponentProps, FocusEvent } from "react";
+import {
+  type ChangeEvent,
+  type ComponentProps,
+  type FocusEvent,
+  type InputHTMLAttributes,
+  useState,
+} from "react";
 
 import { combineClasses } from "../../../utils/helpers";
+import { EyeIcon } from "../../icons";
 import styles from "./Input.module.css";
 
 type InputType =
@@ -33,7 +40,7 @@ type InputValue<T extends InputType> = T extends "checkbox"
 
 interface InputProps<T extends InputType = "text"> extends Omit<
   ComponentProps<"input">,
-  "type" | "onChange" | "onBlur" | "autoComplete"
+  "type" | "onChange" | "onBlur" | "autoComplete" | "value"
 > {
   type?: T;
   error?: string;
@@ -44,8 +51,9 @@ interface InputProps<T extends InputType = "text"> extends Omit<
   disabled?: boolean;
   loading?: boolean;
   readOnly?: boolean;
+  value: InputHTMLAttributes<HTMLInputElement>["value"];
   hidden?: boolean;
-  onChange?: (
+  onChange: (
     value: InputValue<T>,
     event: ChangeEvent<HTMLInputElement>,
   ) => void;
@@ -54,21 +62,23 @@ interface InputProps<T extends InputType = "text"> extends Omit<
 }
 
 const Input = <T extends InputType = "text">({
-  className,
-  type = "text" as T,
-  onChange,
-  label,
-  placeholder,
-  helpText,
-  onBlur,
   autoComplete = true,
-  error,
+  className,
   disabled,
-  loading,
-  readOnly,
+  error,
+  helpText,
   hidden,
+  label,
+  loading,
+  onBlur,
+  onChange,
+  placeholder,
+  readOnly,
+  type = "text" as T,
+  value,
   ...props
 }: InputProps<T>) => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const getValue = (
     event: ChangeEvent<HTMLInputElement> | FocusEvent<HTMLInputElement>,
   ): InputValue<T> => {
@@ -100,40 +110,51 @@ const Input = <T extends InputType = "text">({
       <div className={styles.inputWrapper}>
         {label && (
           <label
-            htmlFor={props.id}
             className={styles.label}
             data-disabled={disabled}
+            htmlFor={props.id}
           >
             {label}
           </label>
         )}
         <input
           {...props}
-          hidden={hidden}
-          placeholder={placeholder}
-          aria-label={label}
           aria-describedby={helpText ? `${helpText}-help` : undefined}
-          type={type}
-          data-slot="input"
+          aria-disabled={disabled || loading || readOnly}
+          aria-invalid={!!error}
+          aria-label={label}
+          aria-readonly={readOnly}
+          autoComplete={autoComplete ? "on" : "off"}
           className={combineClasses(
             styles.input,
             className,
             error && styles.inputError,
             hidden ? styles.inputHidden : "",
           )}
+          data-slot="input"
           disabled={disabled || loading || readOnly}
-          aria-disabled={disabled || loading || readOnly}
-          aria-readonly={readOnly}
-          readOnly={readOnly}
-          aria-invalid={!!error}
-          autoComplete={autoComplete ? "on" : "off"}
-          onChange={(event) => onChange?.(getValue(event), event)}
+          hidden={hidden}
           onBlur={(event) => onBlur?.(getValue(event), event)}
+          onChange={(event) => onChange?.(getValue(event), event)}
+          placeholder={placeholder}
+          readOnly={readOnly}
+          type={type === "password" && showPassword ? "text" : type}
+          value={value}
         />
+
+        {type === "password" && !loading && value && (
+          <button
+            className={styles.eyeButton}
+            onClick={() => setShowPassword(!showPassword)}
+            type="button"
+          >
+            <EyeIcon showPassword={showPassword} size={18} />
+          </button>
+        )}
         {loading && <span className={styles.loading} />}
       </div>
       {helpText && (
-        <span id={`${helpText}-help`} className={styles.helpText}>
+        <span className={styles.helpText} id={`${helpText}-help`}>
           {helpText}
         </span>
       )}

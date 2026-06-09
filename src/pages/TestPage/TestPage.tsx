@@ -6,14 +6,14 @@ const Page = ({ title }: { title: string }) => (
       {title}
 
       <Input
-        label="Email"
-        placeholder="Enter your email"
         error="Invalid email"
-        loading
         helpText="we will never see your mail"
+        label="Email"
+        loading
+        placeholder="Enter your email"
       />
 
-      <Button onClick={() => alert("Hello")} loading>
+      <Button loading onClick={() => alert("Hello")}>
         Click me
       </Button>
     </div>

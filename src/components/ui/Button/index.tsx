@@ -23,49 +23,49 @@ interface ButtonProps extends ComponentProps<"button"> {
 }
 
 const Button = ({
-  className,
-  variant = "primary",
-  size = "default",
-  type = "button",
   children,
+  className,
   disabled,
   loading,
   onClick,
+  size = "default",
+  type = "button",
+  variant = "primary",
   ...props
 }: ButtonProps) => {
   const variantClasses = {
-    primary: styles.variant_primary,
     destructive: styles.variant_destructive,
-    outline: styles.variant_outline,
-    secondary: styles.variant_secondary,
     ghost: styles.variant_ghost,
     link: styles.variant_link,
+    outline: styles.variant_outline,
+    primary: styles.variant_primary,
+    secondary: styles.variant_secondary,
   };
 
   const sizeClasses = {
     default: styles.size_default,
-    sm: styles.size_sm,
-    lg: styles.size_lg,
     icon: styles.size_icon,
-    "icon-sm": styles["size_icon-sm"],
     "icon-lg": styles["size_icon-lg"],
+    "icon-sm": styles["size_icon-sm"],
+    lg: styles.size_lg,
+    sm: styles.size_sm,
   };
 
   const variantClass = variantClasses[variant];
   const sizeClass = sizeClasses[size];
   return (
     <button
-      data-slot="button"
-      type={type}
-      disabled={disabled || loading}
       aria-disabled={disabled || loading}
-      onClick={onClick}
       className={combineClasses(
         styles.button,
         variantClass,
         sizeClass,
         className,
       )}
+      data-slot="button"
+      disabled={disabled || loading}
+      onClick={onClick}
+      type={type}
       {...props}
     >
       {loading && <span className={styles.loading} />}

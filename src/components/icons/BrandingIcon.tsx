@@ -2,21 +2,21 @@ import { getIconColor, getIconSize } from "./icon.utils";
 import type { IconProps } from "./types";
 
 const BrandingIcon = ({
-  size = "md",
-  color = "primary",
   className = "",
+  color = "primary",
+  size = "md",
 }: IconProps) => {
   const iconSize = getIconSize(size);
   const iconColor = getIconColor(color);
 
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={iconSize}
+      className={className}
+      fill="none"
       height={iconSize}
       viewBox="0 0 24 24"
-      fill="none"
-      className={className}
+      width={iconSize}
+      xmlns="http://www.w3.org/2000/svg"
     >
       <path
         d="M12 3L4 7V17L12 21L20 17V7L12 3Z"

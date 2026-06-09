@@ -12,40 +12,40 @@ type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
 const TOTAL_STEPS = 3;
 
 const initialState: CompanyFormData = {
-  // Step 1
-  companyName: "",
-  businessEmail: "",
-  phoneNumber: "",
-  website: "",
-  industry: "",
-  companySize: "",
-  logo: "",
-
-  country: "",
-  state: "",
-  city: "",
-  address: "",
-  pincode: "",
-
   // Step 2
   aboutCompany: "",
-  visionMission: "",
-  foundedYear: "",
-  registrationNumber: "",
+  address: "",
+  adminPhone: "",
+  agreeTerms: false,
+  businessEmail: "",
+  city: "",
+  // Step 1
+  companyName: "",
 
-  linkedin: "",
-  instagram: "",
+  companySize: "",
+  confirmPassword: "",
+  country: "",
+  designation: "",
+  email: "",
+
   facebook: "",
-  twitter: "",
-
+  foundedYear: "",
   // Step 3
   fullName: "",
-  email: "",
-  adminPhone: "",
-  designation: "",
+  industry: "",
+
+  instagram: "",
+  linkedin: "",
+  logo: "",
   password: "",
-  confirmPassword: "",
-  agreeTerms: false,
+
+  phoneNumber: "",
+  pincode: "",
+  registrationNumber: "",
+  state: "",
+  twitter: "",
+  visionMission: "",
+  website: "",
 };
 
 export const useCompanyForm = () => {
@@ -134,16 +134,16 @@ export const useCompanyForm = () => {
 
   return {
     currentStep,
-    formData,
     errors,
+    formData,
 
-    updateForm,
+    goToStep,
     nextStep,
     previousStep,
-    goToStep,
     resetForm,
+    setErrors,
 
     setFormData,
-    setErrors,
+    updateForm,
   };
 };

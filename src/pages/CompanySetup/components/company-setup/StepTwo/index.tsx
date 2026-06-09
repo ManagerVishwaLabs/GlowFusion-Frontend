@@ -1,7 +1,8 @@
+import cmp from "../../../../../assets/images/Company.png";
 import {
+  ArrowLeftIcon,
   ArrowRightIcon,
   BusinessOverviewIcon,
-  ChevronLeft,
   FacebookIcon,
   InstagramIcon,
   LinkedInIcon,
@@ -9,7 +10,7 @@ import {
   TwitterIcon,
 } from "../../../../../components/icons";
 import { Button, Input } from "../../../../../components/ui";
-import cmp from "../../../asserts/img/cmp.png";
+import Textarea from "../../../../../components/ui/Textarea";
 import type { CompanyFormData } from "../../../types/company";
 import styles from "./StepTwo.module.css";
 
@@ -22,11 +23,11 @@ type Props = {
 };
 
 const StepTwo = ({
-  formData,
   errors,
-  updateForm,
+  formData,
   onNext,
   onPrevious,
+  updateForm,
 }: Props) => {
   return (
     <div className={styles.wrapper}>
@@ -38,7 +39,7 @@ const StepTwo = ({
           <p>Tell us more about your company and your business.</p>
         </div>
 
-        <img src={cmp} alt="profile" className={styles.headerImage} />
+        <img alt="profile" className={styles.headerImage} src={cmp} />
       </div>
 
       {/* BUSINESS OVERVIEW */}
@@ -51,52 +52,39 @@ const StepTwo = ({
           <h3>Business Overview</h3>
         </div>
 
-        <div className={styles.field}>
-          {/* <Label>About Company *</Label> */}
-
-          <textarea
-            className={styles.textarea}
-            value={formData.aboutCompany}
-            onChange={(e) => updateForm("aboutCompany", e.target.value)}
-            placeholder="Write about your company..."
-          />
-        </div>
+        <Textarea
+          label={"About Company"}
+          onChange={(value) => updateForm("aboutCompany", value)}
+          placeholder="Write about your company..."
+          value={formData.aboutCompany}
+        />
 
         <div className={styles.grid}>
-          <div className={styles.field}>
-            {/* <Label>Vision / Mission</Label> */}
+          <Input
+            error={errors.visionMission}
+            label="Vision / Mission"
+            onChange={(value) => updateForm("visionMission", value)}
+            placeholder="Your company vision or mission"
+            value={formData.visionMission}
+          />
 
-            <Input
-              label="Vision / Mission"
-              placeholder="Your company vision or mission"
-              label="Vision / Mission"
-              value={formData.visionMission}
-              error={errors.visionMission}
-              onChange={(value) => updateForm("visionMission", value)}
-            />
-          </div>
+          <Input
+            error={errors.foundedYear}
+            label="Founded Year"
+            onChange={(value) =>
+              updateForm("foundedYear", value.replace(/\D/g, ""))
+            }
+            placeholder="Your company founded year"
+            value={formData.foundedYear}
+          />
 
-          <div className={styles.field}>
-            <Input
-              label="Founded Year"
-              placeholder="Your company founded year"
-              value={formData.foundedYear}
-              error={errors.foundedYear}
-              onChange={(value) =>
-                updateForm("foundedYear", value.replace(/\D/g, ""))
-              }
-            />
-          </div>
-
-          <div className={styles.field}>
-            <Input
-              label="Registration Number"
-              placeholder="Enter registration number"
-              value={formData.registrationNumber}
-              error={errors.registrationNumber}
-              onChange={(value) => updateForm("registrationNumber", value)}
-            />
-          </div>
+          <Input
+            error={errors.registrationNumber}
+            label="Registration Number"
+            onChange={(value) => updateForm("registrationNumber", value)}
+            placeholder="Enter registration number"
+            value={formData.registrationNumber}
+          />
         </div>
       </section>
 
@@ -112,77 +100,73 @@ const StepTwo = ({
 
         <div className={styles.socialGrid}>
           {/* LINKEDIN */}
-          <div className={styles.field}>
-            <div className={styles.inputWrapper}>
-              <LinkedInIcon size={18} className={styles.socialIcon} />
+          <div className={styles.inputWrapper}>
+            <LinkedInIcon className={styles.socialIcon} size={18} />
 
-              <Input
-                label="LinkedIn"
-                placeholder="https://linkedin.com/company/"
-                className={styles.socialInput}
-                onChange={(value) => updateForm("linkedin", value)}
-              />
-            </div>
+            <Input
+              className={styles.socialInput}
+              error={errors.linkedin}
+              label="LinkedIn"
+              onChange={(value) => updateForm("linkedin", value)}
+              placeholder="https://linkedin.com/company/"
+              value={formData.linkedin}
+            />
           </div>
 
           {/* INSTAGRAM */}
-          <div className={styles.field}>
-            <div className={styles.inputWrapper}>
-              <InstagramIcon size={18} className={styles.socialIcon} />
+          <div className={styles.inputWrapper}>
+            <InstagramIcon className={styles.socialIcon} size={18} />
 
-              <Input
-                label="Instagram"
-                placeholder="https://instagram.com/yourcompany"
-                className={styles.socialInput}
-                onChange={(value) => updateForm("instagram", value)}
-              />
-            </div>
+            <Input
+              className={styles.socialInput}
+              error={errors.instagram}
+              label="Instagram"
+              onChange={(value) => updateForm("instagram", value)}
+              placeholder="https://instagram.com/yourcompany"
+              value={formData.instagram}
+            />
           </div>
 
           {/* FACEBOOK */}
-          <div className={styles.field}>
-            <div className={styles.inputWrapper}>
-              <FacebookIcon size={18} className={styles.socialIcon} />
+          <div className={styles.inputWrapper}>
+            <FacebookIcon className={styles.socialIcon} size={18} />
 
-              <Input
-                label="Facebook"
-                placeholder="https://facebook.com/yourcompany"
-                className={styles.socialInput}
-                onChange={(value) => updateForm("facebook", value)}
-              />
-            </div>
+            <Input
+              className={styles.socialInput}
+              error={errors.facebook}
+              label="Facebook"
+              onChange={(value) => updateForm("facebook", value)}
+              placeholder="https://facebook.com/yourcompany"
+              value={formData.facebook}
+            />
           </div>
 
           {/* TWITTER */}
-          <div className={styles.field}>
-            <div className={styles.inputWrapper}>
-              <TwitterIcon size={18} className={styles.socialIcon} />
+          <div className={styles.inputWrapper}>
+            <TwitterIcon className={styles.socialIcon} size={18} />
 
-              <Input
-                label="Twitter"
-                placeholder="https://twitter.com/yourcompany"
-                className={styles.socialInput}
-                onChange={(value) => updateForm("twitter", value)}
-              />
-            </div>
+            <Input
+              className={styles.socialInput}
+              error={errors.twitter}
+              label="Twitter"
+              onChange={(value) => updateForm("twitter", value)}
+              placeholder="https://twitter.com/yourcompany"
+              value={formData.twitter}
+            />
           </div>
         </div>
       </section>
 
       {/* FOOTER */}
       <div className={styles.footer}>
-        <Button
-          variant="outline"
-          className={styles.previousButton}
-          onClick={onPrevious}
-        >
-          <ChevronLeft size={16} />
+        <Button onClick={onPrevious} variant="outline">
+          <ArrowLeftIcon size={16} />
           Previous
         </Button>
 
-        <Button className={styles.nextButton} onClick={onNext}>
+        <Button onClick={onNext}>
           Next
-          <ArrowRightIcon size={16} color="#fff" />
+          <ArrowRightIcon color="#fff" size={16} />
         </Button>
       </div>
     </div>

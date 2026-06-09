@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const FormSection = ({ title, children }: Props) => {
+const FormSection = ({ children, title }: Props) => {
   return (
     <section className={styles.card}>
       <h3>{title}</h3>

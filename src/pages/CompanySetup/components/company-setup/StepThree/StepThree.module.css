@@ -1,73 +1,116 @@
 .wrapper {
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 20px;
+  background: #f8fafc;
 }
 
-/* HEADER */
+/* ===========================================
+   HEADER
+=========================================== */
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 48px;
-  margin-bottom: 10px;
-}
-.header h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #111827;
-  line-height: 1.2;
 }
 
-.header p {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #6b7280;
+.header div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
 }
 
 .headerImage {
-  width: 180px;
+  width: 120px;
   height: auto;
   object-fit: contain;
   flex-shrink: 0;
-  margin-right: 10px;
 }
-/* SECTION */
+
+/* ===========================================
+   SECTION CARD
+=========================================== */
+
 .section {
-  background: #ffffff;
-  border: 1px solid #e8ecf4;
-  border-radius: 20px;
-  padding: 24px;
-  margin-bottom: 18px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow:
+    0 10px 35px rgba(15, 23, 42, 0.05),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  transition: all 0.25s ease;
 }
+
+.section:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 18px 40px rgba(15, 23, 42, 0.08),
+    0 4px 12px rgba(15, 23, 42, 0.04);
+}
+
+/* ===========================================
+   SECTION HEADER
+=========================================== */
 
 .sectionHeader {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 22px;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf2f7;
 }
 
 .sectionIcon {
-  width: 34px;
-  height: 34px;
+  width: 58px;
+  height: 58px;
   border-radius: 10px;
-  background: #eef2ff;
+  background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.12);
 }
 
 .sectionHeader h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: #111827;
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
-/* GRID */
+/* ===========================================
+   GRID
+=========================================== */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: 24px;
 }
+
+/* ===========================================
+   SECURITY GRID
+=========================================== */
 
 .securityGrid {
   display: grid;
@@ -75,152 +118,10 @@
   gap: 18px;
 }
 
-/* FIELD */
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.field label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 4px;
-}
-
 /* ===========================================
-   INPUTS
+   AGREEMENT
 =========================================== */
 
-.field input,
-.field textarea,
-.select {
-  width: 100%;
-  height: 40px;
-  border: 1.5px solid #6a6b6b;
-  border-radius: 10px;
-  padding: 0 10px;
-  background: #ffffff;
-  font-size: 15px;
-  color: #0f172a;
-  outline: none;
-  transition: all 0.25s ease;
-}
-
-.field textarea {
-  min-height: 120px;
-  resize: vertical;
-  padding-top: 18px;
-}
-
-.field input::placeholder,
-.field textarea::placeholder {
-  color: #94a3b8;
-}
-
-.field input:hover,
-.field textarea:hover,
-.select:hover {
-  border-color: #cbd5e1;
-  background: #fcfcfd;
-}
-
-.field input:focus,
-.field textarea:focus,
-.select:focus {
-  border-color: #4f6bff;
-  box-shadow: 0 0 0 4px rgba(79, 107, 255, 0.12);
-}
-
-/* ===========================================
-   PHONE INPUT
-=========================================== */
-
-.phoneInput {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  width: 100%;
-  border: 1.5px solid #6a6b6b;
-  border-radius: 10px;
-  overflow: hidden;
-  background: white;
-  transition: all 0.25s ease;
-}
-
-.phoneInput:hover {
-  border-color: #cbd5e1;
-}
-
-.phoneInput:focus-within {
-  border-color: #4f6bff;
-  box-shadow: 0 0 0 4px rgba(79, 107, 255, 0.12);
-}
-
-.countryCode {
-  height: 100%;
-  min-width: 84px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 16px;
-  border-right: 1px solid #e2e8f0;
-  background: #f8fafc;
-  font-size: 13px;
-  font-weight: 600;
-  color: #334155;
-}
-
-.phoneField {
-  flex: 1;
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-}
-
-/* ===========================================
-   ERROR
-=========================================== */
-
-/* SELECT */
-.selectWrapper {
-  position: relative;
-}
-
-.select {
-  appearance: none;
-  padding-right: 48px;
-}
-
-.chevron {
-  position: absolute;
-  top: 50%;
-  right: 18px;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: #64748b;
-}
-
-/* PASSWORD */
-.passwordWrapper {
-  position: relative;
-}
-
-.eyeButton {
-  position: absolute;
-  top: 50%;
-  right: 14px;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* AGREEMENT */
 .checkboxWrapper {
   display: flex;
   align-items: center;
@@ -239,80 +140,12 @@
   cursor: pointer;
 }
 
-/* FOOTER */
+/* ===========================================
+   FOOTER
+=========================================== */
+
 .footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 30px;
-}
-
-.previousButton {
-  min-width: 180px;
-  height: 44px !important;
-  background: #b8c4fc !important;
-  color: white !important;
-  border-radius: 14px;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 8px 20px rgba(35, 72, 255, 0.18);
-  gap: 8px;
-}
-
-.previousButton:hover {
-  background: #4f6bff !important;
-  box-shadow: 0 12px 28px rgba(39, 75, 255, 0.24);
-}
-
-.createButton {
-  min-width: 180px;
-  height: 44px !important;
-  background: #4f6bff !important;
-  color: white !important;
-  border-radius: 14px;
-  font-weight: 600;
-  font-size: 15px;
-  box-shadow: 0 8px 20px rgba(35, 72, 255, 0.18);
-}
-
-.createButton:hover {
-  background: #274bff !important;
-  box-shadow: 0 12px 28px rgba(39, 75, 255, 0.24);
-}
-
-/* HOVER */
-.section:hover {
-  border-color: #d9e1ef;
-}
-
-/* RESPONSIVE */
-@media (max-width: 1100px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .securityGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .previousButton,
-  .createButton {
-    width: 100%;
-  }
 }

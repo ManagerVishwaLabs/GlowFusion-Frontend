@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
 
+import building from "../../../../../assets/images/Building.png";
 import {
   ArrowRightIcon,
   BrandingIcon,
   BuildingIcon,
   UploadCloudIcon,
 } from "../../../../../components/icons";
-import { Button, Input } from "../../../../../components/ui";
+import { Button, Input, Select } from "../../../../../components/ui";
 import { combineClasses } from "../../../../../utils/helpers";
-import building from "../../../asserts/img/building.png";
 import type { CompanyFormData } from "../../../types/company";
 import styles from "./StepOne.module.css";
 
@@ -19,7 +19,7 @@ type Props = {
   nextStep: () => void;
 };
 
-const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
+const StepOne = ({ errors, formData, nextStep, updateForm }: Props) => {
   const [logo, setLogo] = useState<string | null>(formData?.logo ?? null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
@@ -48,7 +48,7 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
           <p>Let’s start with the basic information about your company.</p>
         </div>
 
-        <img src={building} alt="building" className={styles.headerImage} />
+        <img alt="building" className={styles.headerImage} src={building} />
       </div>
 
       {/* BASIC INFORMATION */}
@@ -64,47 +64,45 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
         <div className={styles.grid}>
           {/* Company Name */}
           <Input
-            label="Company Name"
-            id="companyName"
-            type="text"
-            placeholder="Enter company name"
-            value={formData.companyName}
             error={errors.companyName}
+            id="companyName"
+            label="Company Name"
             onChange={(value) => updateForm("companyName", value)}
+            placeholder="Enter company name"
+            type="text"
+            value={formData.companyName}
           />
 
           {/* Business Email */}
           <Input
-            label="Business Email"
-            id="businessEmail"
-            type="email"
-            placeholder="Enter business email"
-            value={formData.businessEmail}
             error={errors.businessEmail}
+            id="businessEmail"
+            label="Business Email"
             onChange={(value) => updateForm("businessEmail", value)}
+            placeholder="Enter business email"
+            type="email"
+            value={formData.businessEmail}
           />
 
           {/* Phone Number */}
           <Input
-            label="Phone Number"
-            id="phoneNumber"
-            type="tel"
-            maxLength={10}
-            placeholder="Enter phone number"
-            value={formData.phoneNumber}
             error={errors.phoneNumber}
+            id="phoneNumber"
+            label="Phone Number"
+            maxLength={10}
             onChange={(value) =>
               updateForm("phoneNumber", value.replace(/\D/g, ""))
             }
+            placeholder="Enter phone number"
+            type="tel"
+            value={formData.phoneNumber}
           />
 
           {/* Website */}
           <Input
-            label="Website"
+            error={errors.website}
             id="website"
-            type="text"
-            placeholder="yourwebsite.com"
-            value={formData.website.replace(/^https?:\/\//, "")}
+            label="Website"
             onChange={(value) => {
               const website = value
                 .trim()
@@ -113,87 +111,71 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
               updateForm("website", website);
             }}
-            error={errors.website}
+            placeholder="yourwebsite.com"
+            type="text"
+            value={formData.website.replace(/^https?:\/\//, "")}
           />
 
           {/* Industry */}
-          <div>
-            <select
-              value={formData.industry}
-              onChange={(value) => updateForm("industry", value.target.value)}
-            >
-              <option value="">Select your industry</option>
-
-              <option value="technology">Technology</option>
-              <option value="finance">Finance</option>
-              <option value="healthcare">Healthcare</option>
-              <option value="education">Education</option>
-            </select>
-          </div>
+          <Select
+            error={errors.industry}
+            label="Industry"
+            onChange={(selected) => {
+              updateForm("industry", selected.value);
+            }}
+            options={["Technology", "Finance", "Healthcare", "Education"]}
+            placeholder="Select your industry"
+            value={formData.industry}
+          />
 
           {/* Company Size */}
-          <div>
-            <select
-              value={formData.companySize}
-              onChange={(value) =>
-                updateForm("companySize", value.target.value)
-              }
-            >
-              <option value="">Select company size</option>
-
-              <option value="1-10">1 - 10</option>
-              <option value="11-50">11 - 50</option>
-              <option value="51-200">51 - 200</option>
-              <option value="201-500">201 - 500</option>
-            </select>
-          </div>
+          <Select
+            error={errors.companySize}
+            label="Company Size"
+            onChange={(selected) => {
+              updateForm("companySize", selected.value);
+            }}
+            options={[
+              "1-10",
+              "11-50",
+              "51-200",
+              "201-500",
+              "501-1000",
+              "1001-5000",
+              "5000+",
+            ]}
+            placeholder="Select company size"
+            value={formData.companySize}
+          />
 
           {/* Country */}
           <Input
+            error={errors.country}
             label="Country"
+            onChange={(value) => updateForm("country", value)}
             placeholder="Enter country"
             value={formData.country}
-            error={errors.country}
-            onChange={(value) => updateForm("country", value)}
-          />
-
-          {/* State */}
-          <Input
-            label="State"
-            placeholder="Enter state"
-            value={formData.state}
-            error={errors.state}
-            onChange={(value) => updateForm("state", value)}
-          />
-
-          {/* City */}
-          <Input
-            label="City"
-            placeholder="Enter city"
-            value={formData.city}
-            error={errors.city}
-            onChange={(value) => updateForm("city", value)}
           />
 
           {/* Address */}
           <Input
+            error={errors.address}
             label="Address"
+            onChange={(value) => updateForm("address", value)}
             placeholder="Enter complete address"
             value={formData.address}
-            error={errors.address}
-            onChange={(value) => updateForm("address", value)}
           />
 
           {/* Pincode */}
           <Input
+            error={errors.pincode}
             label="Pincode"
             maxLength={6}
-            placeholder="Enter Pin code"
-            value={formData.pincode}
-            error={errors.pincode}
             onChange={(value) =>
               updateForm("pincode", value.replace(/\D/g, ""))
             }
+            placeholder="Enter Pin code"
+            value={formData.pincode}
           />
         </div>
       </section>
@@ -223,15 +205,15 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
               }}
             >
               <Input
-                type="file"
                 accept="image/*"
                 hidden
-                ref={fileInputRef}
                 onChange={handleLogoUpload}
+                ref={fileInputRef}
+                type="file"
               />
 
               {logo ? (
-                <img src={logo} alt="logo" className={styles.logoPreview} />
+                <img alt="logo" className={styles.logoPreview} src={logo} />
               ) : (
                 <>
                   <UploadCloudIcon />
@@ -249,9 +231,9 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
       {/* FOOTER */}
       <div className={styles.footer}>
-        <Button className={styles.nextButton} onClick={nextStep}>
+        <Button onClick={nextStep}>
           Next
-          <ArrowRightIcon size={18} color="#fff" />
+          <ArrowRightIcon color="#fff" size={18} />
         </Button>
       </div>
     </div>
