@@ -52,7 +52,9 @@ export const useCompanyForm = () => {
 
   const [formData, setFormData] = useState<CompanyFormData>(initialState);
 
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof CompanyFormData, string>>
+  >({});
 
   // Update single field
   const updateForm = <K extends keyof CompanyFormData>(

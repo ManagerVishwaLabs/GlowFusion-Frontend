@@ -1,7 +1,9 @@
 import type { CompanyFormData } from "../../types/company";
 
-export const validateStepOne = (formData: CompanyFormData) => {
-  const errors: Partial<Record<keyof CompanyFormData, string>> = {};
+export type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
+
+export const validateStepOne = (formData: CompanyFormData): FormErrors => {
+  const errors: FormErrors = {};
 
   if (!formData.companyName.trim()) {
     errors.companyName = "Company name is required";
@@ -58,8 +60,8 @@ export const validateStepOne = (formData: CompanyFormData) => {
   return errors;
 };
 
-export const validateStepTwo = (formData: CompanyFormData) => {
-  const errors: Partial<Record<keyof CompanyFormData, string>> = {};
+export const validateStepTwo = (formData: CompanyFormData): FormErrors => {
+  const errors: FormErrors = {};
 
   if (!formData.aboutCompany.trim()) {
     errors.aboutCompany = "About company is required";
@@ -67,13 +69,14 @@ export const validateStepTwo = (formData: CompanyFormData) => {
     errors.aboutCompany = "Please write at least 30 characters";
   }
 
-  if (formData.foundedYear && !/^\d{4}$/.test(formData.foundedYear)) {
-    errors.foundedYear = "Enter valid year";
-  }
-
   const currentYear = new Date().getFullYear();
 
-  if (formData.foundedYear && Number(formData.foundedYear) > currentYear) {
+  if (formData.foundedYear && !/^\d{4}$/.test(formData.foundedYear)) {
+    errors.foundedYear = "Enter valid year";
+  } else if (
+    formData.foundedYear &&
+    Number(formData.foundedYear) > currentYear
+  ) {
     errors.foundedYear = "Founded year cannot be in future";
   }
 
@@ -98,8 +101,8 @@ export const validateStepTwo = (formData: CompanyFormData) => {
   return errors;
 };
 
-export const validateStepThree = (formData: CompanyFormData) => {
-  const errors: Partial<Record<keyof CompanyFormData, string>> = {};
+export const validateStepThree = (formData: CompanyFormData): FormErrors => {
+  const errors: FormErrors = {};
 
   if (!formData.fullName.trim()) {
     errors.fullName = "Full name is required";
@@ -133,6 +136,7 @@ export const validateStepThree = (formData: CompanyFormData) => {
     errors.confirmPassword = "Passwords do not match";
   }
 
+  // Checkbox validation
   if (!formData.agreeTerms) {
     errors.agreeTerms = "Please accept terms & conditions";
   }

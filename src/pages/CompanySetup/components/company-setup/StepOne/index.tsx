@@ -74,15 +74,14 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
         <div className={styles.grid}>
           {/* Company Name */}
           <div className={styles.field}>
-            <Label htmlFor="companyName">Company Name</Label>
-
             <Input
               id="companyName"
+              label="Company Name"
               type="text"
               placeholder="Enter company name"
               value={formData.companyName}
               className={errors.companyName ? styles.inputError : ""}
-              onChange={(e) => updateForm("companyName", e.target.value)}
+              onChange={(value) => updateForm("companyName", value)}
             />
 
             {errors.companyName && (
@@ -92,15 +91,14 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
           {/* Business Email */}
           <div className={styles.field}>
-            <Label htmlFor="businessEmail">Business Email</Label>
-
             <Input
               id="businessEmail"
+              label="Business Email"
               type="email"
               placeholder="Enter business email"
               value={formData.businessEmail}
               className={errors.businessEmail ? styles.inputError : ""}
-              onChange={(e) => updateForm("businessEmail", e.target.value)}
+              onChange={(value) => updateForm("businessEmail", value)}
             />
 
             {errors.businessEmail && (
@@ -126,8 +124,8 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
                 placeholder="Enter phone number"
                 className={styles.phoneField}
                 value={formData.phoneNumber}
-                onChange={(e) =>
-                  updateForm("phoneNumber", e.target.value.replace(/\D/g, ""))
+                onChange={(value) =>
+                  updateForm("phoneNumber", value.replace(/\D/g, ""))
                 }
               />
             </div>
@@ -139,8 +137,6 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
           {/* Website */}
           <div className={styles.field}>
-            <Label htmlFor="website">Website</Label>
-
             <div
               className={`${styles.websiteWrapper} ${
                 errors.website ? styles.inputError : ""
@@ -150,17 +146,17 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
               <Input
                 id="website"
+                label="Company Website"
                 type="text"
                 placeholder="yourwebsite.com"
                 value={formData.website.replace(/^https?:\/\//, "")}
                 className={styles.websiteInput}
-                onChange={(e) => {
-                  const value = e.target.value
-                    .trim()
+                onChange={(value) => {
+                  const trimmedValue = value.trim();
+                  const normalizedValue = trimmedValue
                     .replace(/^https?:\/\//, "")
                     .replace(/\s/g, "");
-
-                  updateForm("website", value);
+                  updateForm("website", normalizedValue);
                 }}
               />
             </div>
@@ -226,61 +222,14 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
             )}
           </div>
 
-          {/* Country */}
-          <div className={styles.field}>
-            <Label>Country</Label>
-
-            <Input
-              placeholder="Enter country"
-              value={formData.country}
-              className={errors.country ? styles.inputError : ""}
-              onChange={(e) => updateForm("country", e.target.value)}
-            />
-
-            {errors.country && (
-              <span className={styles.error}>{errors.country}</span>
-            )}
-          </div>
-
-          {/* State */}
-          <div className={styles.field}>
-            <Label>State</Label>
-
-            <Input
-              placeholder="Enter state"
-              value={formData.state}
-              className={errors.state ? styles.inputError : ""}
-              onChange={(e) => updateForm("state", e.target.value)}
-            />
-
-            {errors.state && (
-              <span className={styles.error}>{errors.state}</span>
-            )}
-          </div>
-
-          {/* City */}
-          <div className={styles.field}>
-            <Label>City</Label>
-
-            <Input
-              placeholder="Enter city"
-              value={formData.city}
-              className={errors.city ? styles.inputError : ""}
-              onChange={(e) => updateForm("city", e.target.value)}
-            />
-
-            {errors.city && <span className={styles.error}>{errors.city}</span>}
-          </div>
-
           {/* Address */}
           <div className={`${styles.field} ${styles.addressField}`}>
-            <Label>Address</Label>
-
             <Input
               placeholder="Enter complete address"
+              label="Address"
               value={formData.address}
               className={errors.address ? styles.inputError : ""}
-              onChange={(e) => updateForm("address", e.target.value)}
+              onChange={(value) => updateForm("address", value)}
             />
 
             {errors.address && (
@@ -290,15 +239,14 @@ const StepOne = ({ formData, errors, updateForm, nextStep }: Props) => {
 
           {/* Pincode */}
           <div className={styles.field}>
-            <Label>Pin Code</Label>
-
             <Input
               maxLength={6}
+              label="Pin Code"
               placeholder="Enter Pin code"
               value={formData.pincode}
               className={errors.pincode ? styles.inputError : ""}
-              onChange={(e) =>
-                updateForm("pincode", e.target.value.replace(/\D/g, ""))
+              onChange={(value) =>
+                updateForm("pincode", value.replace(/\D/g, ""))
               }
             />
 

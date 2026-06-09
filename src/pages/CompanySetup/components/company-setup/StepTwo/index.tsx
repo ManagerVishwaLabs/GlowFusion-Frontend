@@ -70,14 +70,13 @@ const StepTwo = ({
 
         <div className={styles.grid}>
           <div className={styles.field}>
-            <Label>Vision / Mission</Label>
-
             <Input
               placeholder="Your company vision or mission"
+              label="Vision / Mission"
               value={formData.visionMission}
               error={!!errors.visionMission}
               className={errors.visionMission ? styles.inputError : ""}
-              onChange={(e) => updateForm("visionMission", e.target.value)}
+              onChange={(value) => updateForm("visionMission", value)}
             />
 
             {errors.visionMission && (
@@ -92,8 +91,8 @@ const StepTwo = ({
               placeholder="Your company founded year"
               value={formData.foundedYear}
               className={errors.foundedYear ? styles.inputError : ""}
-              onChange={(e) =>
-                updateForm("foundedYear", e.target.value.replace(/\D/g, ""))
+              onChange={(value) =>
+                updateForm("foundedYear", value.replace(/\D/g, ""))
               }
             />
 
@@ -109,7 +108,7 @@ const StepTwo = ({
               placeholder="Enter registration number"
               value={formData.registrationNumber}
               className={errors.registrationNumber ? styles.inputError : ""}
-              onChange={(e) => updateForm("registrationNumber", e.target.value)}
+              onChange={(value) => updateForm("registrationNumber", value)}
             />
 
             {errors.registrationNumber && (
@@ -140,6 +139,7 @@ const StepTwo = ({
               <Input
                 placeholder="https://linkedin.com/company/"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("linkedin", value)}
               />
             </div>
           </div>
@@ -154,6 +154,7 @@ const StepTwo = ({
               <Input
                 placeholder="https://instagram.com/yourcompany"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("instagram", value)}
               />
             </div>
           </div>
@@ -168,6 +169,7 @@ const StepTwo = ({
               <Input
                 placeholder="https://facebook.com/yourcompany"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("facebook", value)}
               />
             </div>
           </div>
@@ -182,6 +184,7 @@ const StepTwo = ({
               <Input
                 placeholder="https://twitter.com/yourcompany"
                 className={styles.socialInput}
+                onChange={(value) => updateForm("twitter", value)}
               />
             </div>
           </div>
