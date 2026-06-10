@@ -1,4 +1,4 @@
-export type CompanyFormData = {
+type CompanyFormData = {
   // STEP 1
   companyName: string;
   businessEmail: string;
@@ -32,3 +32,11 @@ export type CompanyFormData = {
   confirmPassword: string;
   agreeTerms: boolean;
 };
+
+interface CommonStepProps {
+  formData: CompanyFormData;
+  errors: Partial<Record<keyof CompanyFormData, string>>;
+  updateForm: (field: keyof CompanyFormData, value: string) => void;
+}
+
+export type { CommonStepProps, CompanyFormData };

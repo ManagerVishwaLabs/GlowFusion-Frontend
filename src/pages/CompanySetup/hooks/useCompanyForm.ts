@@ -1,25 +1,23 @@
 import { useState } from "react";
 
+import type { CompanyFormData } from "../companySetup.types";
 import {
   validateStepOne,
   validateStepThree,
   validateStepTwo,
-} from "../components/company-setup/validations";
-import type { CompanyFormData } from "../types/company";
+} from "../components/companySetup.validations";
 
 type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
 
 const TOTAL_STEPS = 3;
 
 const initialState: CompanyFormData = {
-  // Step 2
   aboutCompany: "",
   address: "",
   adminPhone: "",
   agreeTerms: false,
   businessEmail: "",
   city: "",
-  // Step 1
   companyName: "",
 
   companySize: "",
@@ -30,7 +28,6 @@ const initialState: CompanyFormData = {
 
   facebook: "",
   foundedYear: "",
-  // Step 3
   fullName: "",
   industry: "",
 

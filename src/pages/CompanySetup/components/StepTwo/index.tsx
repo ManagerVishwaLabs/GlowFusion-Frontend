@@ -1,4 +1,4 @@
-import cmp from "../../../../../assets/images/Company.png";
+import company from "../../../../assets/images/Company.png";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
@@ -8,19 +8,11 @@ import {
   LinkedInIcon,
   SocialIcon,
   TwitterIcon,
-} from "../../../../../components/icons";
-import { Button, Input } from "../../../../../components/ui";
-import Textarea from "../../../../../components/ui/Textarea";
-import type { CompanyFormData } from "../../../types/company";
+} from "../../../../components/icons";
+import { Button, Input } from "../../../../components/ui";
+import Textarea from "../../../../components/ui/Textarea";
+import type { CommonStepProps } from "../../companySetup.types";
 import styles from "./StepTwo.module.css";
-
-type Props = {
-  formData: CompanyFormData;
-  errors: Partial<Record<keyof CompanyFormData, string>>;
-  updateForm: (field: keyof CompanyFormData, value: string) => void;
-  onNext: () => void;
-  onPrevious: () => void;
-};
 
 const StepTwo = ({
   errors,
@@ -28,7 +20,7 @@ const StepTwo = ({
   onNext,
   onPrevious,
   updateForm,
-}: Props) => {
+}: CommonStepProps & { onNext: () => void; onPrevious: () => void }) => {
   return (
     <div className={styles.wrapper}>
       {/* HEADER */}
@@ -39,7 +31,7 @@ const StepTwo = ({
           <p>Tell us more about your company and your business.</p>
         </div>
 
-        <img alt="profile" className={styles.headerImage} src={cmp} />
+        <img alt="profile" className={styles.headerImage} src={company} />
       </div>
 
       {/* BUSINESS OVERVIEW */}

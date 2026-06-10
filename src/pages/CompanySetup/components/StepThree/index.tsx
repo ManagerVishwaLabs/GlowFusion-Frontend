@@ -1,26 +1,23 @@
 import { useState } from "react";
 
-import User from "../../../../../assets/images/User.png";
+import User from "../../../../assets/images/User.png";
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
   DocumentIcon,
   SecurityIcon,
   Users,
-} from "../../../../../components/icons";
-import { Button, Checkbox, Input, Select } from "../../../../../components/ui";
-import type { CompanyFormData } from "../../../types/company";
+} from "../../../../components/icons";
+import { Button, Checkbox, Input, Select } from "../../../../components/ui";
+import type { CommonStepProps } from "../../companySetup.types";
 import styles from "./StepThree.module.css";
 
-type Props = {
-  formData: CompanyFormData;
-  errors: Partial<Record<keyof CompanyFormData, string>>;
-  updateForm: (field: keyof CompanyFormData, value: string | boolean) => void;
-  onPrevious: () => void;
-  onSubmit: () => void;
-};
-
-const StepThree = ({ errors, formData, onPrevious, updateForm }: Props) => {
+const StepThree = ({
+  errors,
+  formData,
+  onPrevious,
+  updateForm,
+}: CommonStepProps & { onPrevious: () => void; onSubmit: () => void }) => {
   const [agree, setAgree] = useState(true);
 
   return (

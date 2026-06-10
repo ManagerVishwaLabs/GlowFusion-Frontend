@@ -61,13 +61,6 @@
   transition: all 0.25s ease;
 }
 
-.section:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 18px 40px rgba(15, 23, 42, 0.08),
-    0 4px 12px rgba(15, 23, 42, 0.04);
-}
-
 /* ===========================================
    SECTION HEADER
 =========================================== */
@@ -104,40 +97,33 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-/* ===========================================
-   SECURITY GRID
-=========================================== */
-
-.securityGrid {
+.socialGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 18px;
 }
 
 /* ===========================================
-   AGREEMENT
+   SOCIAL INPUT
 =========================================== */
 
-.checkboxWrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.inputWrapper {
+  position: relative;
 }
 
-.checkboxLabel {
-  font-size: 14px;
-  color: #374151;
-  cursor: pointer;
+.socialIcon {
+  position: absolute;
+  top: 30px;
+  left: 14px;
+  z-index: 2;
 }
 
-.link {
-  color: #4f6bff;
-  font-weight: 500;
-  cursor: pointer;
+.socialInput {
+  padding-left: 42px !important;
 }
 
 /* ===========================================
@@ -147,5 +133,4 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }

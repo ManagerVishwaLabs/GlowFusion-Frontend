@@ -1,25 +1,23 @@
 import { useRef, useState } from "react";
 
-import building from "../../../../../assets/images/Building.png";
+import building from "../../../../assets/images/Building.png";
 import {
   ArrowRightIcon,
   BrandingIcon,
   BuildingIcon,
   UploadCloudIcon,
-} from "../../../../../components/icons";
-import { Button, Input, Select } from "../../../../../components/ui";
-import { combineClasses } from "../../../../../utils/helpers";
-import type { CompanyFormData } from "../../../types/company";
+} from "../../../../components/icons";
+import { Button, Input, Select } from "../../../../components/ui";
+import { combineClasses } from "../../../../utils/helpers";
+import type { CommonStepProps } from "../../companySetup.types";
 import styles from "./StepOne.module.css";
 
-type Props = {
-  formData: CompanyFormData;
-  errors: Partial<Record<keyof CompanyFormData, string>>;
-  updateForm: (field: keyof CompanyFormData, value: string) => void;
-  nextStep: () => void;
-};
-
-const StepOne = ({ errors, formData, nextStep, updateForm }: Props) => {
+const StepOne = ({
+  errors,
+  formData,
+  onNext,
+  updateForm,
+}: CommonStepProps & { onNext: () => void }) => {
   const [logo, setLogo] = useState<string | null>(formData?.logo ?? null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
@@ -232,7 +230,7 @@ const StepOne = ({ errors, formData, nextStep, updateForm }: Props) => {
 
       {/* FOOTER */}
       <div className={styles.footer}>
-        <Button onClick={nextStep}>
+        <Button onClick={onNext}>
           Next
           <ArrowRightIcon color="#fff" size={18} />
         </Button>

@@ -1,4 +1,4 @@
-import logo from "../../../../../assets/images/Logo.png";
+import logo from "../../../../assets/images/Logo.png";
 import styles from "./SidebarStepper.module.css";
 
 type Props = {

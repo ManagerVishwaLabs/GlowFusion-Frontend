@@ -1,4 +1,10 @@
-import type { CompanyFormData } from "../../types/company";
+import {
+  isValidEmail,
+  isValidPhone,
+  isValidWebsite,
+  isValidYear,
+} from "../../../utils/helpers";
+import type { CompanyFormData } from "../companySetup.types";
 
 export type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
 
@@ -11,19 +17,19 @@ export const validateStepOne = (formData: CompanyFormData): FormErrors => {
 
   if (!formData.businessEmail.trim()) {
     errors.businessEmail = "Business email is required";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.businessEmail)) {
+  } else if (!isValidEmail(formData.businessEmail)) {
     errors.businessEmail = "Enter valid email";
   }
 
   if (!formData.phoneNumber.trim()) {
     errors.phoneNumber = "Phone number is required";
-  } else if (!/^[6-9]\d{9}$/.test(formData.phoneNumber)) {
+  } else if (!isValidPhone(formData.phoneNumber)) {
     errors.phoneNumber = "Enter valid phone number";
   }
 
   if (!formData.website.trim()) {
     errors.website = "Website is required";
-  } else if (!/^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/.test(formData.website)) {
+  } else if (!isValidWebsite(formData.website)) {
     errors.website = "Enter valid domain (example.com)";
   }
 
@@ -71,7 +77,7 @@ export const validateStepTwo = (formData: CompanyFormData): FormErrors => {
 
   const currentYear = new Date().getFullYear();
 
-  if (formData.foundedYear && !/^\d{4}$/.test(formData.foundedYear)) {
+  if (formData.foundedYear && !isValidYear(formData.foundedYear)) {
     errors.foundedYear = "Enter valid year";
   } else if (
     formData.foundedYear &&
@@ -80,21 +86,19 @@ export const validateStepTwo = (formData: CompanyFormData): FormErrors => {
     errors.foundedYear = "Founded year cannot be in future";
   }
 
-  const urlRegex = /^https?:\/\/(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/;
-
-  if (formData.linkedin && !urlRegex.test(formData.linkedin)) {
+  if (formData.linkedin && !isValidWebsite(formData.linkedin)) {
     errors.linkedin = "Enter valid LinkedIn URL";
   }
 
-  if (formData.instagram && !urlRegex.test(formData.instagram)) {
+  if (formData.instagram && !isValidWebsite(formData.instagram)) {
     errors.instagram = "Enter valid Instagram URL";
   }
 
-  if (formData.facebook && !urlRegex.test(formData.facebook)) {
+  if (formData.facebook && !isValidWebsite(formData.facebook)) {
     errors.facebook = "Enter valid Facebook URL";
   }
 
-  if (formData.twitter && !urlRegex.test(formData.twitter)) {
+  if (formData.twitter && !isValidWebsite(formData.twitter)) {
     errors.twitter = "Enter valid Twitter URL";
   }
 
@@ -110,13 +114,13 @@ export const validateStepThree = (formData: CompanyFormData): FormErrors => {
 
   if (!formData.email.trim()) {
     errors.email = "Email is required";
-  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+  } else if (!isValidEmail(formData.email)) {
     errors.email = "Enter valid email";
   }
 
   if (!formData.adminPhone.trim()) {
     errors.adminPhone = "Phone number is required";
-  } else if (!/^[6-9]\d{9}$/.test(formData.adminPhone)) {
+  } else if (!isValidPhone(formData.adminPhone)) {
     errors.adminPhone = "Enter valid phone number";
   }
 

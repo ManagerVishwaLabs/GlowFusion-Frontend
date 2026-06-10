@@ -61,13 +61,6 @@
   transition: all 0.25s ease;
 }
 
-.section:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 18px 40px rgba(15, 23, 42, 0.08),
-    0 4px 12px rgba(15, 23, 42, 0.04);
-}
-
 /* ===========================================
    SECTION HEADER
 =========================================== */
@@ -108,29 +101,64 @@
   gap: 24px;
 }
 
-.socialGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
 /* ===========================================
-   SOCIAL INPUT
+   UPLOAD BOX
 =========================================== */
 
-.inputWrapper {
-  position: relative;
+.uploadBox {
+  min-height: 220px;
+  min-width: 580px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  background: #fcfdff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 32px;
+  margin-top: 12px;
 }
 
-.socialIcon {
-  position: absolute;
-  top: 30px;
-  left: 14px;
-  z-index: 2;
+.uploadBox:hover {
+  border-color: #274bff;
+  background: #f8faff;
 }
 
-.socialInput {
-  padding-left: 42px !important;
+.uploadTitle {
+  color: #274bff;
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 14px;
+}
+
+.uploadBox p {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.logoPreview {
+  width: 220px;
+  object-fit: contain;
+}
+
+.uploadError {
+  border-color: #ef4444;
+  color: #ef4444;
+  &:hover {
+    border-color: #ef4444;
+    background: #f8fafc;
+  }
+}
+
+.error {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ef4444;
 }
 
 /* ===========================================
@@ -139,5 +167,5 @@
 
 .footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }

@@ -27,7 +27,7 @@ const CompanySetup = () => {
           <StepOne
             errors={errors}
             formData={formData}
-            nextStep={nextStep}
+            onNext={nextStep}
             updateForm={updateForm}
           />
         );
