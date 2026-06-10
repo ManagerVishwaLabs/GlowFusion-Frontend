@@ -6,25 +6,25 @@ import {
 } from "../../../utils/helpers";
 import type { CompanyFormData } from "../companySetup.types";
 
-export type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
+type FormErrors = Partial<Record<keyof CompanyFormData, string>>;
 
-export const validateStepOne = (formData: CompanyFormData): FormErrors => {
+const validateStepOne = (formData: CompanyFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (!formData.companyName.trim()) {
     errors.companyName = "Company name is required";
   }
 
-  if (!formData.businessEmail.trim()) {
-    errors.businessEmail = "Business email is required";
-  } else if (!isValidEmail(formData.businessEmail)) {
-    errors.businessEmail = "Enter valid email";
+  if (!formData.companyEmail.trim()) {
+    errors.companyEmail = "Business email is required";
+  } else if (!isValidEmail(formData.companyEmail)) {
+    errors.companyEmail = "Enter valid email";
   }
 
-  if (!formData.phoneNumber.trim()) {
-    errors.phoneNumber = "Phone number is required";
-  } else if (!isValidPhone(formData.phoneNumber)) {
-    errors.phoneNumber = "Enter valid phone number";
+  if (!formData.contactPhone.trim()) {
+    errors.contactPhone = "Phone number is required";
+  } else if (!isValidPhone(formData.contactPhone)) {
+    errors.contactPhone = "Enter valid phone number";
   }
 
   if (!formData.website.trim()) {
@@ -34,23 +34,15 @@ export const validateStepOne = (formData: CompanyFormData): FormErrors => {
   }
 
   if (!formData.industry) {
-    errors.industry = "Select industry";
+    errors.industry = "Please select industry";
   }
 
   if (!formData.companySize) {
-    errors.companySize = "Select company size";
+    errors.companySize = "Please select company size";
   }
 
   if (!formData.country) {
-    errors.country = "Select country";
-  }
-
-  if (!formData.state) {
-    errors.state = "Select state";
-  }
-
-  if (!formData.city) {
-    errors.city = "Select city";
+    errors.country = "Please enter your country";
   }
 
   if (!formData.address.trim()) {
@@ -66,7 +58,7 @@ export const validateStepOne = (formData: CompanyFormData): FormErrors => {
   return errors;
 };
 
-export const validateStepTwo = (formData: CompanyFormData): FormErrors => {
+const validateStepTwo = (formData: CompanyFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (!formData.aboutCompany.trim()) {
@@ -105,17 +97,17 @@ export const validateStepTwo = (formData: CompanyFormData): FormErrors => {
   return errors;
 };
 
-export const validateStepThree = (formData: CompanyFormData): FormErrors => {
+const validateStepThree = (formData: CompanyFormData): FormErrors => {
   const errors: FormErrors = {};
 
   if (!formData.fullName.trim()) {
     errors.fullName = "Full name is required";
   }
 
-  if (!formData.email.trim()) {
-    errors.email = "Email is required";
-  } else if (!isValidEmail(formData.email)) {
-    errors.email = "Enter valid email";
+  if (!formData.userEmail.trim()) {
+    errors.userEmail = "Email is required";
+  } else if (!isValidEmail(formData.userEmail)) {
+    errors.userEmail = "Enter valid email";
   }
 
   if (!formData.adminPhone.trim()) {
@@ -147,3 +139,5 @@ export const validateStepThree = (formData: CompanyFormData): FormErrors => {
 
   return errors;
 };
+
+export { validateStepOne, validateStepThree, validateStepTwo };

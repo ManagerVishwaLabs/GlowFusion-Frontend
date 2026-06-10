@@ -14,10 +14,7 @@ type SidebarProps = {
   onToggle: () => void;
 };
 
-export default function Sidebar({
-  isCollapsed = false,
-  onToggle,
-}: SidebarProps) {
+const Sidebar = ({ isCollapsed = false, onToggle }: SidebarProps) => {
   const location = useLocation();
 
   const [openMenus, setOpenMenus] = useState<string[]>([]);
@@ -144,7 +141,7 @@ export default function Sidebar({
       <BottomSection isCollapsed={isCollapsed} />
     </aside>
   );
-}
+};
 
 const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
   return (
@@ -181,3 +178,5 @@ const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
     </div>
   );
 };
+
+export default Sidebar;

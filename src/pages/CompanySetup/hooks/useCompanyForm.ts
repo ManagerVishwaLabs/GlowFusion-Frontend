@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import CompanySetupService from "../../../services/CompanySetup";
 import type { CompanyFormData } from "../companySetup.types";
 import {
   validateStepOne,
@@ -16,36 +17,34 @@ const initialState: CompanyFormData = {
   address: "",
   adminPhone: "",
   agreeTerms: false,
-  businessEmail: "",
-  city: "",
+  companyEmail: "",
+  companyLogoUrl: "",
   companyName: "",
 
   companySize: "",
   confirmPassword: "",
+  contactPhone: "",
   country: "",
   designation: "",
-  email: "",
 
   facebook: "",
   foundedYear: "",
   fullName: "",
-  industry: "",
 
+  industry: "",
   instagram: "",
   linkedin: "",
-  logo: "",
-  password: "",
 
-  phoneNumber: "",
+  password: "",
   pincode: "",
   registrationNumber: "",
-  state: "",
   twitter: "",
+  userEmail: "",
   visionMission: "",
   website: "",
 };
 
-export const useCompanyForm = () => {
+const useCompanyForm = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const [formData, setFormData] = useState<CompanyFormData>(initialState);
@@ -79,7 +78,6 @@ export const useCompanyForm = () => {
   // Validate based on current step
   const validateCurrentStep = () => {
     let validationErrors: FormErrors = {};
-
     switch (currentStep) {
       case 1:
         validationErrors = validateStepOne(formData);
@@ -108,6 +106,9 @@ export const useCompanyForm = () => {
     if (!isValid) return;
 
     setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+    if (currentStep === TOTAL_STEPS) {
+      CompanySetupService.registerCompany(formData);
+    }
   };
 
   // Go previous step
@@ -144,3 +145,5 @@ export const useCompanyForm = () => {
     updateForm,
   };
 };
+
+export { useCompanyForm };

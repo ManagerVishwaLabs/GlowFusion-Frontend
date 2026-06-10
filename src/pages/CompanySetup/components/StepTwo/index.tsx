@@ -44,15 +44,16 @@ const StepTwo = ({
           <h3>Business Overview</h3>
         </div>
 
-        <Textarea
-          label={"About Company"}
-          onChange={(value) => updateForm("aboutCompany", value)}
-          placeholder="Write about your company..."
-          value={formData.aboutCompany}
-        />
-
         <div className={styles.grid}>
-          <Input
+          <Textarea
+            error={errors.aboutCompany}
+            label={"About Company"}
+            onChange={(value) => updateForm("aboutCompany", value)}
+            placeholder="Write about your company..."
+            required
+            value={formData.aboutCompany}
+          />
+          <Textarea
             error={errors.visionMission}
             label="Vision / Mission"
             onChange={(value) => updateForm("visionMission", value)}
@@ -63,6 +64,7 @@ const StepTwo = ({
           <Input
             error={errors.foundedYear}
             label="Founded Year"
+            maxLength={4}
             onChange={(value) =>
               updateForm("foundedYear", value.replace(/\D/g, ""))
             }

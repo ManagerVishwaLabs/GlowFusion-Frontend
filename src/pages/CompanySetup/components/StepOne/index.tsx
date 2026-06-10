@@ -18,7 +18,9 @@ const StepOne = ({
   onNext,
   updateForm,
 }: CommonStepProps & { onNext: () => void }) => {
-  const [logo, setLogo] = useState<string | null>(formData?.logo ?? null);
+  const [logo, setLogo] = useState<string | null>(
+    formData?.companyLogoUrl ?? null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
 
@@ -33,7 +35,7 @@ const StepOne = ({
     const imageUrl = URL.createObjectURL(file[0]);
     setLogo(imageUrl);
 
-    updateForm("logo", imageUrl);
+    updateForm("companyLogoUrl", imageUrl);
   };
 
   return (
@@ -67,33 +69,36 @@ const StepOne = ({
             label="Company Name"
             onChange={(value) => updateForm("companyName", value)}
             placeholder="Enter company name"
+            required
             type="text"
             value={formData.companyName}
           />
 
           {/* Business Email */}
           <Input
-            error={errors.businessEmail}
-            id="businessEmail"
+            error={errors.companyEmail}
+            id="companyEmail"
             label="Business Email"
-            onChange={(value) => updateForm("businessEmail", value)}
+            onChange={(value) => updateForm("companyEmail", value)}
             placeholder="Enter business email"
+            required
             type="email"
-            value={formData.businessEmail}
+            value={formData.companyEmail}
           />
 
           {/* Phone Number */}
           <Input
-            error={errors.phoneNumber}
-            id="phoneNumber"
+            error={errors.contactPhone}
+            id="contactPhone"
             label="Phone Number"
             maxLength={10}
             onChange={(value) =>
-              updateForm("phoneNumber", value.replace(/\D/g, ""))
+              updateForm("contactPhone", value.replace(/\D/g, ""))
             }
             placeholder="Enter phone number"
+            required
             type="tel"
-            value={formData.phoneNumber}
+            value={formData.contactPhone}
           />
 
           {/* Website */}
@@ -102,16 +107,12 @@ const StepOne = ({
             id="website"
             label="Website"
             onChange={(value) => {
-              const website = value
-                .trim()
-                .replace(/^https?:\/\//, "")
-                .replace(/\s/g, "");
-
-              updateForm("website", website);
+              updateForm("website", value);
             }}
             placeholder="yourwebsite.com"
+            required
             type="text"
-            value={formData.website.replace(/^https?:\/\//, "")}
+            value={formData.website}
           />
 
           {/* Industry */}
@@ -123,6 +124,7 @@ const StepOne = ({
             }}
             options={["Technology", "Finance", "Healthcare", "Education"]}
             placeholder="Select your industry"
+            required
             value={formData.industry}
           />
 
@@ -143,6 +145,7 @@ const StepOne = ({
               "5000+",
             ]}
             placeholder="Select company size"
+            required
             value={formData.companySize}
           />
 
@@ -152,6 +155,7 @@ const StepOne = ({
             label="Country"
             onChange={(value) => updateForm("country", value)}
             placeholder="Enter country"
+            required
             value={formData.country}
           />
 
@@ -161,6 +165,7 @@ const StepOne = ({
             label="Address"
             onChange={(value) => updateForm("address", value)}
             placeholder="Enter complete address"
+            required
             value={formData.address}
           />
 
@@ -173,6 +178,7 @@ const StepOne = ({
               updateForm("pincode", value.replace(/\D/g, ""))
             }
             placeholder="Enter Pin code"
+            required
             value={formData.pincode}
           />
         </div>

@@ -1,6 +1,6 @@
-export const ICON_SIZE = 20;
-export const ICON_COLOR = "currentColor";
-export const ICON_SIZES = {
+const ICON_SIZE = 20;
+const ICON_COLOR = "currentColor";
+const ICON_SIZES = {
   lg: 24,
   md: 20,
   sm: 16,
@@ -8,7 +8,7 @@ export const ICON_SIZES = {
   xs: 12,
 } as const;
 
-export const ICON_COLORS = {
+const ICON_COLORS = {
   danger: "#DC2626",
   disabled: "#9CA3AF",
   primary: "currentColor",
@@ -17,5 +17,14 @@ export const ICON_COLORS = {
   warning: "#F59E0B",
 } as const;
 
-export const DEFAULT_ICON_SIZE = ICON_SIZES.md;
-export const DEFAULT_ICON_COLOR = ICON_COLORS.primary;
+const DEFAULT_ICON_SIZE = ICON_SIZES.md;
+const DEFAULT_ICON_COLOR = ICON_COLORS.primary;
+
+export {
+  DEFAULT_ICON_COLOR,
+  DEFAULT_ICON_SIZE,
+  ICON_COLOR,
+  ICON_COLORS,
+  ICON_SIZE,
+  ICON_SIZES,
+};

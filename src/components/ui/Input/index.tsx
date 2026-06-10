@@ -53,6 +53,7 @@ interface InputProps<T extends InputType = "text"> extends Omit<
   readOnly?: boolean;
   value: InputHTMLAttributes<HTMLInputElement>["value"];
   hidden?: boolean;
+  required?: boolean;
   onChange: (
     value: InputValue<T>,
     event: ChangeEvent<HTMLInputElement>,
@@ -74,6 +75,7 @@ const Input = <T extends InputType = "text">({
   onChange,
   placeholder,
   readOnly,
+  required = false,
   type = "text" as T,
   value,
   ...props
@@ -115,6 +117,7 @@ const Input = <T extends InputType = "text">({
             htmlFor={props.id}
           >
             {label}
+            {required && <span className={styles.required}>*</span>}
           </label>
         )}
         <input

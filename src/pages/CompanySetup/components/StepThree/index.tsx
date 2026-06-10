@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import User from "../../../../assets/images/User.png";
 import {
   ArrowLeftIcon,
@@ -16,10 +14,9 @@ const StepThree = ({
   errors,
   formData,
   onPrevious,
+  onSubmit,
   updateForm,
 }: CommonStepProps & { onPrevious: () => void; onSubmit: () => void }) => {
-  const [agree, setAgree] = useState(true);
-
   return (
     <div className={styles.wrapper}>
       {/* HEADER */}
@@ -53,11 +50,11 @@ const StepThree = ({
           />
 
           <Input
-            error={errors.email}
+            error={errors.userEmail}
             label="Email Address"
-            onChange={(value) => updateForm("email", value)}
+            onChange={(value) => updateForm("userEmail", value)}
             placeholder="Enter email address"
-            value={formData.email}
+            value={formData.userEmail}
           />
 
           <Input
@@ -128,8 +125,8 @@ const StepThree = ({
 
         <div className={styles.checkboxWrapper}>
           <Checkbox
-            checked={agree}
-            onCheckedChange={(checked) => setAgree(checked as boolean)}
+            checked={formData.agreeTerms}
+            onCheckedChange={(checked) => updateForm("agreeTerms", checked)}
           />
 
           <div className={styles.checkboxLabel}>
@@ -147,7 +144,7 @@ const StepThree = ({
           Previous
         </Button>
 
-        <Button onClick={() => {}}>
+        <Button onClick={onSubmit}>
           Create Account
           <ArrowRightIcon color="#fff" size={18} />
         </Button>

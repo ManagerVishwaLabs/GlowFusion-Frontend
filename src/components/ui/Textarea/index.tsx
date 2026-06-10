@@ -3,16 +3,14 @@ import { type ChangeEvent, type ComponentProps } from "react";
 import { combineClasses } from "../../../utils/helpers";
 import styles from "./Textarea.module.css";
 
-export interface TextareaProps extends Omit<
-  ComponentProps<"textarea">,
-  "onChange"
-> {
-  error?: boolean;
+interface TextareaProps extends Omit<ComponentProps<"textarea">, "onChange"> {
+  error?: string;
   label?: string;
   helpText?: string;
   disabled?: boolean;
   placeholder?: string;
   readOnly?: boolean;
+  required?: boolean;
   rows?: number;
   cols?: number;
   hidden?: boolean;
@@ -32,6 +30,7 @@ const Textarea = ({
   onChange,
   placeholder,
   readOnly,
+  required = false,
   rows,
   ...props
 }: TextareaProps) => {
@@ -44,6 +43,7 @@ const Textarea = ({
           htmlFor={props.id}
         >
           {label}
+          {required && <span className={styles.required}>*</span>}
         </label>
       )}
       <textarea

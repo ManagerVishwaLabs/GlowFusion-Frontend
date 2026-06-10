@@ -24,6 +24,10 @@
   user-select: none;
 }
 
+.required {
+  color: #ef4444;
+}
+
 .label[data-disabled="true"] {
   pointer-events: none;
   opacity: 0.5;

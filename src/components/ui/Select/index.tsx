@@ -4,7 +4,7 @@ import { combineClasses } from "../../../utils/helpers";
 import { ChevronDown } from "../../icons";
 import styles from "./Select.module.css";
 
-export interface SelectOption {
+interface SelectOption {
   label: string;
   value: string;
 }
@@ -25,6 +25,7 @@ interface SelectProps {
   combobox?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  required?: boolean;
 
   onChange?: (option: SelectOption) => void;
   onInputChange?: (value: string) => void;
@@ -41,6 +42,7 @@ const Select = ({
   onInputChange,
   options,
   placeholder = "Select...",
+  required = false,
   searchable = false,
   value = "",
 }: SelectProps) => {
@@ -105,6 +107,7 @@ const Select = ({
         {label && (
           <label className={styles.label} data-disabled={disabled}>
             {label}
+            {required && <span className={styles.required}>*</span>}
           </label>
         )}
 

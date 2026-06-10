@@ -31,13 +31,4 @@ type CompanyFormData = {
   agreeTerms: boolean;
 };
 
-interface CommonStepProps {
-  formData: CompanyFormData;
-  errors: Partial<Record<keyof CompanyFormData, string>>;
-  updateForm: (
-    field: keyof CompanyFormData,
-    value: CompanyFormData[keyof CompanyFormData],
-  ) => void;
-}
-
-export type { CommonStepProps, CompanyFormData };
+export type { CompanyFormData };

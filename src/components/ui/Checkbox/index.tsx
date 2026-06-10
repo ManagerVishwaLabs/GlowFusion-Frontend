@@ -4,23 +4,20 @@ import { combineClasses } from "../../../utils/helpers";
 import CheckIcon from "../../icons/CheckIcon";
 import styles from "./Checkbox.module.css";
 
-export interface CheckboxProps extends Omit<
-  ComponentProps<"button">,
-  "onChange"
-> {
+interface CheckboxProps extends Omit<ComponentProps<"button">, "onChange"> {
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }
 
-function Checkbox({
+const Checkbox = ({
   checked: controlledChecked,
   className,
   defaultChecked = false,
   disabled,
   onCheckedChange,
   ...props
-}: CheckboxProps) {
+}: CheckboxProps) => {
   const [uncontrolledChecked, setUncontrolledChecked] =
     useState(defaultChecked);
   const isControlled = controlledChecked !== undefined;
@@ -60,6 +57,6 @@ function Checkbox({
       )}
     </button>
   );
-}
+};
 
 export default Checkbox;
