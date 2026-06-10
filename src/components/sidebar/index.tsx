@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import { ChevronDown, ChevronLeft, Zap } from "../../components/icons";
 import { NAV_ITEMS } from "../../config/routes";
-
-import { ChevronLeft, ChevronDown, Zap } from "../../components/icons";
 import styles from "./Sidebar.module.css";
 
 const APP_CONFIG = {
-  name: "Glow Fusion",
+  name: "Grow Fusion",
 };
 
 type SidebarProps = {
@@ -15,10 +14,7 @@ type SidebarProps = {
   onToggle: () => void;
 };
 
-export default function Sidebar({
-  isCollapsed = false,
-  onToggle,
-}: SidebarProps) {
+const Sidebar = ({ isCollapsed = false, onToggle }: SidebarProps) => {
   const location = useLocation();
 
   const [openMenus, setOpenMenus] = useState<string[]>([]);
@@ -34,9 +30,9 @@ export default function Sidebar({
       className={`${styles.sidebar} ${isCollapsed ? styles.collapsed : ""}`}
     >
       <div className={styles.logoSection}>
-        <Link to="/" className={styles.logoLink}>
+        <Link className={styles.logoLink} to="/">
           <div className={styles.logoIcon}>
-            <Zap size={20} color="white" />
+            <Zap color="white" size={20} />
           </div>
 
           {!isCollapsed && (
@@ -46,10 +42,10 @@ export default function Sidebar({
       </div>
 
       <button
-        onClick={onToggle}
         className={`${styles.toggleButton} ${
           isCollapsed ? styles.rotated : ""
         }`}
+        onClick={onToggle}
       >
         <ChevronLeft size={16} />
       </button>
@@ -73,10 +69,10 @@ export default function Sidebar({
                   }`}
                 >
                   <Link
-                    to={item.href || item.children?.[0]?.href || "/"}
                     className={`${styles.navMain} ${
                       isActive ? styles.active : ""
                     }`}
+                    to={item.href || item.children?.[0]?.href || "/"}
                   >
                     <div className={styles.navContent}>
                       <Icon className={styles.navIcon} size={20} />
@@ -89,22 +85,22 @@ export default function Sidebar({
 
                   {!isCollapsed && (
                     <button
-                      onClick={() => toggleMenu(item.label)}
                       className={styles.expandButton}
+                      onClick={() => toggleMenu(item.label)}
                     >
                       <ChevronDown
-                        size={16}
                         className={isOpen ? styles.chevronOpen : ""}
+                        size={16}
                       />
                     </button>
                   )}
                 </div>
               ) : (
                 <Link
-                  to={item.href!}
                   className={`${styles.navItem} ${
                     isActive ? styles.active : ""
                   } ${isCollapsed ? styles.navCollapsed : ""}`}
+                  to={item.href!}
                 >
                   <Icon className={styles.navIcon} size={20} />
 
@@ -123,11 +119,11 @@ export default function Sidebar({
 
                     return (
                       <Link
-                        key={child.href}
-                        to={child.href}
                         className={`${styles.subNavItem} ${
                           isSubActive ? styles.active : ""
                         }`}
+                        key={child.href}
+                        to={child.href}
                       >
                         <ChildIcon size={16} />
 
@@ -145,7 +141,7 @@ export default function Sidebar({
       <BottomSection isCollapsed={isCollapsed} />
     </aside>
   );
-}
+};
 
 const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
   return (
@@ -159,7 +155,7 @@ const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
           <>
             <div className={styles.proTop}>
               <div className={styles.proIcon}>
-                <Zap size={16} color="white" />
+                <Zap color="white" size={16} />
               </div>
 
               <div>
@@ -174,7 +170,7 @@ const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
         ) : (
           <div className={styles.collapsedPro}>
             <div className={styles.proIcon}>
-              <Zap size={20} color="white" />
+              <Zap color="white" size={20} />
             </div>
           </div>
         )}
@@ -182,3 +178,5 @@ const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
     </div>
   );
 };
+
+export default Sidebar;

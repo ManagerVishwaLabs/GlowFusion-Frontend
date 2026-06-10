@@ -1,0 +1,171 @@
+.wrapper {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  gap: 20px;
+  background: #f8fafc;
+}
+
+/* ===========================================
+   HEADER
+=========================================== */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 48px;
+}
+
+.header div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.headerImage {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ===========================================
+   SECTION CARD
+=========================================== */
+
+.section {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow:
+    0 10px 35px rgba(15, 23, 42, 0.05),
+    0 2px 8px rgba(15, 23, 42, 0.03);
+  transition: all 0.25s ease;
+}
+
+/* ===========================================
+   SECTION HEADER
+=========================================== */
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.sectionIcon {
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.12);
+}
+
+.sectionHeader h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* ===========================================
+   GRID
+=========================================== */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ===========================================
+   UPLOAD BOX
+=========================================== */
+
+.uploadBox {
+  min-height: 220px;
+  min-width: 580px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  background: #fcfdff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 32px;
+  margin-top: 12px;
+}
+
+.uploadBox:hover {
+  border-color: #274bff;
+  background: #f8faff;
+}
+
+.uploadTitle {
+  color: #274bff;
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 14px;
+}
+
+.uploadBox p {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.logoPreview {
+  width: 220px;
+  object-fit: contain;
+}
+
+.uploadError {
+  border-color: #ef4444;
+  color: #ef4444;
+  &:hover {
+    border-color: #ef4444;
+    background: #f8fafc;
+  }
+}
+
+.error {
+  font-size: 13px;
+  font-weight: 500;
+  color: #ef4444;
+}
+
+/* ===========================================
+   FOOTER
+=========================================== */
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}

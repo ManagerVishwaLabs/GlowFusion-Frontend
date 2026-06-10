@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 
 import {
-  LayoutDashboard,
   FileText,
-  Users,
-  User,
+  LayoutDashboard,
   Shield,
+  User,
+  Users,
 } from "../components/icons";
-
+import CompanySetup from "../pages/CompanySetup";
 import Page from "../pages/TestPage/TestPage";
 
-export type SubNavItem = {
+type SubNavItem = {
   label: string;
   href: string;
   icon: React.ComponentType<{
@@ -21,7 +21,7 @@ export type SubNavItem = {
   component: ReactNode;
 };
 
-export type NavItem = {
+type NavItem = {
   label: string;
   href?: string;
   icon: React.ComponentType<{
@@ -37,41 +37,49 @@ export type NavItem = {
   children?: SubNavItem[];
 };
 
-export const NAV_ITEMS: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   {
-    label: "Dashboard",
-    href: "/",
-    icon: LayoutDashboard,
+    component: <CompanySetup />,
+    hideSidebar: true,
+    href: "/onboarding",
+    icon: User,
+    label: "Company Setup",
+  },
+  {
     component: <Page title="Dashboard" />,
+    href: "/dashboard",
+    icon: LayoutDashboard,
+    label: "Dashboard",
   },
 
   {
-    label: "Posts",
+    component: <Page title="Posts" />,
     href: "/posts",
     icon: FileText,
-    component: <Page title="Posts" />,
+    label: "Posts",
   },
 
   {
-    label: "Users",
-    icon: Users,
-    href: "/users",
-    component: <Page title="Users" />,
-
     children: [
       {
-        label: "All Users",
+        component: <Page title="All Users" />,
         href: "/users/all",
         icon: User,
-        component: <Page title="All Users" />,
+        label: "All Users",
       },
 
       {
-        label: "Roles",
+        component: <Page title="Roles" />,
         href: "/users/roles",
         icon: Shield,
-        component: <Page title="Roles" />,
+        label: "Roles",
       },
     ],
+    component: <Page title="Users" />,
+    href: "/users",
+    icon: Users,
+    label: "Users",
   },
 ];
+
+export { NAV_ITEMS };

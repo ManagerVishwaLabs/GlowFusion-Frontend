@@ -1,9 +1,7 @@
+import { useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 
-import { useState } from "react";
-
 import { Sidebar } from "./components/";
-
 import { NAV_ITEMS } from "./config/routes";
 
 const App = () => {
@@ -37,16 +35,16 @@ const App = () => {
               return (
                 <>
                   <Route
+                    element={item.component}
                     key={item.href}
                     path={item.href}
-                    element={item.component}
                   />
 
                   {item.children.map((child) => (
                     <Route
+                      element={child.component}
                       key={child.href}
                       path={child.href}
-                      element={child.component}
                     />
                   ))}
                 </>
@@ -54,9 +52,9 @@ const App = () => {
             }
             return (
               <Route
+                element={item.component}
                 key={item.href}
                 path={item.href}
-                element={item.component}
               />
             );
           })}
