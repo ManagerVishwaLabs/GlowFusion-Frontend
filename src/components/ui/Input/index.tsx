@@ -146,13 +146,12 @@ const Input = <T extends InputType = "text">({
         />
 
         {type === "password" && !loading && value && (
-          <button
+          <span
             className={styles.eyeButton}
             onClick={() => setShowPassword(!showPassword)}
-            type="button"
           >
             <EyeIcon showPassword={showPassword} size={18} />
-          </button>
+          </span>
         )}
         {loading && <span className={styles.loading} />}
       </div>

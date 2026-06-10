@@ -36,12 +36,7 @@ const Checkbox = ({
   return (
     <button
       aria-checked={checked}
-      className={combineClasses(
-        styles.checkbox,
-        // checked ? styles.checked : "",
-        // disabled ? styles.disabled : "",
-        className,
-      )}
+      className={combineClasses(styles.checkbox, className)}
       data-slot="checkbox"
       data-state={checked ? "checked" : "unchecked"}
       disabled={disabled}

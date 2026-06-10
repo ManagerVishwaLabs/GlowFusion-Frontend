@@ -41,13 +41,13 @@ const NAV_ITEMS: NavItem[] = [
   {
     component: <CompanySetup />,
     hideSidebar: true,
-    href: "/company-setup",
+    href: "/onboarding",
     icon: User,
     label: "Company Setup",
   },
   {
     component: <Page title="Dashboard" />,
-    href: "/",
+    href: "/dashboard",
     icon: LayoutDashboard,
     label: "Dashboard",
   },
@@ -78,7 +78,6 @@ const NAV_ITEMS: NavItem[] = [
     component: <Page title="Users" />,
     href: "/users",
     icon: Users,
-
     label: "Users",
   },
 ];
