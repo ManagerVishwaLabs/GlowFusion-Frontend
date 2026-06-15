@@ -3,6 +3,7 @@ import {
   type ComponentProps,
   type FocusEvent,
   type InputHTMLAttributes,
+  type ReactNode,
   useState,
 } from "react";
 
@@ -53,6 +54,8 @@ interface InputProps<T extends InputType = "text"> extends Omit<
   readOnly?: boolean;
   value: InputHTMLAttributes<HTMLInputElement>["value"];
   hidden?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   required?: boolean;
   onChange: (
     value: InputValue<T>,
@@ -70,12 +73,14 @@ const Input = <T extends InputType = "text">({
   helpText,
   hidden,
   label,
+  leftIcon,
   loading,
   onBlur,
   onChange,
   placeholder,
   readOnly,
   required = false,
+  rightIcon,
   type = "text" as T,
   value,
   ...props
@@ -114,7 +119,9 @@ const Input = <T extends InputType = "text">({
           <label
             className={styles.label}
             data-disabled={disabled}
-            htmlFor={props.id}
+            htmlFor={
+              props.id || props.name || label.replace(" ", "").toLowerCase()
+            }
           >
             {label}
             {required && <span className={styles.required}>*</span>}
@@ -133,10 +140,13 @@ const Input = <T extends InputType = "text">({
             className,
             error && styles.inputError,
             hidden ? styles.inputHidden : "",
+            leftIcon ? styles.inputOnLeftIcon : "",
+            rightIcon ? styles.inputOnRightIcon : "",
           )}
           data-slot="input"
           disabled={disabled || loading || readOnly}
           hidden={hidden}
+          id={props.id || props.name || label?.replace(" ", "").toLowerCase()}
           onBlur={(event) => onBlur?.(getValue(event), event)}
           onChange={(event) => onChange?.(getValue(event), event)}
           placeholder={placeholder}
@@ -144,7 +154,10 @@ const Input = <T extends InputType = "text">({
           type={type === "password" && showPassword ? "text" : type}
           value={value}
         />
-
+        {leftIcon && <div className={styles.leftIcon}>{leftIcon}</div>}
+        {rightIcon && !loading && (
+          <div className={styles.rightIcon}>{rightIcon}</div>
+        )}
         {type === "password" && !loading && value && (
           <span
             className={styles.eyeButton}

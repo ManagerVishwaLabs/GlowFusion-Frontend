@@ -8,6 +8,7 @@ import {
   Users,
 } from "../components/icons";
 import CompanySetup from "../pages/CompanySetup";
+import Login from "../pages/Login";
 import Page from "../pages/TestPage/TestPage";
 
 type SubNavItem = {
@@ -44,6 +45,13 @@ const NAV_ITEMS: NavItem[] = [
     href: "/onboarding",
     icon: User,
     label: "Company Setup",
+  },
+  {
+    component: <Login />,
+    hideSidebar: true,
+    href: "/login",
+    icon: User,
+    label: "Login",
   },
   {
     component: <Page title="Dashboard" />,

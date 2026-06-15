@@ -5,6 +5,7 @@ interface ApiResponse<T> {
   message?: string;
   data?: T;
   error?: InstagramApiError;
+  code?: string;
 }
 
 interface InstagramApiError {
@@ -211,4 +212,4 @@ class HttpClient {
 }
 
 export default HttpClient;
-export type { AxiosInstance };
+export type { ApiResponse, AxiosInstance };
