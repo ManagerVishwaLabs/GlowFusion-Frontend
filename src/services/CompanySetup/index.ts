@@ -1,6 +1,6 @@
 import axios from "../../config/axios";
 import env from "../../config/env";
-import type { CompanyFormData } from "./companySetup.types";
+import type { CompanyFormData } from "../../pages/CompanySetup/companySetup.types";
 
 class CompanySetupService {
   private readonly axiosInstance: axios;

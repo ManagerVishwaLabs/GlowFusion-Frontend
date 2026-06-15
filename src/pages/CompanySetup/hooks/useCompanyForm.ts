@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CompanySetupService from "../../../services/CompanySetup";
 import type { CompanyFormData } from "../companySetup.types";
@@ -45,6 +46,7 @@ const initialState: CompanyFormData = {
 };
 
 const useCompanyForm = () => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<number>(1);
 
   const [formData, setFormData] = useState<CompanyFormData>(initialState);
@@ -101,13 +103,16 @@ const useCompanyForm = () => {
   };
 
   // Go next step
-  const nextStep = () => {
+  const nextStep = async () => {
     const isValid = validateCurrentStep();
     if (!isValid) return;
 
     setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
     if (currentStep === TOTAL_STEPS) {
-      CompanySetupService.registerCompany(formData);
+      const response = await CompanySetupService.registerCompany(formData);
+      if (response.success) {
+        navigate("/login");
+      }
     }
   };
 

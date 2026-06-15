@@ -92,6 +92,26 @@
   display: none;
 }
 
+.inputOnLeftIcon {
+  padding-left: 48px !important;
+}
+
+.inputOnRightIcon {
+  padding-right: 48px !important;
+}
+
+.leftIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+}
+
+.rightIcon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+}
+
 .eyeButton {
   position: absolute;
   top: 40px;
@@ -118,7 +138,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
 /* Loading */
 .loading {
   position: absolute;
-  top: 30px;
+  top: 50%;
   right: 10px;
   width: 18px;
   height: 18px;
