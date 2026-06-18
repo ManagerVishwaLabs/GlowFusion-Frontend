@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 import {
   FileText,
@@ -10,6 +11,7 @@ import {
 import CompanySetup from "../pages/CompanySetup";
 import Login from "../pages/Login";
 import Page from "../pages/TestPage/TestPage";
+import authStore from "../store/auth.store";
 
 type SubNavItem = {
   label: string;
@@ -20,6 +22,7 @@ type SubNavItem = {
     className?: string;
   }>;
   component: ReactNode;
+  protected?: boolean;
 };
 
 type NavItem = {
@@ -30,17 +33,17 @@ type NavItem = {
     color?: string;
     className?: string;
   }>;
-
   component?: ReactNode;
-
   hideSidebar?: boolean;
-
+  hideInSidebar?: true;
   children?: SubNavItem[];
+  protected?: boolean;
 };
 
 const NAV_ITEMS: NavItem[] = [
   {
     component: <CompanySetup />,
+    hideInSidebar: true,
     hideSidebar: true,
     href: "/onboarding",
     icon: User,
@@ -48,6 +51,7 @@ const NAV_ITEMS: NavItem[] = [
   },
   {
     component: <Login />,
+    hideInSidebar: true,
     hideSidebar: true,
     href: "/login",
     icon: User,
@@ -58,15 +62,15 @@ const NAV_ITEMS: NavItem[] = [
     href: "/dashboard",
     icon: LayoutDashboard,
     label: "Dashboard",
+    protected: true,
   },
-
   {
     component: <Page title="Posts" />,
     href: "/posts",
     icon: FileText,
     label: "Posts",
+    protected: true,
   },
-
   {
     children: [
       {
@@ -74,20 +78,40 @@ const NAV_ITEMS: NavItem[] = [
         href: "/users/all",
         icon: User,
         label: "All Users",
+        protected: true,
       },
-
       {
         component: <Page title="Roles" />,
         href: "/users/roles",
         icon: Shield,
         label: "Roles",
+        protected: true,
       },
     ],
     component: <Page title="Users" />,
     href: "/users",
     icon: Users,
     label: "Users",
+    protected: true,
   },
 ];
 
-export { NAV_ITEMS };
+const ProtectedRoute = () => {
+  const location = useLocation();
+  const token = authStore.getAccessToken();
+
+  if (!token) {
+    return (
+      <Navigate
+        replace
+        to={`/login?redirect=${encodeURIComponent(
+          location.pathname + location.search,
+        )}`}
+      />
+    );
+  }
+
+  return <Outlet />;
+};
+
+export { NAV_ITEMS, ProtectedRoute };

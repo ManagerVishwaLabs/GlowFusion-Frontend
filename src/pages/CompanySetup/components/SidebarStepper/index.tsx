@@ -87,10 +87,18 @@ const SidebarStepper = ({ currentStep }: Props) => {
       </div>
 
       {/* Security */}
-      <div className={styles.security}>
-        <span>🔒</span>
+      <div>
+        <div className={styles.security}>
+          <span>🔒</span>
 
-        <p>Your information is safe and secure with us.</p>
+          <p>Your information is safe and secure with us.</p>
+        </div>
+        <div className={styles.login}>
+          <p>Already have an account?</p>
+          <a className={styles.loginButton} href="/login">
+            Login
+          </a>
+        </div>
       </div>
     </aside>
   );

@@ -150,6 +150,7 @@
   font-weight: 600;
   color: #6366f1;
   text-decoration: none;
+  padding: 6px;
   &:hover {
     text-decoration: underline;
   }

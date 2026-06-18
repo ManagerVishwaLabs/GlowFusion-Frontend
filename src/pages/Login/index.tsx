@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import logo from "../../assets/images/Logo.png";
 import { Footer } from "../../components/";
@@ -9,6 +9,7 @@ import MailIcon from "../../components/icons/MailIcon";
 import Button from "../../components/ui/Button";
 import Input from "../../components/ui/Input";
 import AuthService from "../../services/auth";
+import authStore from "../../store/auth.store";
 import { isValidEmail } from "../../utils/helpers";
 import styles from "./Login.module.css";
 
@@ -18,6 +19,7 @@ interface LoginFormData {
 }
 
 const Login = () => {
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");
@@ -81,8 +83,9 @@ const Login = () => {
 
       const response = await AuthService.loginUser(payload);
 
-      if (response.success && Boolean(response.data)) {
-        navigate("/");
+      if (response.success) {
+        authStore.setAccessToken(response.data.accessToken);
+        navigate(searchParams.get("redirect") || "/dashboard");
       } else if (response.code) {
         setErrors({
           common: "Invalid email or password",
