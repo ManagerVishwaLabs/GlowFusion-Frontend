@@ -1,8 +1,11 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { ChevronDown, ChevronLeft, Zap } from "../../components/icons";
 import { NAV_ITEMS } from "../../config/routes";
+import auth from "../../services/auth";
+import authStore from "../../store/auth.store";
+import { Button } from "../ui";
 import styles from "./Sidebar.module.css";
 
 const APP_CONFIG = {
@@ -51,13 +54,11 @@ const Sidebar = ({ isCollapsed = false, onToggle }: SidebarProps) => {
       </button>
 
       <nav className={styles.navigation}>
-        {NAV_ITEMS.map((item) => {
+        {NAV_ITEMS.filter((item) => !item.hideInSidebar).map((item) => {
           const Icon = item.icon;
 
           const hasChildren = !!item.children?.length;
-
           const isOpen = openMenus.includes(item.label);
-
           const isActive = item.href === location.pathname;
 
           return (
@@ -144,6 +145,7 @@ const Sidebar = ({ isCollapsed = false, onToggle }: SidebarProps) => {
 };
 
 const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
+  const navigate = useNavigate();
   return (
     <div className={styles.bottomSection}>
       <div
@@ -175,6 +177,18 @@ const BottomSection = ({ isCollapsed }: { isCollapsed: boolean }) => {
           </div>
         )}
       </div>
+      <Button
+        onClick={async () => {
+          const response = await auth.logoutUser();
+          if (response) {
+            authStore.clear();
+            navigate("/login");
+          }
+        }}
+        variant="destructive"
+      >
+        Log Out
+      </Button>
     </div>
   );
 };

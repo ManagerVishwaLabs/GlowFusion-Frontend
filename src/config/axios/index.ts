@@ -1,12 +1,21 @@
 import axios, { type AxiosInstance, type AxiosRequestConfig } from "axios";
 
-interface ApiResponse<T> {
-  success: boolean;
-  message?: string;
-  data?: T;
-  error?: InstagramApiError;
-  code?: string;
-}
+import authStore from "../../store/auth.store";
+
+type ApiResponse<T = unknown> =
+  | {
+      success: false;
+      message?: string;
+      error?: InstagramApiError;
+      code?: string;
+    }
+  | {
+      success: true;
+      data: T;
+      message?: string;
+      error?: InstagramApiError;
+      code?: string;
+    };
 
 interface InstagramApiError {
   message: string;
@@ -30,6 +39,9 @@ class HttpClient {
     return this.shared;
   }
 
+  private refreshing = false;
+  private waitingQueue: (() => void)[] = [];
+
   private setupInterceptors(instance: AxiosInstance) {
     instance.interceptors.request.use((config) => {
       console.log("\n🚀 REQUEST:", {
@@ -42,6 +54,12 @@ class HttpClient {
         url: config.url,
       });
 
+      const token = authStore.getAccessToken();
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+
       return config;
     });
 
@@ -50,7 +68,8 @@ class HttpClient {
         console.log("\n✅ RESPONSE:", res.status);
         return res;
       },
-      (err) => {
+
+      async (err) => {
         console.log("\n❌ ERROR RESPONSE");
         console.log("STATUS:", err.response?.status);
         console.log("DATA:", err.response?.data);
@@ -63,7 +82,70 @@ class HttpClient {
           });
         }
 
-        return Promise.reject(err);
+        const original = err.config;
+
+        if (
+          err.response?.status !== 401 ||
+          original?.url.includes("/refresh") ||
+          original?.url.includes("/login")
+        ) {
+          return Promise.reject(err);
+        }
+
+        if (original?._retry) {
+          authStore.clear();
+          const redirect = window.location.href;
+          window.location.href =
+            "/login?redirect=" + encodeURIComponent(redirect);
+          return Promise.reject(new Error("Redirect to login"));
+        }
+
+        original._retry = true;
+
+        try {
+          if (this.refreshing) {
+            return new Promise((resolve) => {
+              this.waitingQueue.push(() => resolve(instance(original)));
+            });
+          }
+
+          this.refreshing = true;
+          const refresh = await instance.post(
+            "/auth/refresh",
+            {},
+            {
+              withCredentials: true,
+            },
+          );
+
+          const token = refresh.data?.data?.accessToken;
+
+          if (!token) {
+            throw new Error("Refresh failed");
+          }
+
+          authStore.setAccessToken(token);
+
+          this.waitingQueue.forEach((cb) => cb());
+
+          this.waitingQueue = [];
+          original.headers.Authorization = `Bearer ${token}`;
+
+          return instance(original);
+        } catch (refreshError) {
+          authStore.clear();
+
+          this.waitingQueue = [];
+
+          const redirect = window.location.href;
+
+          window.location.href =
+            "/login?redirect=" + encodeURIComponent(redirect);
+
+          return Promise.reject(refreshError);
+        } finally {
+          this.refreshing = false;
+        }
       },
     );
   }
@@ -72,6 +154,7 @@ class HttpClient {
     this.client = axios.create({
       baseURL,
       timeout: 30000,
+      withCredentials: true,
     });
 
     this.setupInterceptors(this.client);
@@ -85,21 +168,19 @@ class HttpClient {
     config: AxiosRequestConfig,
   ): Promise<ApiResponse<T>> {
     try {
-      const res = await this.client.request<T>(config);
-
-      return {
-        data: res.data,
-        success: true,
-      };
+      const res = await this.client.request<ApiResponse<T>>(config);
+      return res.data;
     } catch (err) {
       console.error("[HTTP Client] Error:", err);
 
       if (axios.isAxiosError<ApiResponse<T>>(err)) {
-        const apiError = err.response?.data?.error;
+        const apiError = err.response?.data;
 
         return {
-          error: apiError,
-          message: apiError?.error_user_msg ?? apiError?.message ?? err.message,
+          code: apiError?.code,
+          error: apiError?.error,
+          message:
+            apiError?.error?.error_user_msg ?? apiError?.message ?? err.message,
           success: false,
         };
       }

@@ -64,3 +64,11 @@ body ::-webkit-scrollbar-track {
 body ::-webkit-scrollbar-corner {
   background: rgba(0, 0, 0, 0.05);
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
