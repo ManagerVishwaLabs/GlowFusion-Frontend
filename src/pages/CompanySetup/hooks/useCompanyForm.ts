@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
-import CompanySetupService from "../../../services/CompanySetup";
+import { useToast } from "../../../hooks/toast";
+import AuthService from "../../../services/auth";
 import type { CompanyFormData } from "../companySetup.types";
 import {
   validateStepOne,
@@ -46,14 +46,14 @@ const initialState: CompanyFormData = {
 };
 
 const useCompanyForm = () => {
-  const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState<number>(1);
-
+  const toast = useToast();
+  const [currentStep, setCurrentStep] = useState<number>(3);
   const [formData, setFormData] = useState<CompanyFormData>(initialState);
-
   const [errors, setErrors] = useState<
     Partial<Record<keyof CompanyFormData, string>>
   >({});
+  const [successRedirect, setSuccessRedirect] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // Update single field
   const updateForm = <K extends keyof CompanyFormData>(
@@ -109,9 +109,23 @@ const useCompanyForm = () => {
 
     setCurrentStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
     if (currentStep === TOTAL_STEPS) {
-      const response = await CompanySetupService.registerCompany(formData);
-      if (response.success) {
-        navigate("/login");
+      try {
+        setLoading(true);
+        const response = await AuthService.registerCompanyUser(formData);
+        if (response.success) {
+          setSuccessRedirect(true);
+        }
+        if (response.code) {
+          toast.error(response.error?.message || response.message || "");
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+
+        console.error("Registration error:", error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -141,12 +155,13 @@ const useCompanyForm = () => {
     formData,
 
     goToStep,
+    loading,
     nextStep,
     previousStep,
     resetForm,
     setErrors,
-
     setFormData,
+    successRedirect,
     updateForm,
   };
 };

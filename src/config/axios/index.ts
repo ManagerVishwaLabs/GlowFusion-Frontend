@@ -6,26 +6,16 @@ type ApiResponse<T = unknown> =
   | {
       success: false;
       message?: string;
-      error?: InstagramApiError;
+      error?: Error;
       code?: string;
     }
   | {
       success: true;
       data: T;
       message?: string;
-      error?: InstagramApiError;
+      error?: Error;
       code?: string;
     };
-
-interface InstagramApiError {
-  message: string;
-  type: string;
-  code: number;
-  error_subcode?: number;
-  error_user_title?: string;
-  error_user_msg?: string;
-  fbtrace_id?: string;
-}
 
 class HttpClient {
   private readonly client: AxiosInstance;
@@ -179,8 +169,7 @@ class HttpClient {
         return {
           code: apiError?.code,
           error: apiError?.error,
-          message:
-            apiError?.error?.error_user_msg ?? apiError?.message ?? err.message,
+          message: apiError?.message ?? err.message,
           success: false,
         };
       }

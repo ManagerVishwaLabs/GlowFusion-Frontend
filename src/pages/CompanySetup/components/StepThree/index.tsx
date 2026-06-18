@@ -13,10 +13,15 @@ import styles from "./StepThree.module.css";
 const StepThree = ({
   errors,
   formData,
+  loading,
   onPrevious,
   onSubmit,
   updateForm,
-}: CommonStepProps & { onPrevious: () => void; onSubmit: () => void }) => {
+}: CommonStepProps & {
+  onPrevious: () => void;
+  onSubmit: () => void;
+  loading: boolean;
+}) => {
   return (
     <div className={styles.wrapper}>
       {/* HEADER */}
@@ -144,10 +149,12 @@ const StepThree = ({
           Previous
         </Button>
 
-        <Button onClick={onSubmit}>
-          Create Account
-          <ArrowRightIcon color="#fff" size={18} />
-        </Button>
+        <div>
+          <Button loading={loading} onClick={onSubmit}>
+            Create Account
+            <ArrowRightIcon color="#fff" size={18} />
+          </Button>
+        </div>
       </div>
     </div>
   );
