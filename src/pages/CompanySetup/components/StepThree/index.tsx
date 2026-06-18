@@ -149,12 +149,10 @@ const StepThree = ({
           Previous
         </Button>
 
-        <div>
-          <Button loading={loading} onClick={onSubmit}>
-            Create Account
-            <ArrowRightIcon color="#fff" size={18} />
-          </Button>
-        </div>
+        <Button loading={loading} onClick={onSubmit}>
+          Create Account
+          <ArrowRightIcon color="#fff" size={18} />
+        </Button>
       </div>
     </div>
   );

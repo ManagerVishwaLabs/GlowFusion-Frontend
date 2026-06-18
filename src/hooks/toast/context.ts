@@ -4,19 +4,14 @@ type ToastType = "success" | "error" | "warning" | "info";
 
 interface ToastItem {
   id: string;
-
   title?: string;
-
   message: string;
-
   type: ToastType;
-
   duration?: number;
 }
 
 type ToastOptions = {
   title?: string;
-
   duration?: number;
 };
 

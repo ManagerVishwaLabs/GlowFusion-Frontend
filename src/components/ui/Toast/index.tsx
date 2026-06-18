@@ -1,11 +1,13 @@
 import { useCallback, useMemo, useState } from "react";
 
 import { ToastContext, type ToastItem } from "../../../hooks/toast/context";
-import CloseIcon from "../../icons/CloseIcon";
-import ErrorIcon from "../../icons/ErrorIcon";
-import InfoIcon from "../../icons/InfoIcon";
-import SuccessIcon from "../../icons/SuccessIcon";
-import WarningIcon from "../../icons/WarningIcon";
+import {
+  CloseIcon,
+  ErrorIcon,
+  InfoIcon,
+  SuccessIcon,
+  WarningIcon,
+} from "../../icons/";
 import styles from "./Toast.module.css";
 
 const ToastProvider = ({ children }: { children: React.ReactNode }) => {

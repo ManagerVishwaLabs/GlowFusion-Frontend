@@ -47,7 +47,7 @@ const initialState: CompanyFormData = {
 
 const useCompanyForm = () => {
   const toast = useToast();
-  const [currentStep, setCurrentStep] = useState<number>(3);
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<CompanyFormData>(initialState);
   const [errors, setErrors] = useState<
     Partial<Record<keyof CompanyFormData, string>>
