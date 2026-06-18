@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
+import logo from "../../assets/images/Logo.png";
 import { ChevronDown, ChevronLeft, Zap } from "../../components/icons";
 import { NAV_ITEMS } from "../../config/routes";
 import auth from "../../services/auth";
@@ -35,7 +36,7 @@ const Sidebar = ({ isCollapsed = false, onToggle }: SidebarProps) => {
       <div className={styles.logoSection}>
         <Link className={styles.logoLink} to="/">
           <div className={styles.logoIcon}>
-            <Zap color="white" size={20} />
+            <img alt="Logo" src={logo} />
           </div>
 
           {!isCollapsed && (
