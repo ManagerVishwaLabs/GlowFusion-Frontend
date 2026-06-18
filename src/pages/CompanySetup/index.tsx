@@ -2,11 +2,20 @@ import { useEffect, useState } from "react";
 
 import styles from "./CompanySetup.module.css";
 import { SidebarStepper, StepOne, StepThree, StepTwo } from "./components";
+import RegistrationSuccess from "./components/RegistrationSuccess";
 import { useCompanyForm } from "./hooks/useCompanyForm";
 
 const CompanySetup = () => {
-  const { currentStep, errors, formData, nextStep, previousStep, updateForm } =
-    useCompanyForm();
+  const {
+    currentStep,
+    errors,
+    formData,
+    loading,
+    nextStep,
+    previousStep,
+    successRedirect,
+    updateForm,
+  } = useCompanyForm();
 
   const [animationClass, setAnimationClass] = useState<"slideIn" | "slideOut">(
     "slideOut",
@@ -48,6 +57,7 @@ const CompanySetup = () => {
           <StepThree
             errors={errors}
             formData={formData}
+            loading={loading}
             onPrevious={previousStep}
             onSubmit={nextStep}
             updateForm={updateForm}
@@ -58,6 +68,10 @@ const CompanySetup = () => {
         return null;
     }
   };
+
+  if (successRedirect) {
+    return <RegistrationSuccess redirectTo="/login" />;
+  }
 
   return (
     <div className={styles.page}>
