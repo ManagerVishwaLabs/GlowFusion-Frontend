@@ -21,7 +21,6 @@ type RegisterCompanyResponse = {
   user: {
     _id: string;
     fullName: string;
-    lastName?: string;
     username: string;
     company: string;
     email: string;
@@ -29,6 +28,17 @@ type RegisterCompanyResponse = {
     phoneNumber?: string;
     userRole?: string;
   };
+};
+
+type RegisterUserResponse = {
+  _id: string;
+  fullName: string;
+  username: string;
+  company: string;
+  email: string;
+  designation?: string;
+  phoneNumber?: string;
+  userRole?: string;
 };
 
 interface LoginFormData {
@@ -40,4 +50,9 @@ type LoginResponse = {
   accessToken: string;
 };
 
-export type { LoginFormData, LoginResponse, RegisterCompanyResponse };
+export type {
+  LoginFormData,
+  LoginResponse,
+  RegisterCompanyResponse,
+  RegisterUserResponse,
+};

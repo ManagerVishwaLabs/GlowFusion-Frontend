@@ -70,7 +70,12 @@ const CompanySetup = () => {
   };
 
   if (successRedirect) {
-    return <RegistrationSuccess redirectTo="/login" />;
+    return (
+      <RegistrationSuccess
+        description="Your company has been created successfully."
+        title="Registration Successful"
+      />
+    );
   }
 
   return (

@@ -12,7 +12,9 @@ const PUBLIC_ROUTES = ["/login", "/onboarding"];
 
 const App = () => {
   const location = useLocation();
-  const isPublic = PUBLIC_ROUTES.includes(location.pathname);
+  const isPublic =
+    PUBLIC_ROUTES.includes(location.pathname) ||
+    location.pathname.startsWith("/onboarding");
   const [collapsed, setCollapsed] = useState(false);
   const [loading, setLoading] = useState(!authStore.getInitialized());
 
