@@ -148,23 +148,23 @@ const Signup = () => {
         phoneNumber: form.phoneNumber.trim(),
       };
 
-      const response = await AuthService.registerUser(payload);
+      const response = await InvitationService.acceptInvite(inviteCode);
 
       if (response.success) {
-        const inviteResponse = await InvitationService.acceptInvite(inviteCode);
+        const inviteResponse = await AuthService.registerUser(payload);
 
         if (inviteResponse.success) {
           setSuccess(true);
         } else {
           setErrors((prev) => ({
             ...prev,
-            common: inviteResponse.message || "Unable to accept invite",
+            common: inviteResponse.message || "Unable to create account",
           }));
         }
       } else {
         setErrors((prev) => ({
           ...prev,
-          common: response.message || "Unable to create account",
+          common: response.message || "Unable to accept invite",
         }));
       }
     } catch {
