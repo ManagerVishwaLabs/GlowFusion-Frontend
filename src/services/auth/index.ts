@@ -1,10 +1,12 @@
 import axios, { type ApiResponse } from "../../config/axios";
 import env from "../../config/env";
 import type { CompanyFormData } from "../../pages/CompanySetup/companySetup.types";
+import type { SignupFormData } from "../../pages/SignUp";
 import type {
   LoginFormData,
   LoginResponse,
   RegisterCompanyResponse,
+  RegisterUserResponse,
 } from "./auth.types";
 
 class AuthService {
@@ -19,6 +21,26 @@ class AuthService {
   ): Promise<ApiResponse<RegisterCompanyResponse>> {
     const response = await this.axiosInstance.post<RegisterCompanyResponse>(
       "/register",
+      data,
+    );
+    if (response.success) {
+      return {
+        data: response.data,
+        success: true,
+      };
+    } else {
+      return {
+        message: response.message,
+        success: false,
+      };
+    }
+  }
+
+  async registerUser(
+    data: Omit<SignupFormData, "agreeTerms" | "confirmPassword">,
+  ): Promise<ApiResponse<RegisterUserResponse>> {
+    const response = await this.axiosInstance.post<RegisterUserResponse>(
+      "/registerUser",
       data,
     );
     if (response.success) {

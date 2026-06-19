@@ -5,11 +5,18 @@ import { Button } from "../../../../components/ui";
 import styles from "./RegistrationSuccess.module.css";
 
 type Props = {
+  title: string;
+  description: string;
   redirectTo?: string;
   seconds?: number;
 };
 
-const RegistrationSuccess = ({ redirectTo = "/login", seconds = 5 }: Props) => {
+const RegistrationSuccess = ({
+  description,
+  redirectTo = "/login",
+  seconds = 5,
+  title,
+}: Props) => {
   const navigate = useNavigate();
   const [countdown, setCountdown] = useState(seconds);
 
@@ -34,11 +41,9 @@ const RegistrationSuccess = ({ redirectTo = "/login", seconds = 5 }: Props) => {
       <div className={styles.card}>
         <div className={styles.icon}>✓</div>
 
-        <h1 className={styles.title}>Registration completed</h1>
+        <h1 className={styles.title}>{title}</h1>
 
-        <p className={styles.description}>
-          Your company has been created successfully.
-        </p>
+        <p className={styles.description}>{description}</p>
 
         <div className={styles.redirect}>
           Redirecting to login in <span>{countdown}s</span>

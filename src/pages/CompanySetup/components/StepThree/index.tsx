@@ -133,11 +133,25 @@ const StepThree = ({
             checked={formData.agreeTerms}
             onCheckedChange={(checked) => updateForm("agreeTerms", checked)}
           />
-
           <div className={styles.checkboxLabel}>
-            I agree to the{" "}
-            <span className={styles.link}>Terms & Conditions</span> and{" "}
-            <span className={styles.link}>Privacy Policy</span>
+            I agree to the
+            <span
+              className={styles.link}
+              onClick={() => {
+                console.log("link");
+              }}
+            >
+              &nbsp;Terms & Conditions
+            </span>
+            &nbsp;and
+            <span
+              className={styles.link}
+              onClick={() => {
+                console.log("link");
+              }}
+            >
+              &nbsp;Privacy Policy
+            </span>
           </div>
         </div>
       </section>

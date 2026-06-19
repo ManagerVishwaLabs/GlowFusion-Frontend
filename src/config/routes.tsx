@@ -10,6 +10,7 @@ import {
 } from "../components/icons";
 import CompanySetup from "../pages/CompanySetup";
 import Login from "../pages/Login";
+import Signup from "../pages/SignUp";
 import Page from "../pages/TestPage/TestPage";
 import authStore from "../store/auth.store";
 
@@ -56,6 +57,14 @@ const NAV_ITEMS: NavItem[] = [
     href: "/login",
     icon: User,
     label: "Login",
+  },
+  {
+    component: <Signup />,
+    hideInSidebar: true,
+    hideSidebar: true,
+    href: "/onboarding/:inviteCode",
+    icon: User,
+    label: "Sign Up",
   },
   {
     component: <Page title="Dashboard" />,
